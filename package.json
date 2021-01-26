@@ -11,7 +11,9 @@
     "webpack": "$(yarn bin)/webpack --config build/webpack.prod.conf.js"
   },
   "dependencies": {
+    "@panter/vue-i18next": "^0.15.2",
     "browser-sync": "^2.26.14",
+    "i18next-browser-languagedetector": "^6.0.1",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
   },
@@ -58,6 +60,7 @@
     "postcss-import": "^11.0.0",
     "postcss-loader": "^2.0.8",
     "postcss-url": "^7.2.1",
+    "prettier": "^2.2.1",
     "rimraf": "^2.6.0",
     "selenium-server": "^3.0.1",
     "semver": "^5.3.0",
