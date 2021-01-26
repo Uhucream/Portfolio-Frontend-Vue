@@ -1,0 +1,14 @@
+version: '3'
+services:
+  node:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: node_img
+    container_name: portfolio-vue_node
+    tty: true
+    working_dir: /usr/src/app/
+    volumes:
+      - ./:/usr/src/app/
+    ports:
+      - "8080:8080"
