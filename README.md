@@ -1,2 +1,2 @@
-# Portfolio
+# Repository for Portfolio frontend
 ポートフォリオリポジトリ
