@@ -6,17 +6,15 @@
   "author": "Uhucream",
   "scripts": {
     "build": "node build/build.js",
-    "lint": "eslint --ext .js,.vue src test/unit test/e2e/specs",
-    "dev": "webpack-dev-server --watch-poll --inline --progress --config build/webpack.dev.conf.js",
-    "e2e": "node test/e2e/runner.js",
-    "start": "npm run dev",
-    "test": "npm run unit && npm run e2e",
-    "unit": "jest --config test/unit/jest.conf.js --coverage"
+    "dev": "yarn run watch & $(yarn bin)/browser-sync start --config bs-config.js",
+    "watch": "yarn run webpack --watch --progress --watch-poll",
+    "webpack": "$(yarn bin)/webpack --config build/webpack.prod.conf.js"
   },
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
     "@mdi/font": "^3.6.95",
     "roboto-fontface": "*",
+    "browser-sync": "^2.26.14",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
     "vuetify": "^2.2.11"
