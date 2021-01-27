@@ -16,6 +16,7 @@
     "roboto-fontface": "*",
     "@panter/vue-i18next": "^0.15.2",
     "browser-sync": "^2.26.14",
+    "i18next": "^19.8.4",
     "i18next-browser-languagedetector": "^6.0.1",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
