@@ -7,11 +7,48 @@
      flat
      hide-on-scroll
     >
-      <v-toolbar-title>Takashi</v-toolbar-title>
+      <v-toolbar-title class="ml-1">Takashi</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-icon>
-        mdi-github-circle
-      </v-icon>
+      <v-btn
+        href="https://github.com/Uhucream"
+        target="_blank"
+        link
+        icon
+        depressed
+        :ripple="false"
+      >
+        <v-icon
+          class="px-2"
+        >
+          mdi-github-circle
+        </v-icon>
+      </v-btn>
+      <v-btn
+        href="https://www.instagram.com/cattle19_59.tym.jp"
+        target="_blank"
+        link
+        icon
+        depressed
+        :ripple="false"
+      >
+        <v-icon
+          class="px-2"
+        >
+          mdi-instagram
+        </v-icon>
+      </v-btn>
+      <v-btn
+        href="https://twitter.com/UKokkei95Toyama"
+        target="_blank"
+        link
+        icon
+        depressed
+        :ripple="false"
+      >
+        <v-icon>
+          {{ mdiTwitter }}
+        </v-icon>
+      </v-btn>
     </v-app-bar>
 
     <v-main>
@@ -31,13 +68,59 @@
         ></v-carousel-item>
       </v-carousel>
       <v-container fluid>
-        <v-subheader>About Me</v-subheader>
         <v-list
           flat
+          class="tile"
         >
+          <v-subheader>About Me</v-subheader>
           <v-row>
             <v-col>
               <v-card>
+                <v-card-text>
+                  <div>Word of the Day</div>
+                  <p class="display-1 text--primary">
+                    el·ee·mos·y·nar·y
+                  </p>
+                  <p>adjective</p>
+                  <div class="text--primary">
+                    relating to or dependent on charity; charitable.<br>
+                    "an eleemosynary educational institution."
+                  </div>
+                </v-card-text>
+                <v-card-actions>
+                  <v-btn
+                    text
+                    color="teal accent-4"
+                    @click="reveal = true"
+                  >
+                    Learn More
+                  </v-btn>
+                </v-card-actions>
+
+                <v-expand-transition>
+                  <v-card
+                    v-if="reveal"
+                    class="transition-fast-in-fast-out v-card--reveal"
+                    style="height: 100%;"
+                  >
+                    <v-card-text class="pb-0">
+                      <p class="display-1 text--primary">
+                        Origin
+                      </p>
+                      <p>late 16th century (as a noun denoting a place where alms were distributed): from medieval Latin eleemosynarius, from late Latin eleemosyna ‘alms’, from Greek eleēmosunē ‘compassion’ </p>
+                    </v-card-text>
+                    <v-card-actions class="pt-0">
+                      <v-btn
+                        text
+                        color="teal accent-4"
+                        @click="reveal = false"
+                      >
+                        Close
+                      </v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-expand-transition>
+
               </v-card>
             </v-col>
           </v-row>
@@ -57,10 +140,12 @@
 </template>
 
 <script>
+import { mdiTwitter } from '@mdi/js'
 export default {
   name: 'topPage',
   data () {
     return {
+      mdiTwitter: mdiTwitter,
       carouselItems: [
         {
           src: 'https://lh3.googleusercontent.com/pw/ACtC-3dethR4ungoJiKTTxDZMx3IPMCFgBu-epL066EznDpmKV4JV1KZSRHpByBTMfj5e_hD8YpTvBSwLyWZs7i2qJ_jzgBwIx_uP1byuaw-U8Vl4An5tI7qywpvuhQquQvcAX30zVR0gLyP5Hdp3MyrkCtvNQ=s0'
