@@ -14,6 +14,7 @@ import en from '@/locales/en.json'
 import ja from '@/locales/ja.json'
 
 Vue.use(VueI18Next)
+Vue.use(vuetify)
 
 Vue.config.productionTip = false
 
@@ -30,10 +31,8 @@ const i18n = new VueI18Next(i18next)
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
   router,
   i18n,
-  components: { App },
   vuetify,
-  template: '<App/>'
-})
+  render: h => h(App)
+}).$mount('#app')
