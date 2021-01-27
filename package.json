@@ -8,7 +8,7 @@
     "build": "node build/build.js",
     "dev": "yarn run watch & $(yarn bin)/browser-sync start --config bs-config.js",
     "watch": "yarn run webpack --watch --progress --watch-poll",
-    "webpack": "$(yarn bin)/webpack --config build/webpack.prod.conf.js"
+    "webpack": "$(yarn bin)/webpack --config build/webpack.dev.conf.js"
   },
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
