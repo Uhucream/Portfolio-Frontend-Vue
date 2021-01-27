@@ -81,7 +81,6 @@
     core-js "^2.6.5"
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@^7.5.5":
 "@babel/runtime@^7.12.0", "@babel/runtime@^7.5.5":
   version "7.12.5"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.12.5.tgz#410e7e487441e1b360c29be715d870d9b985882e"
@@ -1908,9 +1907,9 @@ caniuse-api@^3.0.0:
     lodash.uniq "^4.5.0"
 
 caniuse-db@^1.0.30000529, caniuse-db@^1.0.30000634, caniuse-db@^1.0.30000639:
-  version "1.0.30001179"
-  resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30001179.tgz#7af76065c071b85b1f6aa0cbccd180eb32a71c50"
-  integrity sha512-YgqeMhTgW75OI7emeIpVTol3E2EQTQJqUJp/R1uA6aYzXOSyvGAGAkadvSdYqB/JPDBkXWwT3fLSxA+AuqttlA==
+  version "1.0.30001180"
+  resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30001180.tgz#021fda0545056c199f3a7e3e340c177719a22f19"
+  integrity sha512-1ma4IjvU3AYsVLNAANMulR/cxbuIKoSbAPwX8TH21pkv36BlHNRPh8/XEClAXkSjyhzw58Q0VSMdgpBLyyRQgw==
 
 caniuse-lite@^1.0.0, caniuse-lite@^1.0.30000792, caniuse-lite@^1.0.30000805, caniuse-lite@^1.0.30000844, caniuse-lite@^1.0.30001173:
   version "1.0.30001179"
@@ -5742,9 +5741,9 @@ js-base64@^2.1.9:
   integrity sha512-pZe//GGmwJndub7ZghVHz7vjb2LgC1m8B07Au3eYqeqv9emhESByMXxaEgkUkEqJe87oBbSniGYoQNIBklc7IQ==
 
 js-beautify@^1.6.12, js-beautify@^1.6.14:
-  version "1.13.4"
-  resolved "https://registry.yarnpkg.com/js-beautify/-/js-beautify-1.13.4.tgz#1cad80b9e89cfc455b3a14f0eaf4dc10b6ae1206"
-  integrity sha512-M5yEWwonlEO3kPcCZ3K3KBSpFRZAEO3FAWC6wtbIGeyg7dusStxvF0WG+HRLBoMZqREXSRSxkkqClDE865x1sg==
+  version "1.13.5"
+  resolved "https://registry.yarnpkg.com/js-beautify/-/js-beautify-1.13.5.tgz#a08a97890cae55daf1d758d3f6577bd4a64d7014"
+  integrity sha512-MsXlH6Z/BiRYSkSRW3clNDqDjSpiSNOiG8xYVUBXt4k0LnGvDhlTGOlHX1VFtAdoLmtwjxMG5qiWKy/g+Ipv5w==
   dependencies:
     config-chain "^1.1.12"
     editorconfig "^0.15.3"
