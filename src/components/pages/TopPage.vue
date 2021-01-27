@@ -1,11 +1,15 @@
 <template>
   <v-app id="app">
-    <v-app-bar app color='black' dark flat>
+    <v-app-bar
+     app
+     color='black'
+     dark
+     flat
+     hide-on-scroll
+    >
       <v-toolbar-title>Takashi</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-icon
-        color="white"
-      >
+      <v-icon>
         mdi-github-circle
       </v-icon>
     </v-app-bar>
