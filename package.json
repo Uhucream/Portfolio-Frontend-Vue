@@ -1,9 +1,9 @@
 {
   "name": "vue-portfolio",
   "version": "1.0.0",
+  "private": true,
   "description": "A Vue project for my portfolio",
   "author": "Uhucream",
-  "private": true,
   "scripts": {
     "build": "node build/build.js",
     "dev": "yarn run watch & $(yarn bin)/browser-sync start --config bs-config.js",
@@ -11,12 +11,16 @@
     "webpack": "$(yarn bin)/webpack --config build/webpack.prod.conf.js"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.4.4",
+    "@mdi/font": "^3.6.95",
+    "roboto-fontface": "*",
     "@panter/vue-i18next": "^0.15.2",
     "browser-sync": "^2.26.14",
     "i18next": "^19.8.4",
     "i18next-browser-languagedetector": "^6.0.1",
     "vue": "^2.5.2",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vuetify": "^2.2.11"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
@@ -68,6 +72,7 @@
     "shelljs": "^0.7.6",
     "uglifyjs-webpack-plugin": "^1.1.1",
     "url-loader": "^0.5.8",
+    "vue-cli-plugin-vuetify": "~2.0.9",
     "vue-jest": "^1.0.2",
     "vue-loader": "^13.3.0",
     "vue-style-loader": "^3.0.1",
@@ -77,13 +82,13 @@
     "webpack-dev-server": "^2.9.1",
     "webpack-merge": "^4.1.0"
   },
-  "engines": {
-    "node": ">= 6.0.0",
-    "npm": ">= 3.0.0"
-  },
   "browserslist": [
     "> 1%",
     "last 2 versions",
-    "not ie <= 8"
-  ]
+    "not ie <= 10"
+  ],
+  "engines": {
+    "node": ">= 6.0.0",
+    "npm": ">= 3.0.0"
+  }
 }

@@ -3,6 +3,10 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import vuetify from './plugins/vuetify'
+import '@babel/polyfill'
+import 'roboto-fontface/css/roboto/roboto-fontface.css'
+import '@mdi/font/css/materialdesignicons.css'
 import i18next from 'i18next'
 import VueI18Next from '@panter/vue-i18next'
 import LanguageDetector from 'i18next-browser-languagedetector'
@@ -10,6 +14,7 @@ import en from '@/locales/en.json'
 import ja from '@/locales/ja.json'
 
 Vue.use(VueI18Next)
+Vue.use(vuetify)
 
 Vue.config.productionTip = false
 
@@ -26,9 +31,8 @@ const i18n = new VueI18Next(i18next)
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
   router,
   i18n,
-  components: { App },
-  template: '<App/>'
-})
+  vuetify,
+  render: h => h(App)
+}).$mount('#app')
