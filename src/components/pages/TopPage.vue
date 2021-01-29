@@ -5,7 +5,6 @@
      color='black'
      dark
      flat
-     hide-on-scroll
     >
       <v-toolbar-title class="ml-1">Takashi</v-toolbar-title>
       <v-spacer></v-spacer>

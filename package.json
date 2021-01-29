@@ -5,7 +5,7 @@
   "description": "A Vue project for my portfolio",
   "author": "Uhucream",
   "scripts": {
-    "build": "node build/build.js",
+    "build": "$(yarn bin)/rimraf public/* && node build/build.js",
     "dev": "yarn run watch & $(yarn bin)/browser-sync start --config bs-config.js",
     "watch": "yarn run webpack --watch --progress --watch-poll",
     "webpack": "$(yarn bin)/webpack --config build/webpack.dev.conf.js"
@@ -19,6 +19,7 @@
     "i18next": "^19.8.4",
     "i18next-browser-languagedetector": "^6.0.1",
     "roboto-fontface": "*",
+    "viewport-units-buggyfill": "^0.6.2",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
     "vuetify": "^2.2.11"
@@ -67,7 +68,7 @@
     "postcss-loader": "^2.0.8",
     "postcss-url": "^7.2.1",
     "prettier": "^2.2.1",
-    "rimraf": "^2.6.0",
+    "rimraf": "^3.0.2",
     "selenium-server": "^3.0.1",
     "semver": "^5.3.0",
     "shelljs": "^0.7.6",
