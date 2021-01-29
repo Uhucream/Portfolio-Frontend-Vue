@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import TopPage from '@/components/pages/TopPage'
 import WorksDetailPage from '@/components/pages/WorksDetailPage'
+import Introduction from '@/components/pages/Introduction'
 
 Vue.use(Router)
 
@@ -17,6 +18,11 @@ export default new Router({
       path: '/works_detail',
       name: 'WorksDetailPage',
       component: WorksDetailPage
+    },
+    {
+      path: '/introduction',
+      name: 'Introduction',
+      component: Introduction
     }
   ]
 })
