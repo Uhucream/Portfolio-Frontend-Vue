@@ -13,8 +13,9 @@ module.exports = {
   },
   server: false,
   proxy: {
-    target: "docker-server.host-only"
+    target: "docker-server.host-only",
   },
   port: 8000,
-  logPrefix: "BS"
+  logPrefix: "BS",
+  scrollRestoreTechnique: "window.name"
 };
