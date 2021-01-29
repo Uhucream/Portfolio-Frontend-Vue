@@ -75,7 +75,7 @@
             color="blue-grey lighten-1"
             @click="reveal = true"
           >
-            Learn More
+            詳しい情報
           </v-btn>
         </v-card-actions>
 
@@ -111,14 +111,12 @@
       <v-subheader>Daily Reports</v-subheader>
       <v-card>
         <v-card-text>
-          <div>Word of the Day</div>
+          <div>2021/01/30</div>
           <p class="display-1 text--primary">
-            el·ee·mos·y·nar·y
+            プロゲートのSQL全修得
           </p>
-          <p>adjective</p>
           <div class="text--primary">
-            relating to or dependent on charity; charitable.<br>
-            "an eleemosynary educational institution."
+            今日、ようやくプロゲートのSQLの全コースを修了しまし...<br>
           </div>
         </v-card-text>
         <v-card-actions>
@@ -127,7 +125,7 @@
             color="blue-grey lighten-1"
             @click="reveal = true"
           >
-            Learn More
+            続きを読む
           </v-btn>
         </v-card-actions>
 
