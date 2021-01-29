@@ -5,7 +5,8 @@
   "description": "A Vue project for my portfolio",
   "author": "Uhucream",
   "scripts": {
-    "build": "$(yarn bin)/rimraf public/* && node build/build.js",
+    "clean": "$(yarn bin)/rimraf public/*",
+    "build": "yarn run clean && node build/build.js",
     "dev": "yarn run watch & $(yarn bin)/browser-sync start --config bs-config.js",
     "watch": "yarn run webpack --watch --progress --watch-poll",
     "webpack": "$(yarn bin)/webpack --config build/webpack.dev.conf.js"
