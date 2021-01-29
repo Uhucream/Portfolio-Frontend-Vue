@@ -14,15 +14,14 @@
         </v-img>
         <v-card-text>
           <div class="text--primary">
-            relating to or dependent on charity; charitable.<br>
-            "an eleemosynary educational institution."
+            大学の「プロジェクトデザイン実践」という授業で作った成果物です。
           </div>
         </v-card-text>
         <v-card-actions>
           <v-btn
             text
             color="blue-grey lighten-1"
-            @click="reveal = true"
+            to="/works_detail"
           >
             詳しい情報
           </v-btn>
