@@ -4,6 +4,7 @@
       app
       color='blue-grey darken-2'
       dark
+      @click="$router.push('/')"
     >
       <v-toolbar-title class="ml-1">Takashi</v-toolbar-title>
       <v-spacer></v-spacer>
