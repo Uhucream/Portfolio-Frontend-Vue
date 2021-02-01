@@ -11,6 +11,11 @@
         height="100%"
       >
         <v-card-text>
+          <v-breadcrumbs :items="crumbsItem" class="pt-0 pl-2">
+            <template v-slot:divider>
+              <v-icon>mdi-chevron-right</v-icon>
+            </template>
+          </v-breadcrumbs>
           <div class="ml-3 pt-3">
             <p class="display-1 text--primary">
               概要
@@ -41,7 +46,23 @@
 
 <script>
 export default {
-
+  name: 'introduction',
+  data () {
+    return {
+      crumbsItem: [
+        {
+          text: 'Top',
+          disabled: false,
+          href: '/'
+        },
+        {
+          text: 'About Me',
+          disabled: true,
+          href: 'introduction'
+        }
+      ]
+    }
+  }
 }
 </script>
 
