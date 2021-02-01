@@ -11,8 +11,7 @@
         height="100%"
       >
         <v-col
-          md="5"
-          sm="12"
+          sm="5"
         >
           <v-img
             contain
@@ -20,7 +19,6 @@
           />
         </v-col>
         <v-col
-          md="5"
           sm="12"
           class="pt-1 pl-1"
         >

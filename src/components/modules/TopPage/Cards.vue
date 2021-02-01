@@ -14,7 +14,7 @@
             <v-card-title>災害マップ</v-card-title>
           </v-img>
           <v-card-text>
-            <div class="text--primary">
+            <div class="text--primary" style="padding-top: 2px">
               大学の「プロジェクトデザイン実践」という授業で作った成果物です。<br>
               概要、および実物へのリンクは下記リンクより詳細ページをご覧ください。
             </div>
@@ -38,7 +38,7 @@
         <v-subheader>About Me</v-subheader>
         <v-card>
           <v-card-text>
-            <p class="display-1 text--primary">
+            <p class="mt-1 display-1 text--primary">
               自己紹介
             </p>
             <div class="text--primary">
@@ -65,7 +65,7 @@
         <v-card>
           <v-card-text>
             <div>2021/01/30</div>
-            <p class="display-1 text--primary">
+            <p class="display-1 text--primary mt-1">
               プロゲートのSQL全修得
             </p>
             <div class="text--primary">
