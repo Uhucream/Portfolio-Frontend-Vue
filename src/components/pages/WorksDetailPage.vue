@@ -7,37 +7,55 @@
       <v-card
         dark
         flat
-        class="pa-3"
+        class="pa-5"
         height="100%"
       >
-        <v-col
-          sm="5"
-        >
-          <v-img
-            contain
-            src="https://imgur.com/W42WHzk.png"
-          />
-        </v-col>
-        <v-col
-          sm="12"
-          class="pt-1 pl-1"
-        >
-          <v-card-text class="pt-0">
-            <v-breadcrumbs :items="crumbsItem" class="pl-1">
-              <template v-slot:divider>
-                <v-icon>mdi-chevron-right</v-icon>
-              </template>
-            </v-breadcrumbs>
-            <div>
-              <p class="display-1 text--primary">
-                災害マップ
-              </p>
-              <div class="pl-2">
-                リンク: <a href="https://project-design-team-a2.web.app">https://project-design-team-a2.web.app</a>
+        <v-row>
+          <v-col
+            sm="5"
+          >
+            <v-img
+              contain
+              src="https://imgur.com/W42WHzk.png"
+            />
+            <v-card-text class="pt-0">
+              <v-breadcrumbs :items="crumbsItem" class="pl-1">
+                <template v-slot:divider>
+                  <v-icon>mdi-chevron-right</v-icon>
+                </template>
+              </v-breadcrumbs>
+              <div>
+                <p class="display-1 text--primary">
+                  災害マップ
+                </p>
+                <div class="pl-2">
+                  リンク: <a href="https://project-design-team-a2.web.app">https://project-design-team-a2.web.app</a>
+                </div>
               </div>
-            </div>
-          </v-card-text>
-        </v-col>
+            </v-card-text>
+          </v-col>
+          <v-col
+            sm="7"
+          >
+            <v-card-text class="pt-0">
+              <div>
+                <div class="py-5">
+                  <p class="display-1 text--primary">
+                    使用したもの
+                    <ul class="pl-8 py-2 body-1">
+                      <li>フロントエンド: Vue</li>
+                      <li>バックエンド: Flask</li>
+                      <li>サービス: Firebase Hosting, Realtime Database, Heroku, Mapbox Education</li>
+                    </ul>
+                  </p>
+                </div>
+                <p class="display-1 text--primary">
+                  解説
+                </p>
+              </div>
+            </v-card-text>
+          </v-col>
+        </v-row>
       </v-card>
     </div>
   </v-container>
