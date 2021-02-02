@@ -7,18 +7,14 @@
       <v-card
         dark
         flat
-        class="pa-5"
+        class="py-3 px-5"
         height="100%"
       >
         <v-row>
           <v-col
             sm="5"
           >
-            <v-img
-              contain
-              src="https://imgur.com/W42WHzk.png"
-            />
-            <v-card-text class="pt-0">
+            <v-card-text class="pt-0 pl-0">
               <v-breadcrumbs :items="crumbsItem" class="pl-1">
                 <template v-slot:divider>
                   <v-icon>mdi-chevron-right</v-icon>
@@ -28,9 +24,30 @@
                 <p class="display-1 text--primary">
                   災害マップ
                 </p>
-                <div class="pl-2">
-                  リンク: <a href="https://project-design-team-a2.web.app">https://project-design-team-a2.web.app</a>
-                </div>
+              </div>
+            </v-card-text>
+            <v-img
+              contain
+              src="https://imgur.com/W42WHzk.png"
+              lazy-src="https://imgur.com/W42WHzk.png"
+              class="grey lighten-2"
+            >
+              <template v-slot:placeholder>
+                <v-row
+                  class="fill-height ma-0"
+                  align="center"
+                  justify="center"
+                >
+                  <v-progress-circular
+                    indeterminate
+                    color="grey darken-2"
+                  ></v-progress-circular>
+                </v-row>
+              </template>
+            </v-img>
+            <v-card-text class="pl-0">
+              <div>
+                リンク: <a href="https://project-design-team-a2.web.app">https://project-design-team-a2.web.app</a>
               </div>
             </v-card-text>
           </v-col>

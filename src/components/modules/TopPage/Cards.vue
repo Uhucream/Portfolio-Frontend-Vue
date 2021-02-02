@@ -9,9 +9,22 @@
           <v-img
             class="white--text align-end"
             src="https://imgur.com/W42WHzk.png"
+            lazy-src="https://imgur.com/W42WHzk.png"
             gradient="to bottom, rgba(0,0,0,.2), rgba(0,0,0,.4)"
           >
             <v-card-title>災害マップ</v-card-title>
+            <template v-slot:placeholder>
+              <v-row
+                class="fill-height ma-0"
+                align="center"
+                justify="center"
+              >
+                <v-progress-circular
+                  indeterminate
+                  color="grey darken-2"
+                ></v-progress-circular>
+              </v-row>
+            </template>
           </v-img>
           <v-card-text>
             <div class="text--primary" style="padding-top: 2px">
