@@ -1,7 +1,6 @@
 <template>
   <v-container
    fluid
-   style="height: 100%"
   >
     <v-breadcrumbs :items="crumbsItem" class="pt-1 pl-2">
       <template v-slot:divider>
