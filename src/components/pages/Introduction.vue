@@ -53,12 +53,12 @@ export default {
         {
           text: 'Top',
           disabled: false,
-          href: '/'
+          to: '/'
         },
         {
           text: 'About Me',
           disabled: true,
-          href: 'introduction'
+          to: 'introduction'
         }
       ]
     }

@@ -70,12 +70,12 @@ export default {
         {
           text: 'Top',
           disabled: false,
-          href: '/'
+          to: '/'
         },
         {
           text: 'My Works',
           disabled: true,
-          href: 'works_detail'
+          to: 'works_detail'
         }
       ]
     }
