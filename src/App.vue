@@ -10,6 +10,7 @@
       <v-btn
         href="https://github.com/Uhucream"
         target="_blank"
+        rel="noopener noreferrer"
         link
         icon
         depressed
@@ -24,6 +25,7 @@
       <v-btn
         href="https://www.instagram.com/cattle19_59.tym.jp"
         target="_blank"
+        rel="noopener noreferrer"
         link
         icon
         depressed
@@ -38,6 +40,7 @@
       <v-btn
         href="https://twitter.com/UKokkei95Toyama"
         target="_blank"
+        rel="noopener noreferrer"
         link
         icon
         depressed

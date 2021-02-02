@@ -59,12 +59,26 @@
                 <div class="pt-6">
                   <p class="display-1 text--primary">
                     使用したもの
-                    <ul class="pl-8 py-2 body-1">
-                      <li>フロントエンド: Vue</li>
-                      <li>バックエンド: Flask</li>
-                      <li>サービス: Firebase Hosting, Realtime Database, Heroku, Mapbox Education</li>
-                    </ul>
                   </p>
+                  <div>
+                    <a href="https://jp.vuejs.org/index.html" style="text-decoration:none;" target="_blank" rel="noopener noreferrer">
+                      <v-icon size="28px" color="#41B833">mdi-vuejs</v-icon>
+                    </a>
+                    <a href="https://vuetifyjs.com/en/" style="text-decoration:none;" target="_blank" rel="noopener noreferrer">
+                      <v-icon size="28px" color="#88BEF2">mdi-vuetify</v-icon>
+                    </a>
+                    <a href="https://firebase.google.com" style="text-decoration:none;" target="_blank" rel="noopener noreferrer">
+                      <v-icon size="28px" color="#FFCB2B">mdi-firebase</v-icon>
+                    </a>
+                    <a href="https://www.mapbox.com" style="text-decoration:none;" target="_blank" rel="noopener noreferrer">
+                      <v-icon size="28px" color="#4264FB">mdi-mapbox</v-icon>
+                    </a>
+                  </div>
+                  <ul class="pl-8 py-2 body-1">
+                    <li>フロントエンド: Vue</li>
+                    <li>バックエンド: Flask</li>
+                    <li>サービス: Firebase Hosting, Realtime Database, Heroku, Mapbox Education</li>
+                  </ul>
                 </div>
                 <p class="display-1 text--primary">
                   解説
