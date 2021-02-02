@@ -62,7 +62,7 @@
             <v-btn
               text
               color="blue-grey lighten-1"
-              to="/introduction"
+              to="/about_me"
             >
               詳しい情報
             </v-btn>
@@ -72,36 +72,48 @@
 
       <v-col
         cols="12"
-        sm="4"
       >
-        <v-subheader>Daily Reports</v-subheader>
-        <v-card>
-          <v-card-text>
-            <div>2021/01/30</div>
-            <p class="display-1 text--primary mt-1">
-              プロゲートのSQL全修得
-            </p>
-            <div class="text--primary">
-              今日、ようやくプロゲートのSQLの全コースを修了しまし...<br>
-            </div>
-          </v-card-text>
-          <v-card-actions>
-            <v-btn
-              text
-              color="blue-grey lighten-1"
-              @click="reveal = true"
-            >
-              続きを読む
-            </v-btn>
-          </v-card-actions>
-        </v-card>
+        <v-subheader>
+          Daily Reports
+          <v-btn
+            v-if="allPostBtn"
+            text
+            outlined
+            small
+            class="ml-3"
+            to="/daily_reports/posts"
+          >
+            Show all posts
+          </v-btn>
+        </v-subheader>
+        <DailyReportsList
+          :isTopPage="isTopPage"
+          @postAmount="switchShowBtn($event)"
+        />
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
+import DailyReportsList from '@/components/pages/DailyReport/DailyReportsList'
 export default {
-  name: 'topPageCards'
+  name: 'topPageCards',
+  components: {
+    DailyReportsList
+  },
+  data () {
+    return {
+      isTopPage: true,
+      allPostBtn: true
+    }
+  },
+  methods: {
+    switchShowBtn (e) {
+      if (e <= 4) {
+        this.allPostBtn = false
+      }
+    }
+  }
 }
 </script>
