@@ -1,36 +1,35 @@
 <template>
   <v-container
     fluid
-    style="height: 100%"
   >
+    <v-breadcrumbs :items="crumbsItem" class="pt-1 pl-2">
+      <template v-slot:divider>
+        <v-icon>mdi-chevron-right</v-icon>
+      </template>
+    </v-breadcrumbs>
     <div class="bodyContent">
       <v-card
         dark
         flat
-        class="py-3 px-5"
+        class="pa-3"
         height="100%"
       >
         <v-row>
           <v-col
             sm="5"
           >
-            <v-card-text class="pt-0 pl-0">
-              <v-breadcrumbs :items="crumbsItem" class="pl-1">
-                <template v-slot:divider>
-                  <v-icon>mdi-chevron-right</v-icon>
-                </template>
-              </v-breadcrumbs>
+            <v-card-title class="pl-1 py-3 pl-sm-4 py-sm-4">
               <div>
                 <p class="display-1 text--primary">
                   災害マップ
                 </p>
               </div>
-            </v-card-text>
+            </v-card-title>
             <v-img
               contain
               src="https://imgur.com/W42WHzk.png"
               lazy-src="https://imgur.com/W42WHzk.png"
-              class="grey lighten-2"
+              class="grey lighten-2 mx-1 mx-sm-4"
             >
               <template v-slot:placeholder>
                 <v-row
