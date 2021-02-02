@@ -56,7 +56,7 @@
           >
             <v-card-text class="pt-0">
               <div>
-                <div class="py-5">
+                <div class="pt-6">
                   <p class="display-1 text--primary">
                     使用したもの
                     <ul class="pl-8 py-2 body-1">
