@@ -5,6 +5,7 @@ import WorksDetailPage from '@/components/pages/WorksDetailPage'
 import AboutMe from '@/components/pages/AboutMe'
 import DailyReportsList from '@/components/pages/DailyReport/DailyReportsList'
 import DailyReportPage from '@/components/pages/DailyReport/DailyReportPage'
+import Parser from '@/components/modules/Markdown/Parser'
 
 Vue.use(Router)
 
@@ -35,6 +36,11 @@ export default new Router({
       path: '/about_me',
       name: 'AboutMe',
       component: AboutMe
+    },
+    {
+      path: '/test',
+      name: 'Parser',
+      component: Parser
     }
   ]
 })
