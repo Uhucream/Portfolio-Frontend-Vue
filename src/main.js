@@ -13,11 +13,14 @@ import VueI18Next from '@panter/vue-i18next'
 import LanguageDetector from 'i18next-browser-languagedetector'
 import en from '@/locales/en.json'
 import ja from '@/locales/ja.json'
+import axios from 'axios'
 
 Vue.use(VueI18Next)
 Vue.use(vuetify)
 
 Vue.config.productionTip = false
+
+axios.defaults.baseURL = process.env.VUE_APP_API_ENDPOINT
 
 i18next
   .use(LanguageDetector)

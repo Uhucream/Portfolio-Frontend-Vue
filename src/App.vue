@@ -5,7 +5,7 @@
       color='blue-grey darken-2'
       dark
     >
-      <v-toolbar-title class="ml-1" @click="$router.push('/')">Takashi</v-toolbar-title>
+      <v-toolbar-title class="ml-1" style="cursor: pointer;" @click="$router.push('/')">Takashi</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn
         href="https://github.com/Uhucream"

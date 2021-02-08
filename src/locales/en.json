@@ -1,5 +1,13 @@
 {
-  "helloWorld": {
-    "welcomeToVuetify": "Welcome to Vuetify"
+  "commons": {
+    "dayNameShort": [
+      "Sun",
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri",
+      "Sat"
+    ]
   }
 }

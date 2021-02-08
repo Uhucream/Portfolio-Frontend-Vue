@@ -8,14 +8,17 @@
     <v-data-iterator
       :items="reportPosts"
       :items-per-page.sync="itemsPerPage"
+      :page.sync="page"
+      :sort-by="sortBy.toLowerCase()"
+      :sort-desc="sortDesc"
       hide-default-footer
       no-data-text="No Posts Found"
     >
       <template v-slot:default="props">
-        <v-row>
+        <v-row class="fill-height">
           <v-col
             v-for="post in props.items"
-            :key="post.id"
+            :key="post.uuid"
             cols="12"
             sm="6"
             md="4"
@@ -23,14 +26,14 @@
           >
             <v-card>
               <v-card-text class="pb-0">
-                <div>{{ post.date }}</div>
+                <div>{{ convertUtcToLocal(post.created_at) }}</div>
               </v-card-text>
               <v-card-title class="subheading font-weight-bold">
-                {{ post.name }}
+                {{ `${post.title} #${post.id}` }}
               </v-card-title>
               <v-card-text>
                 <div class="text--primary cardBody">
-                  {{ post.body }}
+                  {{ post.body_text }}
                 </div>
               </v-card-text>
               <v-card-actions>
@@ -47,17 +50,53 @@
           </v-col>
         </v-row>
       </template>
+
+      <template v-slot:footer>
+        <v-row justify="end" align="center">
+          <span
+            class="mr-4
+            grey--text"
+          >
+            Page {{ page }} of {{ numberOfPages }}
+          </span>
+          <v-btn
+            :disabled="page === 1"
+            fab
+            dark
+            icon
+            class="mr-1"
+            @click="formerPage"
+          >
+            <v-icon>mdi-chevron-left</v-icon>
+          </v-btn>
+          <v-btn
+            :disabled="page === numberOfPages"
+            fab
+            dark
+            icon
+            class="ml-1"
+            @click="nextPage"
+          >
+            <v-icon>mdi-chevron-right</v-icon>
+          </v-btn>
+        </v-row>
+      </template>
     </v-data-iterator>
   </v-container>
 </template>
 
 <script>
+import axios from 'axios'
+import i18next from 'i18next'
 export default {
   name: 'dailyReportsList',
   props: ['isTopPage'],
   data () {
     return {
-      itemsPerPage: 4,
+      itemsPerPage: 12,
+      page: 1,
+      sortBy: 'id',
+      sortDesc: true,
       crumbsItem: [
         {
           text: 'Top',
@@ -70,143 +109,7 @@ export default {
           to: '/daily_reports/posts'
         }
       ],
-      reportPosts: [
-        {
-          id: 1,
-          date: '2021/01/30',
-          body: '今日、ようやくプロゲートのSQLの全コースを修了しました。かかった日数は１週間です。',
-          name: 'Frozen Yogurt',
-          calories: 159,
-          fat: 6.0,
-          carbs: 24,
-          protein: 4.0,
-          sodium: 87,
-          calcium: '14%',
-          iron: '1%'
-        },
-        {
-          id: 2,
-          date: '2021/01/30',
-          body: '今日、ようやくプロゲートのSQLの全コースを修了しました。かかった日数は１週間です。',
-          name: 'Ice cream sandwich',
-          calories: 237,
-          fat: 9.0,
-          carbs: 37,
-          protein: 4.3,
-          sodium: 129,
-          calcium: '8%',
-          iron: '1%'
-        },
-        {
-          id: 1,
-          date: '2021/01/30',
-          body: '今日、ようやくプロゲートのSQLの全コースを修了しました。かかった日数は１週間です。',
-          name: 'Eclair',
-          calories: 262,
-          fat: 16.0,
-          carbs: 23,
-          protein: 6.0,
-          sodium: 337,
-          calcium: '6%',
-          iron: '7%'
-        },
-        {
-          id: 3,
-          date: '2021/01/30',
-          body: '今日、ようやくプロゲートのSQLの全コースを修了しました。かかった日数は１週間です。',
-          name: 'Cupcake',
-          calories: 305,
-          fat: 3.7,
-          carbs: 67,
-          protein: 4.3,
-          sodium: 413,
-          calcium: '3%',
-          iron: '8%'
-        },
-        {
-          id: 4,
-          date: '2021/01/30',
-          body: '今日、ようやくプロゲートのSQLの全コースを修了しました。かかった日数は１週間です。',
-          name: 'Cupcake',
-          calories: 305,
-          fat: 3.7,
-          carbs: 67,
-          protein: 4.3,
-          sodium: 413,
-          calcium: '3%',
-          iron: '8%'
-        }
-        // {
-        //   name: 'Cupcake',
-        //   calories: 305,
-        //   fat: 3.7,
-        //   carbs: 67,
-        //   protein: 4.3,
-        //   sodium: 413,
-        //   calcium: '3%',
-        //   iron: '8%'
-        // },
-        // {
-        //   name: 'Cupcake',
-        //   calories: 305,
-        //   fat: 3.7,
-        //   carbs: 67,
-        //   protein: 4.3,
-        //   sodium: 413,
-        //   calcium: '3%',
-        //   iron: '8%'
-        // },
-        // {
-        //   name: 'Cupcake',
-        //   calories: 305,
-        //   fat: 3.7,
-        //   carbs: 67,
-        //   protein: 4.3,
-        //   sodium: 413,
-        //   calcium: '3%',
-        //   iron: '8%'
-        // },
-        // {
-        //   name: 'Cupcake',
-        //   calories: 305,
-        //   fat: 3.7,
-        //   carbs: 67,
-        //   protein: 4.3,
-        //   sodium: 413,
-        //   calcium: '3%',
-        //   iron: '8%'
-        // },
-        // {
-        //   name: 'Cupcake',
-        //   calories: 305,
-        //   fat: 3.7,
-        //   carbs: 67,
-        //   protein: 4.3,
-        //   sodium: 413,
-        //   calcium: '3%',
-        //   iron: '8%'
-        // },
-        // {
-        //   name: 'Cupcake',
-        //   calories: 305,
-        //   fat: 3.7,
-        //   carbs: 67,
-        //   protein: 4.3,
-        //   sodium: 413,
-        //   calcium: '3%',
-        //   iron: '8%'
-        // },
-        // {
-        //   name: 'Cupcake',
-        //   calories: 305,
-        //   fat: 3.7,
-        //   carbs: 67,
-        //   protein: 4.3,
-        //   sodium: 413,
-        //   calcium: '3%',
-        //   iron: '8%'
-        // }
-      ]
+      reportPosts: []
     }
   },
   methods: {
@@ -214,32 +117,89 @@ export default {
       if (this.isXsDevice && this.$route.path !== '/daily_reports/posts') {
         this.itemsPerPage = 2
       } else if (this.$route.path === '/daily_reports/posts') {
-        this.itemsPerPage = undefined
+        this.itemsPerPage = 12
       }
     },
-    postAmount () {
-      if (this.$route.path !== '/daily_reports/posts') {
-        this.$emit('postAmount', this.reportPosts.length)
-      }
+    async getAllPosts () {
+      await axios.get('/v1/posts')
+        .then(response => {
+          this.reportPosts.push(...response.data)
+          if (this.$route.path !== '/daily_reports/posts') {
+            this.$emit('postAmount', this.reportPosts.length)
+          }
+        }).catch(err => {
+          console.error(err)
+          this.reportPosts = null
+          if (this.$route.path !== '/daily_reports/posts') {
+            this.$emit('postAmount', this.reportPosts.length)
+          }
+        })
+    },
+    convertUtcToLocal (date) {
+      console.log(date)
+      var datetime = new Date(`${date}Z`)
+      var yearString = datetime.getFullYear()
+      var monthString = `0${datetime.getMonth() + 1}`.slice(-2) // 0埋め
+      var dateString = `0${datetime.getDate()}`.slice(-2)
+      var dayString = i18next.t(`commons.dayNameShort.${datetime.getDay()}`)
+      var hourString = `0${datetime.getHours()}`.slice(-2)
+      var minuteString = `0${datetime.getMinutes()}`.slice(-2)
+      var secondsString = `0${datetime.getSeconds()}`.slice(-2)
+      var formatedTime = `${yearString}/${monthString}/${dateString} (${dayString}) ${hourString}:${minuteString}:${secondsString}`
+      return formatedTime
+    },
+    nextPage () {
+      if (this.page + 1 <= this.numberOfPages) this.page += 1
+    },
+    formerPage () {
+      if (this.page - 1 >= 1) this.page -= 1
+    },
+    updateItemsPerPage (number) {
+      this.itemsPerPage = number
     }
   },
   watch: {
     isXsDevice: function () {
-      if (this.isXsDevice && this.$route.path !== '/daily_reports/posts') {
-        this.itemsPerPage = 2
+      if (this.$route.path !== '/daily_reports/posts') {
+        switch (this.$vuetify.breakpoint.name) {
+          case 'xs':
+            this.itemsPerPage = 2
+            break
+          case 'sm':
+          case 'md':
+            this.itemsPerPage = 4
+            break
+          case 'lg':
+            this.itemsPerPage = 8
+            break
+        }
       } else {
-        this.itemsPerPage = 4
+        switch (this.$vuetify.breakpoint.name) {
+          case 'xs':
+            this.itemsPerPage = 4
+            break
+          case 'sm':
+          case 'md':
+          case 'lg':
+            this.itemsPerPage = 12
+            break
+        }
       }
     }
   },
   computed: {
     isXsDevice: function () {
       return this.$vuetify.breakpoint.xs
+    },
+    numberOfPages () {
+      return Math.ceil(this.reportPosts.length / this.itemsPerPage)
     }
+  },
+  created () {
+    this.getAllPosts()
   },
   mounted () {
     this.switchMaxNum()
-    this.postAmount()
   }
 }
 </script>
