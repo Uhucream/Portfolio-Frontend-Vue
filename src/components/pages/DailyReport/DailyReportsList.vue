@@ -1,5 +1,5 @@
 <template>
-  <v-container :fluid="isTopPage" :class="{'pa-0': isTopPage && reportPosts, 'ml-5': !reportPosts, 'my-2': !reportPosts}">
+  <v-container :fluid="isTopPage" :class="{'pa-0': isTopPage && reportPosts, 'pl-8': !reportPosts, 'py-5': !reportPosts}">
     <v-breadcrumbs v-if="!isTopPage" :items="crumbsItem" class="pt-1 pl-2">
       <template v-slot:divider>
         <v-icon>mdi-chevron-right</v-icon>
