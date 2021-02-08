@@ -75,20 +75,9 @@
       >
         <v-subheader>
           Daily Reports
-          <v-btn
-            v-if="allPostBtn"
-            text
-            outlined
-            small
-            class="ml-3"
-            to="/daily_reports/posts"
-          >
-            Show all posts
-          </v-btn>
         </v-subheader>
         <DailyReportsList
           :isTopPage="isTopPage"
-          @postAmount="switchShowBtn($event)"
         />
       </v-col>
     </v-row>
@@ -104,15 +93,7 @@ export default {
   },
   data () {
     return {
-      isTopPage: true,
-      allPostBtn: true
-    }
-  },
-  methods: {
-    switchShowBtn (e) {
-      if (e <= 4) {
-        this.allPostBtn = false
-      }
+      isTopPage: true
     }
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <v-container :fluid="isTopPage">
+  <v-container :fluid="isTopPage" :class="{'pa-0': isTopPage && reportPosts, 'ml-5': !reportPosts, 'my-2': !reportPosts}">
     <v-breadcrumbs v-if="!isTopPage" :items="crumbsItem" class="pt-1 pl-2">
       <template v-slot:divider>
         <v-icon>mdi-chevron-right</v-icon>
@@ -51,34 +51,48 @@
         </v-row>
       </template>
 
-      <template v-slot:footer>
+      <template v-if="reportPosts" v-slot:footer>
         <v-row justify="end" align="center">
-          <span
-            class="mr-4
-            grey--text"
-          >
-            Page {{ page }} of {{ numberOfPages }}
-          </span>
-          <v-btn
-            :disabled="page === 1"
-            fab
-            dark
-            icon
-            class="mr-1"
-            @click="formerPage"
-          >
-            <v-icon>mdi-chevron-left</v-icon>
-          </v-btn>
-          <v-btn
-            :disabled="page === numberOfPages"
-            fab
-            dark
-            icon
-            class="ml-1"
-            @click="nextPage"
-          >
-            <v-icon>mdi-chevron-right</v-icon>
-          </v-btn>
+          <template v-if="!isTopPage">
+            <span
+              class="mr-4
+              grey--text"
+            >
+              Page {{ page }} of {{ numberOfPages }}
+            </span>
+            <v-btn
+              :disabled="page === 1"
+              fab
+              dark
+              icon
+              class="mr-1"
+              @click="formerPage"
+            >
+              <v-icon>mdi-chevron-left</v-icon>
+            </v-btn>
+            <v-btn
+              :disabled="page === numberOfPages"
+              fab
+              dark
+              icon
+              class="ml-1"
+              @click="nextPage"
+            >
+              <v-icon>mdi-chevron-right</v-icon>
+            </v-btn>
+          </template>
+          <template v-else>
+            <v-btn
+              v-if="reportPosts.length > itemsPerPage"
+              text
+              outlined
+              small
+              class="mt-2 mr-4"
+              to="/daily_reports/posts"
+            >
+              Show {{ reportPosts.length }} posts
+            </v-btn>
+          </template>
         </v-row>
       </template>
     </v-data-iterator>
@@ -93,7 +107,8 @@ export default {
   props: ['isTopPage'],
   data () {
     return {
-      itemsPerPage: 12,
+      currentPage: this.$route.path,
+      itemsPerPage: 4,
       page: 1,
       sortBy: 'id',
       sortDesc: true,
@@ -118,21 +133,28 @@ export default {
         this.itemsPerPage = 2
       } else if (this.$route.path === '/daily_reports/posts') {
         this.itemsPerPage = 12
+      } else if (this.$route.path === '') {
+        switch (this.$vuetify.breakpoint.name) {
+          case 'xs':
+            this.itemsPerPage = 2
+            break
+          case 'sm':
+          case 'md':
+            this.itemsPerPage = 4
+            break
+          case 'lg':
+            this.itemsPerPage = 8
+            break
+        }
       }
     },
     async getAllPosts () {
       await axios.get('/v1/posts')
         .then(response => {
           this.reportPosts.push(...response.data)
-          if (this.$route.path !== '/daily_reports/posts') {
-            this.$emit('postAmount', this.reportPosts.length)
-          }
         }).catch(err => {
           console.error(err)
           this.reportPosts = null
-          if (this.$route.path !== '/daily_reports/posts') {
-            this.$emit('postAmount', this.reportPosts.length)
-          }
         })
     },
     convertUtcToLocal (date) {
