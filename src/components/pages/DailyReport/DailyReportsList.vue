@@ -158,7 +158,6 @@ export default {
         })
     },
     convertUtcToLocal (date) {
-      console.log(date)
       var datetime = new Date(`${date}Z`)
       var yearString = datetime.getFullYear()
       var monthString = `0${datetime.getMonth() + 1}`.slice(-2) // 0埋め
