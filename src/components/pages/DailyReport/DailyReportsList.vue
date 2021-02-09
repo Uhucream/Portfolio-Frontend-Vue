@@ -1,19 +1,53 @@
 <template>
-  <v-container :fluid="isTopPage" :class="{'pa-0': isTopPage && reportPosts, 'pl-8': !reportPosts, 'py-5': !reportPosts}">
+  <v-container :fluid="isTopPage">
     <v-breadcrumbs v-if="!isTopPage" :items="crumbsItem" class="pt-1 pl-2">
       <template v-slot:divider>
         <v-icon>mdi-chevron-right</v-icon>
       </template>
     </v-breadcrumbs>
     <v-data-iterator
+      :class="{'pa-0': isTopPage && reportPosts.length != 0, 'pl-8': reportPosts.length == 0, 'py-5': reportPosts.length == 0}"
       :items="reportPosts"
+      :item-key="reportPosts.uuid"
       :items-per-page.sync="itemsPerPage"
       :page.sync="page"
+      :search="search"
       :sort-by="sortBy.toLowerCase()"
       :sort-desc="sortDesc"
       hide-default-footer
       no-data-text="No Posts Found"
     >
+      <template v-slot:header>
+        <div v-if="!isTopPage && reportPosts.length != 0">
+          <v-btn
+            text
+            style="margin-bottom: 18px"
+            small
+            outlined
+            @click="showSearch = !showSearch"
+          >
+            Filter daily reports
+            <v-icon>{{ showSearch ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+          </v-btn>
+          <v-expand-transition>
+            <div v-show="showSearch">
+              <v-text-field
+                v-model="search"
+                dark
+                clearable
+                flat
+                solo-inverted
+                hide-details
+                color="light-blue accent-4"
+                class="px-4"
+                style="padding-bottom: 18px"
+                prepend-inner-icon="mdi-magnify"
+                label="Search posts"
+              ></v-text-field>
+            </div>
+          </v-expand-transition>
+        </div>
+      </template>
       <template v-slot:default="props">
         <v-row class="fill-height">
           <v-col
@@ -43,7 +77,7 @@
                   link
                   :to="`/daily_reports/post/${post.id}`"
                 >
-                  続きを読む
+                  {{ $t('dailyReport.readMore') }}
                 </v-btn>
               </v-card-actions>
             </v-card>
@@ -51,8 +85,8 @@
         </v-row>
       </template>
 
-      <template v-if="reportPosts" v-slot:footer>
-        <v-row justify="end" align="center">
+      <template v-slot:footer>
+        <v-row v-if="reportPosts.length != 0" justify="end" align="center">
           <template v-if="!isTopPage">
             <span
               class="mr-4
@@ -108,6 +142,9 @@ export default {
   data () {
     return {
       currentPage: this.$route.path,
+      showSearch: false,
+      search: '',
+      pagination: {},
       itemsPerPage: 4,
       page: 1,
       sortBy: 'id',
@@ -166,8 +203,8 @@ export default {
       var hourString = `0${datetime.getHours()}`.slice(-2)
       var minuteString = `0${datetime.getMinutes()}`.slice(-2)
       var secondsString = `0${datetime.getSeconds()}`.slice(-2)
-      var formatedTime = `${yearString}/${monthString}/${dateString} (${dayString}) ${hourString}:${minuteString}:${secondsString}`
-      return formatedTime
+      var formattedTime = `${yearString}/${monthString}/${dateString} (${dayString}) ${hourString}:${minuteString}:${secondsString}`
+      return formattedTime
     },
     nextPage () {
       if (this.page + 1 <= this.numberOfPages) this.page += 1
