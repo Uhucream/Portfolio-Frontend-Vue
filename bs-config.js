@@ -4,18 +4,18 @@ module.exports = {
   ui: {
     port: 3001,
     weinre: {
-      port: 8080,
-    },
+      port: 8080
+    }
   },
-  files: ["**/public/*"],
+  files: ['**/public/*'],
   watchOptions: {
-    usePolling: true,
+    usePolling: true
   },
   server: false,
   proxy: {
-    target: "docker-server.host-only",
+    target: 'docker-server.host-only'
   },
   port: 8000,
-  logPrefix: "BS",
-  scrollRestoreTechnique: "window.name"
-};
+  logPrefix: 'BS',
+  ghostMode: false
+}
