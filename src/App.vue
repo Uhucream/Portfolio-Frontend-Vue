@@ -30,7 +30,7 @@
         </v-icon>
       </v-btn>
       <v-btn
-        href="https://www.instagram.com/cattle19_59.tym.jp"
+        href="https://www.instagram.com/cattle19_59.tym.pictures"
         target="_blank"
         rel="noopener noreferrer"
         link
