@@ -1,5 +1,5 @@
 <template>
-  <v-container :fluid="isTopPage">
+  <component :is="dynamicComponent">
     <v-breadcrumbs v-if="!isTopPage" :items="crumbsItem" class="pt-1 pl-2">
       <template v-slot:divider>
         <v-icon>mdi-chevron-right</v-icon>
@@ -88,10 +88,7 @@
       <template v-slot:footer>
         <v-row v-if="reportPosts.length != 0" justify="end" align="center">
           <template v-if="!isTopPage">
-            <span
-              class="mr-4
-              grey--text"
-            >
+            <span class="mr-4 grey--text">
               Page {{ page }} of {{ numberOfPages }}
             </span>
             <v-btn
@@ -130,14 +127,14 @@
         </v-row>
       </template>
     </v-data-iterator>
-  </v-container>
+  </component>
 </template>
 
 <script>
 import axios from 'axios'
 import i18next from 'i18next'
 export default {
-  name: 'dailyReportsList',
+  name: 'daily-reports-list',
   props: ['isTopPage'],
   data () {
     return {
@@ -251,6 +248,13 @@ export default {
     },
     numberOfPages () {
       return Math.ceil(this.reportPosts.length / this.itemsPerPage)
+    },
+    dynamicComponent () {
+      if (this.$route.path === '/daily_reports/posts') {
+        return 'v-container'
+      } else {
+        return 'div'
+      }
     }
   },
   created () {
