@@ -4,7 +4,6 @@ services:
     build:
       context: .
       dockerfile: docker/node/Dockerfile
-    image: node_img
     container_name: portfolio-vue_node
     tty: true
     working_dir: /usr/src/app/
