@@ -40,6 +40,11 @@ new Vue({
   vuetify,
   render: h => h(App)
 }).$mount('#app')
+window
+  .matchMedia('(prefers-color-scheme: dark)')
+  .addEventListener('change', (e) => {
+    vuetify.framework.theme.dark = e.matches
+  })
 
 viewportUnitsBuggyfill.init({ force: true })
 window.addEventListener('resize', viewportUnitsBuggyfill.refresh, true)

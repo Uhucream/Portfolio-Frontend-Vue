@@ -4,9 +4,11 @@ import 'vuetify/dist/vuetify.min.css'
 
 Vue.use(Vuetify)
 
+const systemDarkModeBool = window.matchMedia('(prefers-color-scheme: dark)')
+
 const opts = {
   theme: {
-    dark: true
+    dark: systemDarkModeBool.matches
   }
 }
 
