@@ -33,10 +33,8 @@
             <div v-show="showSearch">
               <v-text-field
                 v-model="search"
-                dark
                 clearable
-                flat
-                solo-inverted
+                solo
                 hide-details
                 color="light-blue accent-4"
                 class="px-4"
@@ -94,7 +92,6 @@
             <v-btn
               :disabled="page === 1"
               fab
-              dark
               icon
               class="mr-1"
               @click="formerPage"
@@ -104,7 +101,6 @@
             <v-btn
               :disabled="page === numberOfPages"
               fab
-              dark
               icon
               class="ml-1"
               @click="nextPage"

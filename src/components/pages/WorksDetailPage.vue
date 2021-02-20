@@ -9,8 +9,6 @@
     </v-breadcrumbs>
     <div class="bodyContent">
       <v-card
-        dark
-        flat
         class="pa-3"
         height="100%"
       >
@@ -93,7 +91,7 @@
 
 <script>
 export default {
-  name: 'worksDetailPage',
+  name: 'works-detail-page',
   data () {
     return {
       crumbsItem: [

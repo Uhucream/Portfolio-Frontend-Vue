@@ -87,7 +87,7 @@
 <script>
 import DailyReportsList from '@/components/pages/DailyReport/DailyReportsList'
 export default {
-  name: 'topPageCards',
+  name: 'top-page-cards',
   components: {
     DailyReportsList
   },

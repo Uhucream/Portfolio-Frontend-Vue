@@ -10,7 +10,6 @@
     <div class="bodyContent">
       <v-card
         dark
-        flat
         class="pa-3"
         height="100%"
       >
@@ -93,7 +92,7 @@
 
 <script>
 export default {
-  name: 'worksDetailPage',
+  name: 'daily-report-page',
   data () {
     return {
       crumbsItem: [

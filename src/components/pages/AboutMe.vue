@@ -9,8 +9,6 @@
     </v-breadcrumbs>
     <div class="bodyContent">
       <v-card
-        dark
-        flat
         class="pa-3"
         height="100%"
       >
@@ -19,7 +17,7 @@
             <p class="display-1 text--primary">
               概要
             </p>
-            <ul class="pb-2 white--text">
+            <ul class="pb-2 body-1 text--primary">
               <li>出身地: 北海道札幌市</li>
               <li>出身高校: 札幌光星中学・高等学校</li>
               <li>大学: 金沢工業大学</li>
@@ -28,7 +26,7 @@
             <p class="display-1 text--primary">
               自己紹介
             </p>
-            <div class="body-1">
+            <div class="body-1 text--primary">
               &#9;生まれ、育ちともに北海道札幌市です。
               よく、「なぜ首都圏の大学を選ばなかったの？」と聞かれるのですが、富山が好きだったから、というのが端的な理由です。
               多いときでは一ヶ月に2回も行くほど重度の富山好きです。北陸で情報工学を学べる大学を探していて最終的に金沢工業大学を選びました。<br><br>
@@ -45,7 +43,7 @@
 
 <script>
 export default {
-  name: 'aboutMe',
+  name: 'about-me',
   data () {
     return {
       crumbsItem: [
@@ -57,7 +55,7 @@ export default {
         {
           text: 'About Me',
           disabled: true,
-          to: 'aboutMe'
+          to: 'about_me'
         }
       ]
     }
