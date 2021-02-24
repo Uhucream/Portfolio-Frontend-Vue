@@ -23,7 +23,7 @@
     "viewport-units-buggyfill": "^0.6.2",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
-    "vuetify": "^2.4.4"
+    "vuetify": "^2.4.5"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
