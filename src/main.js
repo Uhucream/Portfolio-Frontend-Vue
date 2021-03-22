@@ -2,7 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import router from './router'
+import { router } from '@/router'
 import vuetify from './plugins/vuetify'
 import viewportUnitsBuggyfill from 'viewport-units-buggyfill'
 import '@babel/polyfill'
@@ -14,8 +14,10 @@ import LanguageDetector from 'i18next-browser-languagedetector'
 import en from '@/locales/en.json'
 import ja from '@/locales/ja.json'
 import axios from 'axios'
+import VueCookies from 'vue-cookies'
 
 Vue.use(VueI18Next)
+Vue.use(VueCookies)
 Vue.use(vuetify)
 
 Vue.config.productionTip = false

@@ -8,9 +8,15 @@
       "木",
       "金",
       "土"
-    ]
+    ],
+    "error": {
+      "404": "Sorry, Not Found",
+      "500": "Internal Server Error"
+    }
   },
   "dailyReport": {
-    "readMore": "続きを読む"
+    "readMore": "続きを読む",
+    "createdAt": "作成日",
+    "updatedAt": "更新日"
   }
 }

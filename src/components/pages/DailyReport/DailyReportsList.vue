@@ -58,14 +58,14 @@
           >
             <v-card>
               <v-card-text class="pb-0">
-                <div>{{ convertUtcToLocal(post.created_at) }}</div>
+                <div>{{ dateFormatter(post.created_at) }}</div>
               </v-card-text>
               <v-card-title class="subheading font-weight-bold">
                 {{ `${post.title} #${post.id}` }}
               </v-card-title>
               <v-card-text>
                 <div class="text--primary cardBody">
-                  {{ post.body_text }}
+                  {{ removeHtmlTag(post.body_text) }}
                 </div>
               </v-card-text>
               <v-card-actions>
@@ -182,12 +182,12 @@ export default {
       await axios.get('/v1/posts')
         .then(response => {
           this.reportPosts.push(...response.data)
-        }).catch(err => {
-          console.error(err)
+        })
+        .catch(_ => {
           this.reportPosts = null
         })
     },
-    convertUtcToLocal (date) {
+    dateFormatter (date) {
       var datetime = new Date(`${date}Z`)
       var yearString = datetime.getFullYear()
       var monthString = `0${datetime.getMonth() + 1}`.slice(-2) // 0埋め
@@ -197,7 +197,15 @@ export default {
       var minuteString = `0${datetime.getMinutes()}`.slice(-2)
       var secondsString = `0${datetime.getSeconds()}`.slice(-2)
       var formattedTime = `${yearString}/${monthString}/${dateString} (${dayString}) ${hourString}:${minuteString}:${secondsString}`
+
       return formattedTime
+    },
+    removeHtmlTag (txt) {
+      if (txt != null && txt.match(/<("[^"]*"|'[^']*'|[^'">])*>/g)) {
+        return txt.replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, '')
+      } else {
+        return txt
+      }
     },
     nextPage () {
       if (this.page + 1 <= this.numberOfPages) this.page += 1

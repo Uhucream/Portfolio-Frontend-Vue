@@ -1,14 +1,17 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import axios from 'axios'
 import TopPage from '@/components/pages/TopPage'
 import WorksDetailPage from '@/components/pages/WorksDetailPage'
 import AboutMe from '@/components/pages/AboutMe'
 import DailyReportsList from '@/components/pages/DailyReport/DailyReportsList'
 import DailyReportPage from '@/components/pages/DailyReport/DailyReportPage'
+import CreateNewPost from '@/components/pages/DailyReport/CreateNewPost'
+import Login from '@/components/pages/Login'
 
 Vue.use(Router)
 
-export default new Router({
+export const router = new Router({
   mode: 'history',
   routes: [
     {
@@ -32,9 +35,52 @@ export default new Router({
       component: DailyReportPage
     },
     {
+      path: '/daily_reports/posts/new',
+      name: 'CreateNewPost',
+      component: CreateNewPost,
+      meta: { requireAuth: true }
+    },
+    {
       path: '/about_me',
       name: 'AboutMe',
       component: AboutMe
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login
     }
   ]
+})
+
+router.beforeEach((to, from, next) => {
+  async function authCheck () {
+    const result = await axios
+      .get('/auth/protected', {
+        withCredentials: true,
+        jar: true,
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+          'X-CSRF-TOKEN': Vue.$cookies.get('csrf_access_token')
+        }
+      })
+      .then((_) => {
+        return true
+      })
+      .catch((_) => {
+        return false
+      })
+    return result
+  }
+  const navigationGuard = async () => {
+    await authCheck()
+      .then(result => {
+        if (result || !to.matched.some(record => record.meta.requireAuth && record.path !== '/login')) {
+          next()
+        } else {
+          next({ path: '/login', query: { backuri: to.fullPath } })
+        }
+      })
+  }
+  navigationGuard()
 })
