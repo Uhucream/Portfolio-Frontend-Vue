@@ -38,7 +38,9 @@
         </v-row>
         <v-card-actions>
           <v-spacer/>
-          <v-btn>
+          <v-btn
+            @click="onCancelClicked"
+          >
             Cancel
           </v-btn>
           <v-btn
@@ -66,7 +68,8 @@ export default {
         keepLoggedIn: false
       },
       showPass: false,
-      loginProgress: false
+      loginProgress: false,
+      prevPagePath: null
     }
   },
   methods: {
@@ -95,6 +98,19 @@ export default {
             this.loginProgress = false
           })
       }
+    },
+    onCancelClicked () {
+      const routesList = this.$router.getRoutes()
+      const backPath = this.$route.query.backuri
+      routesList.forEach(elem => {
+        if (backPath === elem.path) {
+          if (!elem.meta.requireAuth) {
+            this.$router.push({ path: backPath })
+          } else {
+            this.$router.push({ path: '/' })
+          }
+        }
+      })
     }
   }
 }

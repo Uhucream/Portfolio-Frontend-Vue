@@ -131,7 +131,11 @@ export default {
       }
     },
     goLoginPage () {
-      this.$router.push({ path: '/login', query: { backuri: this.$router.currentRoute.path } })
+      if (this.$route.path === '/') {
+        this.$router.push({ path: '/login' })
+      } else {
+        this.$router.push({ path: '/login', query: { backuri: this.$router.currentRoute.path } })
+      }
     },
     reload () {
       this.$router.go({path: this.$router.currentRoute.path, force: true})
