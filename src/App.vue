@@ -148,10 +148,11 @@ export default {
           this.isLoggedIn = false
         })
     },
-    logout () {
-      this.$axios
+    async logout () {
+      await this.$axios
         .delete('/auth/logout', {
           withCredentials: true,
+          xsrfHeaderName: 'X-CSRF-TOKEN',
           headers: {
             'X-Requested-With': 'XMLHttpRequest',
             'X-CSRF-TOKEN': this.$cookies.get('csrf_access_token')
