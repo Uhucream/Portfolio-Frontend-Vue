@@ -60,8 +60,8 @@ const api = axios.create({
 })
 
 router.beforeEach((to, from, next) => {
-  function authCheck () {
-    const result = api
+  async function authCheck () {
+    const result = await api
       .get('/auth/protected', {
         headers: {
           'X-Requested-With': 'XMLHttpRequest',

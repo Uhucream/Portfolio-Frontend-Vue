@@ -133,8 +133,8 @@ export default {
     reload () {
       this.$router.go({path: this.$router.currentRoute.path, force: true})
     },
-    authCheck () {
-      this.$axios.get('/auth/protected', {
+    async authCheck () {
+      await this.$axios.get('/auth/protected', {
         withCredentials: true,
         headers: {
           'X-Requested-With': 'XMLHttpRequest',

@@ -46,7 +46,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import i18next from 'i18next'
 export default {
   name: 'daily-report-page',
@@ -80,7 +79,7 @@ export default {
   },
   methods: {
     async getPost () {
-      await axios.get(`/v1/post/${this.$route.params['id']}`)
+      await this.$axios.get(`/v1/post/${this.$route.params['id']}`)
         .then(response => {
           this.reportFetchFailed = false
           this.$set(this.reportContent, 'title', response.data.title)

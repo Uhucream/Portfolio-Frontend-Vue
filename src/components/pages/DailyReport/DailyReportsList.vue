@@ -127,7 +127,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import i18next from 'i18next'
 export default {
   name: 'daily-reports-list',
@@ -179,7 +178,7 @@ export default {
       }
     },
     async getAllPosts () {
-      await axios.get('/v1/posts')
+      await this.$axios.get('/v1/posts')
         .then(response => {
           this.reportPosts.push(...response.data)
         })
