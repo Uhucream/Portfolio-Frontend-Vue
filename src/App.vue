@@ -5,14 +5,11 @@
       color='blue-grey darken-2'
       dark
     >
-      <!-- <a to="/"> -->
-        <!-- <v-toolbar-title class="ml-1"><router-link style="text-decoration: none" class="white--text" to="/">Takashi</router-link></v-toolbar-title> -->
-        <router-link to="/" custom v-slot="{ navigate }">
-          <v-toolbar-title class="ml-1" :style="{'cursor': $route.path !== '/' ? 'pointer' : 'initial'}" @click="navigate" role="link">
-            Takashi
-          </v-toolbar-title>
-        </router-link>
-      <!-- </a> -->
+      <router-link to="/" custom v-slot="{ navigate }">
+        <v-toolbar-title class="ml-1" :style="{'cursor': $route.path !== '/' ? 'pointer' : 'initial'}" @click="navigate" role="link">
+          Takashi
+        </v-toolbar-title>
+      </router-link>
       <v-spacer></v-spacer>
       <v-btn
         v-if="!isLoggedIn && showLoginBtn"
