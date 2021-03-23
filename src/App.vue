@@ -17,7 +17,7 @@
       <v-btn
         v-if="!isLoggedIn && showLoginBtn"
         text
-        to="/login"
+        @click="goLoginPage"
       >
         Login
       </v-btn>
@@ -129,6 +129,9 @@ export default {
           this.index = 0
         }
       }
+    },
+    goLoginPage () {
+      this.$router.push({ path: '/login', query: { backuri: this.$router.currentRoute.path } })
     },
     reload () {
       this.$router.go({path: this.$router.currentRoute.path, force: true})
