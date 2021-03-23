@@ -149,13 +149,14 @@ export default {
         })
     },
     logout () {
-      this.$axios.delete('/auth/logout', {
-        withCredentials: true,
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-TOKEN': this.$cookies.get('csrf_access_token')
-        }
-      })
+      this.$axios
+        .delete('/auth/logout', {
+          withCredentials: true,
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRF-TOKEN': this.$cookies.get('csrf_access_token')
+          }
+        })
         .then(_ => {
           this.reload()
         })
