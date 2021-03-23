@@ -15,6 +15,20 @@
       <!-- </a> -->
       <v-spacer></v-spacer>
       <v-btn
+        v-if="!isLoggedIn && showLoginBtn"
+        text
+        to="/login"
+      >
+        Login
+      </v-btn>
+      <v-btn
+        v-if="isLoggedIn"
+        text
+        @click="logout"
+      >
+        Logout
+      </v-btn>
+      <v-btn
         href="https://github.com/Uhucream"
         target="_blank"
         rel="noopener noreferrer"
@@ -81,8 +95,92 @@ export default {
   name: 'App',
   data () {
     return {
-      mdiTwitter: mdiTwitter
+      mdiTwitter: mdiTwitter,
+      showLoginBtn: false,
+      isLoggedIn: false,
+      createPath: null,
+      index: 0
     }
+  },
+  methods: {
+    showLogin (event) {
+      if (!['/daily_reports/posts/new', '/login'].includes(this.$route.path) && !this.isLoggedIn) {
+        var waitingTime = 1500
+        var standBy = true
+        var command = JSON.parse(process.env.VUE_APP_LOGIN_SHORTCUT)
+        var length = command.length
+        var timer = null
+
+        clearTimeout(timer)
+        if (standBy && event.keyCode === command[this.index]) {
+          this.index++
+          if (this.index >= length) {
+            standBy = false
+            this.index = 0
+
+            this.showLoginBtn = true
+            standBy = true
+          } else {
+            timer = setTimeout(function () {
+              this.index = 0
+            }, waitingTime)
+          }
+        } else {
+          this.index = 0
+        }
+      }
+    },
+    reload () {
+      this.$router.go({path: this.$router.currentRoute.path, force: true})
+    },
+    authCheck () {
+      this.$axios.get('/auth/protected', {
+        withCredentials: true,
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+          'X-CSRF-TOKEN': this.$cookies.get('csrf_access_token')
+        }
+      })
+        .then(_ => {
+          this.isLoggedIn = true
+        })
+        .catch(_ => {
+          this.isLoggedIn = false
+        })
+    },
+    async logout () {
+      await this.$axios.delete('/auth/logout', {
+        withCredentials: true,
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+          'X-CSRF-TOKEN': this.$cookies.get('csrf_access_token')
+        }
+      })
+        .then(_ => {
+          this.reload()
+        })
+        .catch(_ => {
+        })
+    }
+  },
+  created () {
+    this.authCheck()
+  },
+  mounted () {
+    this.createPath = process.env.VUE_APP_CREATE_POST_PAGE
+    window.addEventListener('keyup', this.showLogin, false)
+  },
+  destroyed () {
+    window.removeEventListener('keyup', this.showLogin, false)
   }
 }
 </script>
+
+<style scoped>
+  .appAlert {
+    z-index: 1;
+    position: absolute;
+    top: calc(56px + 2vh);
+    right: 0px;
+  }
+</style>

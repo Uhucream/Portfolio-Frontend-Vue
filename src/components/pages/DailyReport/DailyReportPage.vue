@@ -9,7 +9,6 @@
     </v-breadcrumbs>
     <div class="bodyContent">
       <v-card
-        dark
         class="pa-3"
         height="100%"
       >
@@ -17,71 +16,27 @@
           <v-col
             sm="5"
           >
+            <v-col>
+              <v-subheader>
+                {{ $t('dailyReport.createdAt') }}: {{ dateFormatter(reportContent.createdAt) }}
+              </v-subheader>
+              <v-subheader v-if="reportContent.updatedAt != reportContent.createdAt">{{ $t('dailyReport.updatedAt') }}: {{ dateFormatter(reportContent.updatedAt) }}</v-subheader>
+            </v-col>
             <v-card-title class="pl-1 py-3 pl-sm-4 py-sm-4">
               <div>
                 <p class="display-1 text--primary">
-                  災害マップ
+                  {{ `#${$route.params['id']} ${reportContent.title}` }}
                 </p>
               </div>
             </v-card-title>
-            <v-img
-              contain
-              src="https://imgur.com/W42WHzk.png"
-              lazy-src="https://imgur.com/W42WHzk.png"
-              class="grey lighten-2 mx-1 mx-sm-4"
-            >
-              <template v-slot:placeholder>
-                <v-row
-                  class="fill-height ma-0"
-                  align="center"
-                  justify="center"
-                >
-                  <v-progress-circular
-                    indeterminate
-                    color="grey darken-2"
-                  ></v-progress-circular>
-                </v-row>
-              </template>
-            </v-img>
             <v-card-text class="pl-0">
-              <div>
-                リンク: <a href="https://project-design-team-a2.web.app">https://project-design-team-a2.web.app</a>
-              </div>
             </v-card-text>
           </v-col>
           <v-col
             sm="7"
           >
             <v-card-text class="pt-0">
-              <div>
-                <div class="pt-6">
-                  <p class="display-1 text--primary">
-                    使用したもの
-                  </p>
-                  <div>
-                    <a href="https://jp.vuejs.org/index.html" style="text-decoration:none;" target="_blank" rel="noopener noreferrer">
-                      <v-icon size="28px" color="#41B833">mdi-vuejs</v-icon>
-                    </a>
-                    <a href="https://vuetifyjs.com/en/" style="text-decoration:none;" target="_blank" rel="noopener noreferrer">
-                      <v-icon size="28px" color="#88BEF2">mdi-vuetify</v-icon>
-                    </a>
-                    <a href="https://firebase.google.com" style="text-decoration:none;" target="_blank" rel="noopener noreferrer">
-                      <v-icon size="28px" color="#FFCB2B">mdi-firebase</v-icon>
-                    </a>
-                    <a href="https://www.mapbox.com" style="text-decoration:none;" target="_blank" rel="noopener noreferrer">
-                      <v-icon size="28px" color="#4264FB">mdi-mapbox</v-icon>
-                    </a>
-                  </div>
-                  <ul class="pl-8 py-2 body-1">
-                    <li>フロントエンド: Vue</li>
-                    <li>バックエンド: Flask</li>
-                    <li>サービス: Firebase Hosting, Realtime Database, Heroku, Mapbox Education</li>
-                  </ul>
-                </div>
-                <p class="display-1 text--primary">
-                  解説
-                </p>
-              </div>
+              <div v-html="reportContent.bodyText"/>
             </v-card-text>
           </v-col>
         </v-row>
@@ -91,10 +46,19 @@
 </template>
 
 <script>
+import axios from 'axios'
+import i18next from 'i18next'
 export default {
   name: 'daily-report-page',
   data () {
     return {
+      reportFetchFailed: false,
+      reportContent: {
+        title: null,
+        bodyText: null,
+        createdAt: null,
+        updatedAt: null
+      },
       crumbsItem: [
         {
           text: 'Top',
@@ -113,6 +77,34 @@ export default {
         }
       ]
     }
+  },
+  methods: {
+    async getPost () {
+      await axios.get(`/v1/post/${this.$route.params['id']}`)
+        .then(response => {
+          this.reportFetchFailed = false
+          this.$set(this.reportContent, 'title', response.data.title)
+          this.$set(this.reportContent, 'bodyText', response.data.body_text)
+          this.$set(this.reportContent, 'createdAt', response.data.created_at)
+          this.$set(this.reportContent, 'updatedAt', response.data.updated_at)
+        })
+    },
+    dateFormatter (date) {
+      var datetime = new Date(`${date}Z`)
+      var yearString = datetime.getFullYear()
+      var monthString = `0${datetime.getMonth() + 1}`.slice(-2) // 0埋め
+      var dateString = `0${datetime.getDate()}`.slice(-2)
+      var dayString = i18next.t(`commons.dayNameShort.${datetime.getDay()}`)
+      var hourString = `0${datetime.getHours()}`.slice(-2)
+      var minuteString = `0${datetime.getMinutes()}`.slice(-2)
+      var secondsString = `0${datetime.getSeconds()}`.slice(-2)
+      var formattedTime = `${yearString}/${monthString}/${dateString} (${dayString}) ${hourString}:${minuteString}:${secondsString}`
+
+      return formattedTime
+    }
+  },
+  created () {
+    this.getPost()
   },
   mounted () {
   }

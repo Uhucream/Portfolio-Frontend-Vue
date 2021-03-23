@@ -8,9 +8,15 @@
       "Thu",
       "Fri",
       "Sat"
-    ]
+    ],
+    "error": {
+      "404": "Sorry, Not Found",
+      "500": "Internal Server Error"
+    }
   },
   "dailyReport": {
-    "readMore": "Read More"
+    "readMore": "Read More",
+    "createdAt": "Created at",
+    "updatedAt": "Updated at"
   }
 }
