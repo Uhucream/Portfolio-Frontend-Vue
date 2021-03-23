@@ -148,8 +148,8 @@ export default {
           this.isLoggedIn = false
         })
     },
-    async logout () {
-      await this.$axios.delete('/auth/logout', {
+    logout () {
+      this.$axios.delete('/auth/logout', {
         withCredentials: true,
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
