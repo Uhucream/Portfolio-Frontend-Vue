@@ -39,6 +39,7 @@
         <v-card-actions>
           <v-spacer/>
           <v-btn
+            :loading="cancelProgress"
             @click="onCancelClicked"
           >
             Cancel
@@ -69,7 +70,7 @@ export default {
       },
       showPass: false,
       loginProgress: false,
-      prevPagePath: null
+      cancelProgress: false
     }
   },
   methods: {
@@ -100,17 +101,18 @@ export default {
       }
     },
     onCancelClicked () {
+      this.cancelProgress = true
       const routesList = this.$router.getRoutes()
       const backPath = this.$route.query.backuri
-      routesList.forEach(elem => {
-        if (backPath === elem.path) {
-          if (!elem.meta.requireAuth) {
-            this.$router.push({ path: backPath })
-          } else {
-            this.$router.push({ path: '/' })
-          }
-        }
-      })
+      var backPathInfo = routesList.filter((item) => {
+        if (backPath === item.path) return true
+      })[0]
+
+      if (backPathInfo && !backPathInfo.meta.requireAuth) {
+        this.$router.push({ path: backPath })
+      } else {
+        this.$router.push({ path: '/' })
+      }
     }
   }
 }
