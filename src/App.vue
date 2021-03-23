@@ -119,7 +119,10 @@ export default {
             this.index = 0
 
             this.showLoginBtn = true
-            standBy = true
+            setTimeout(function () {
+              this.showLoginBtn = false
+              standBy = true
+            }.bind(this), waitingTime)
           } else {
             timer = setTimeout(function () {
               this.index = 0
