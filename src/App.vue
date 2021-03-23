@@ -90,7 +90,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import { mdiTwitter } from '@mdi/js'
 export default {
   name: 'App',
@@ -134,8 +133,8 @@ export default {
     reload () {
       this.$router.go({path: this.$router.currentRoute.path, force: true})
     },
-    async authCheck () {
-      await axios.get('/auth/protected', {
+    authCheck () {
+      this.$axios.get('/auth/protected', {
         withCredentials: true,
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
@@ -150,7 +149,7 @@ export default {
         })
     },
     async logout () {
-      await axios.delete('/auth/logout', {
+      await this.$axios.delete('/auth/logout', {
         withCredentials: true,
         headers: {
           'X-Requested-With': 'XMLHttpRequest',

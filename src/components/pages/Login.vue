@@ -56,7 +56,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default {
   name: 'login',
   data () {
@@ -77,7 +76,7 @@ export default {
         // ぐるぐる表示にしてボタンを二度押しできなくする
         this.loginProgress = true
         // APIでログイン認証を行う
-        axios
+        this.$axios
           .post('/auth/login', {
             'email': this.inputData.id,
             'password': this.inputData.password,

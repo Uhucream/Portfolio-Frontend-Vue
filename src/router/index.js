@@ -53,12 +53,16 @@ export const router = new Router({
   ]
 })
 
+const api = axios.create({
+  baseURL: process.env.VUE_APP_API_ENDPOINT,
+  xsrfHeaderName: 'X-CSRF-TOKEN',
+  withCredentials: true
+})
+
 router.beforeEach((to, from, next) => {
-  async function authCheck () {
-    const result = await axios
+  function authCheck () {
+    const result = api
       .get('/auth/protected', {
-        withCredentials: true,
-        jar: true,
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
           'X-CSRF-TOKEN': Vue.$cookies.get('csrf_access_token')
@@ -73,14 +77,18 @@ router.beforeEach((to, from, next) => {
     return result
   }
   const navigationGuard = async () => {
-    await authCheck()
-      .then(result => {
-        if (result || !to.matched.some(record => record.meta.requireAuth && record.path !== '/login')) {
-          next()
-        } else {
-          next({ path: '/login', query: { backuri: to.fullPath } })
-        }
-      })
+    await authCheck().then((result) => {
+      if (
+        result ||
+        !to.matched.some(
+          (record) => record.meta.requireAuth && record.path !== '/login'
+        )
+      ) {
+        next()
+      } else {
+        next({ path: '/login', query: { backuri: to.fullPath } })
+      }
+    })
   }
   navigationGuard()
 })

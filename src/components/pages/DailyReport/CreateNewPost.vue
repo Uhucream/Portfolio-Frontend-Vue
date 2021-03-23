@@ -79,7 +79,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import { Editor, EditorContent, EditorMenuBar } from 'tiptap'
 import {
   Heading,
@@ -121,8 +120,8 @@ export default {
     loadImage (command) {
       command({ src: null })
     },
-    async onSubmitClicked () {
-      await axios.post('/v1/submit_post', {
+    onSubmitClicked () {
+      this.$axios.post('/v1/submit_post', {
         'title': this.titleText,
         'body_text': this.bodyContent
       },
