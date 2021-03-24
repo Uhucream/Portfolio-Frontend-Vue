@@ -12,7 +12,7 @@
       </router-link>
       <v-spacer></v-spacer>
       <v-btn
-        v-if="!isLoggedIn && showLoginBtn"
+        v-if="!isLoggedIn && showLoginBtn && $route.path !== '/login'"
         text
         @click="goLoginPage"
       >
