@@ -148,10 +148,10 @@ export default {
           'X-CSRF-TOKEN': this.$cookies.get('csrf_access_token')
         }
       })
-        .then(_ => {
+        .then(() => {
           this.isLoggedIn = true
         })
-        .catch(_ => {
+        .catch(() => {
           this.isLoggedIn = false
         })
     },
@@ -165,10 +165,10 @@ export default {
             'X-CSRF-TOKEN': this.$cookies.get('csrf_access_token')
           }
         })
-        .then(_ => {
+        .then(() => {
           this.reload()
         })
-        .catch(_ => {
+        .catch(() => {
         })
     }
   },
