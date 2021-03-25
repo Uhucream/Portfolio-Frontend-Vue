@@ -179,7 +179,6 @@ export default {
     this.authCheck()
   },
   mounted () {
-    console.log(this.$route)
     this.createPath = process.env.VUE_APP_CREATE_POST_PAGE
     window.addEventListener('keyup', this.showLogin, false)
   },
