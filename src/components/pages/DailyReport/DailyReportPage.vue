@@ -17,7 +17,7 @@
           class="pb-0 pb-sm-4"
         >
           <v-card-title class="pb-0 pb-sm-4">
-            <p class="display-1 text--primary">
+            <p class="display-1">
               {{ `#${$route.params['id']} ${reportContent.title}` }}
             </p>
           </v-card-title>
