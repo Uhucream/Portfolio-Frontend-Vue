@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container style="height: calc(100% - 44px)">
     <v-breadcrumbs :items="crumbsItem" class="pt-1 pl-2">
       <template v-slot:divider>
         <v-icon>mdi-chevron-right</v-icon>

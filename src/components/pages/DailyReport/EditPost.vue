@@ -59,6 +59,42 @@
             <editor-content class="editor-box" :editor="editor"/>
           </v-col>
         </v-row>
+
+        <v-dialog
+          v-model="confirmDialog"
+          max-width="290px"
+        >
+          <v-card>
+            <v-card-title class="headline">削除確認</v-card-title>
+            <v-card-text>ホンマに言うてます？</v-card-text>
+            <v-card-actions>
+              <v-spacer/>
+              <v-btn
+                text
+                color="primary"
+                @click="confirmDialog = false"
+              >
+                キャンセル
+              </v-btn>
+              <v-btn
+                text
+                :loading="deleteProgress"
+                color="red"
+                @click="deletePost"
+              >
+                削除
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+
+        <v-btn
+          absolute bottom left
+          color="red"
+          @click.stop="confirmDialog = !confirmDialog"
+        >
+          この投稿を削除
+        </v-btn>
         <v-btn
           absolute bottom
           style="right: 96px"
@@ -91,11 +127,6 @@ export default {
     EditorContent,
     EditorMenuBar
   },
-  // beforeRouteEnter (to, from, next) {
-  //   console.log(to)
-  //   console.log(from)
-  //   console.log(next)
-  // },
   data () {
     return {
       reportData: {
@@ -103,6 +134,8 @@ export default {
         titleText: null,
         bodyContent: null
       },
+      confirmDialog: false,
+      deleteProgress: false,
       fieldRule: [(v) => !!v || '入力必須'],
       editor: new Editor({
         content: null,
@@ -139,32 +172,55 @@ export default {
           this.editor.setContent(response.data.body_text)
         })
     },
+    async deletePost () {
+      this.deleteProgress = true
+      await this.$axios
+        .delete(
+          `/v1/delete_post?id=${this.$route.params['id']}&uuid=${this.reportData.uuid}`,
+          {
+            withCredentials: true,
+            headers: {
+              'X-CSRF-TOKEN': this.$cookies.get('csrf_access_token')
+            }
+          }
+        )
+        .then(() => {
+          this.deleteProgress = false
+          this.$router.push({path: '/daily_reports/posts'})
+        })
+        .catch((error) => {
+          if (error.response.data.message === 'Missing cookie "access_token_cookie"') {
+            this.$router.push({path: '/login', query: {backuri: this.$route.fullPath}})
+          }
+          this.deleteProgress = false
+        })
+    },
     onSubmitClicked () {
       this.$axios
-        .patch('/v1/edit_post', {
-          'id': this.$route.params['id'],
-          'uuid': this.reportData.uuid,
-          'title': this.reportData.titleText,
-          'body_text': this.reportData.bodyContent
-        },
-        {
-          withCredentials: true,
-          headers: {
-            'X-CSRF-TOKEN': this.$cookies.get('csrf_access_token')
+        .patch(
+          '/v1/edit_post',
+          {
+            'id': this.$route.params['id'],
+            'uuid': this.reportData.uuid,
+            'title': this.reportData.titleText,
+            'body_text': this.reportData.bodyContent
+          },
+          {
+            withCredentials: true,
+            headers: {
+              'X-CSRF-TOKEN': this.$cookies.get('csrf_access_token')
+            }
           }
-        })
+        )
         .then(() => {
           this.$router.push(`/daily_reports/post/${this.$route.params['id']}`)
         })
-        .catch(_ => {
+        .catch(() => {
         })
     }
   },
   created () {
     this.fetchReportData()
-  },
-  mounted () {
-    console.log(localStorage)
   },
   beforeDestroy () {
     this.editor.destroy()
