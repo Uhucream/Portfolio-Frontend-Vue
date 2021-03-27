@@ -10,24 +10,29 @@
       height="100%"
       width="100%"
     >
-      <v-card-title class="pl-1 py-3 pl-sm-4 py-sm-4">
-        <v-col>
-          <p class="display-1 text--primary">
-            {{ `#${$route.params['id']} ${reportContent.title}` }}
-          </p>
+      <v-row align-content="center">
+        <v-col
+          cols="12"
+          sm="8"
+          class="pb-0 pb-sm-4"
+        >
+          <v-card-title class="pb-0 pb-sm-4">
+            <p class="display-1 text--primary">
+              {{ `#${$route.params['id']} ${reportContent.title}` }}
+            </p>
+          </v-card-title>
         </v-col>
-        <v-card-subtitle class="pa-2">
-          <div class="mr-1 mr-sm-2">
+        <v-col>
+          <v-card-subtitle class="pt-0 pt-sm-4 ml-2 ml-sm-0">
             {{ $t('dailyReport.createdAt') }}: {{ dateFormatter(reportContent.createdAt) }}
-          </div>
-          <div v-if="reportContent.updatedAt != reportContent.createdAt">{{ $t('dailyReport.updatedAt') }}: {{ dateFormatter(reportContent.updatedAt) }}</div>
-        </v-card-subtitle>
-      </v-card-title>
+            <div v-if="reportContent.updatedAt != reportContent.createdAt">{{ $t('dailyReport.updatedAt') }}: {{ dateFormatter(reportContent.updatedAt) }}</div>
+          </v-card-subtitle>
+        </v-col>
+      </v-row>
       <v-divider/>
       <div
         v-html="reportContent.bodyText"
-        class="ma-9 text-justify"
-        style="font-size: 20px;"
+        class="text-body-1 mx-7 my-5 text-justify text-left"
       />
     </v-card>
   </v-container>
