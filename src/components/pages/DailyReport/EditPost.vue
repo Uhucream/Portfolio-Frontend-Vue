@@ -107,7 +107,7 @@
           color="primary"
           @click="onSubmitClicked"
         >
-          投稿
+          保存
         </v-btn>
       </v-card>
     </div>
