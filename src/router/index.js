@@ -7,6 +7,7 @@ import AboutMe from '@/components/pages/AboutMe'
 import DailyReportsList from '@/components/pages/DailyReport/DailyReportsList'
 import DailyReportPage from '@/components/pages/DailyReport/DailyReportPage'
 import CreateNewPost from '@/components/pages/DailyReport/CreateNewPost'
+import EditPost from '@/components/pages/DailyReport/EditPost'
 import Login from '@/components/pages/Login'
 
 Vue.use(Router)
@@ -38,6 +39,12 @@ export const router = new Router({
       path: '/daily_reports/posts/new',
       name: 'CreateNewPost',
       component: CreateNewPost,
+      meta: { requireAuth: true }
+    },
+    {
+      path: '/daily_reports/post/:id/edit',
+      name: 'EditPost',
+      component: EditPost,
       meta: { requireAuth: true }
     },
     {

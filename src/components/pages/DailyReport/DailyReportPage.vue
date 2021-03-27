@@ -1,47 +1,35 @@
 <template>
-  <v-container
-    fluid
-  >
+  <v-container style="height: calc(100% - 44px)">
     <v-breadcrumbs :items="crumbsItem" class="pt-1 pl-2">
       <template v-slot:divider>
         <v-icon>mdi-chevron-right</v-icon>
       </template>
     </v-breadcrumbs>
-    <div class="bodyContent">
-      <v-card
-        class="pa-3"
-        height="100%"
-      >
-        <v-row>
-          <v-col
-            sm="5"
-          >
-            <v-col>
-              <v-subheader>
-                {{ $t('dailyReport.createdAt') }}: {{ dateFormatter(reportContent.createdAt) }}
-              </v-subheader>
-              <v-subheader v-if="reportContent.updatedAt != reportContent.createdAt">{{ $t('dailyReport.updatedAt') }}: {{ dateFormatter(reportContent.updatedAt) }}</v-subheader>
-            </v-col>
-            <v-card-title class="pl-1 py-3 pl-sm-4 py-sm-4">
-              <div>
-                <p class="display-1 text--primary">
-                  {{ `#${$route.params['id']} ${reportContent.title}` }}
-                </p>
-              </div>
-            </v-card-title>
-            <v-card-text class="pl-0">
-            </v-card-text>
-          </v-col>
-          <v-col
-            sm="7"
-          >
-            <v-card-text class="pt-0">
-              <div v-html="reportContent.bodyText"/>
-            </v-card-text>
-          </v-col>
-        </v-row>
-      </v-card>
-    </div>
+    <v-card
+      class="pa-3 fill-height"
+      height="100%"
+      width="100%"
+    >
+      <v-card-title class="pl-1 py-3 pl-sm-4 py-sm-4">
+        <v-col>
+          <p class="display-1 text--primary">
+            {{ `#${$route.params['id']} ${reportContent.title}` }}
+          </p>
+        </v-col>
+        <v-card-subtitle class="pa-2">
+          <div class="mr-1 mr-sm-2">
+            {{ $t('dailyReport.createdAt') }}: {{ dateFormatter(reportContent.createdAt) }}
+          </div>
+          <div v-if="reportContent.updatedAt != reportContent.createdAt">{{ $t('dailyReport.updatedAt') }}: {{ dateFormatter(reportContent.updatedAt) }}</div>
+        </v-card-subtitle>
+      </v-card-title>
+      <v-divider/>
+      <div
+        v-html="reportContent.bodyText"
+        class="ma-9 text-justify"
+        style="font-size: 20px;"
+      />
+    </v-card>
   </v-container>
 </template>
 
