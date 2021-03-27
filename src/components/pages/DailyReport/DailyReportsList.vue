@@ -61,7 +61,7 @@
                 <div>{{ dateFormatter(post.created_at) }}</div>
               </v-card-text>
               <v-card-title class="subheading font-weight-bold">
-                {{ `${post.title} #${post.id}` }}
+                {{ `#${post.id} ${post.title}` }}
               </v-card-title>
               <v-card-text>
                 <div class="text--primary cardBody">
