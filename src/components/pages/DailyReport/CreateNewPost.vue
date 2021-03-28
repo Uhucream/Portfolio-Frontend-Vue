@@ -121,16 +121,20 @@ export default {
       command({ src: null })
     },
     onSubmitClicked () {
-      this.$axios.post('/v1/submit_post', {
-        'title': this.titleText,
-        'body_text': this.bodyContent
-      },
-      {
-        withCredentials: true,
-        headers: {
-          'X-CSRF-TOKEN': this.$cookies.get('csrf_access_token')
-        }
-      })
+      this.$axios
+        .post(
+          '/v1/submit_post',
+          {
+            'title': this.titleText,
+            'body_text': this.bodyContent
+          },
+          {
+            withCredentials: true,
+            headers: {
+              'X-CSRF-TOKEN': this.$cookies.get('csrf_access_token')
+            }
+          }
+        )
         .then(response => {
           let postId = response.data.id
           this.$router.push(`/daily_reports/post/${postId}`)

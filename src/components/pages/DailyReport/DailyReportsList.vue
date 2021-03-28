@@ -177,13 +177,14 @@ export default {
         }
       }
     },
-    async getAllPosts () {
-      await this.$axios.get('/v1/posts')
+    async fetchAllPosts () {
+      await this.$axios
+        .get('/v1/posts')
         .then(response => {
           this.reportPosts.push(...response.data)
         })
         .catch(_ => {
-          this.reportPosts = null
+          this.reportPosts = []
         })
     },
     dateFormatter (date) {
