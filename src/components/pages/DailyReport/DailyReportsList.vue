@@ -262,7 +262,7 @@ export default {
     }
   },
   created () {
-    this.getAllPosts()
+    this.fetchAllPosts()
   },
   mounted () {
     this.switchMaxNum()

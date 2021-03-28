@@ -99,7 +99,7 @@ export default {
     }
   },
   created () {
-    this.getPost()
+    this.fetchPost()
   },
   mounted () {
   }
