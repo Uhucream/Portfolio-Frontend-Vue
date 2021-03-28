@@ -15,6 +15,13 @@
           {{ workDetailData.name }}
         </p>
       </v-card-title>
+      <template v-if="workDetailData.workURL">
+        <v-card-subtitle>
+          <div>
+            リンク: <a :href="workDetailData.workURL">{{ workDetailData.workURL}}</a>
+          </div>
+        </v-card-subtitle>
+      </template>
 
       <v-row justify="center">
         <v-col cols="9">
@@ -23,7 +30,7 @@
               contain
               src="https://imgur.com/W42WHzk.png"
               lazy-src="https://imgur.com/W42WHzk.png"
-              class="grey lighten-2 mx-1 mx-sm-4"
+              class="grey lighten-2"
             >
               <template v-slot:placeholder>
                 <v-row
@@ -40,13 +47,6 @@
             </v-img>
           </template>
 
-          <template v-if="workDetailData.workURL">
-            <v-card-text>
-              <div>
-                リンク: <a :href="workDetailData.workURL">{{ workDetailData.workURL}}</a>
-              </div>
-            </v-card-text>
-          </template>
         </v-col>
       </v-row>
 
