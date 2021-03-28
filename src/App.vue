@@ -143,13 +143,17 @@ export default {
       this.$router.go({path: this.$router.currentRoute.path, force: true})
     },
     async authCheck () {
-      await this.$axios.get('/auth/protected', {
-        withCredentials: true,
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-TOKEN': this.$cookies.get('csrf_access_token')
-        }
-      })
+      await this.$axios
+        .get(
+          '/auth/protected',
+          {
+            withCredentials: true,
+            headers: {
+              'X-Requested-With': 'XMLHttpRequest',
+              'X-CSRF-TOKEN': this.$cookies.get('csrf_access_token')
+            }
+          }
+        )
         .then(() => {
           this.isLoggedIn = true
         })

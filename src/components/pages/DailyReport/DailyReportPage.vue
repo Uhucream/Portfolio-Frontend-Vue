@@ -63,7 +63,7 @@ export default {
           to: '/daily_reports/posts'
         },
         {
-          text: `# ${this.$route.params['id']}`,
+          text: null,
           disabled: true,
           to: `/daily_reports/post/${this.$route.params['id']}`
         }
@@ -71,14 +71,17 @@ export default {
     }
   },
   methods: {
-    async getPost () {
-      await this.$axios.get(`/v1/post/${this.$route.params['id']}`)
+    async fetchPost () {
+      await this.$axios
+        .get(`/v1/post/${this.$route.params['id']}`)
         .then(response => {
           this.reportFetchFailed = false
           this.$set(this.reportContent, 'title', response.data.title)
           this.$set(this.reportContent, 'bodyText', response.data.body_text)
           this.$set(this.reportContent, 'createdAt', response.data.created_at)
           this.$set(this.reportContent, 'updatedAt', response.data.updated_at)
+
+          this.$set(this.crumbsItem[2], 'text', `#${this.$route.params['id']} ${response.data.title}`)
         })
     },
     dateFormatter (date) {
@@ -96,7 +99,7 @@ export default {
     }
   },
   created () {
-    this.getPost()
+    this.fetchPost()
   },
   mounted () {
   }
