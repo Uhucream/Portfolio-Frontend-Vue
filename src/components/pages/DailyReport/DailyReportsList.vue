@@ -1,5 +1,5 @@
 <template>
-  <component :is="dynamicComponent">
+  <component :is="conditionalTag">
     <v-breadcrumbs v-if="!isTopPage" :items="crumbsItem" class="pt-1 pl-2">
       <template v-slot:divider>
         <v-icon>mdi-chevron-right</v-icon>
@@ -252,7 +252,7 @@ export default {
     numberOfPages () {
       return Math.ceil(this.reportPosts.length / this.itemsPerPage)
     },
-    dynamicComponent () {
+    conditionalTag () {
       if (this.$route.path === '/daily_reports/posts') {
         return 'v-container'
       } else {
