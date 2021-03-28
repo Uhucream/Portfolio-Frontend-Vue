@@ -46,6 +46,7 @@
           </v-expand-transition>
         </div>
       </template>
+
       <template v-slot:default="props">
         <v-row class="fill-height">
           <v-col
@@ -57,16 +58,17 @@
             lg="3"
           >
             <v-card>
-              <v-card-text class="pb-0">
-                <div>{{ dateFormatter(post.created_at) }}</div>
-              </v-card-text>
-              <v-card-title class="subheading font-weight-bold">
+              <v-card-subtitle class="pb-0">
+                {{ dateFormatter(post.created_at) }}
+              </v-card-subtitle>
+              <v-card-title>
                 {{ `#${post.id} ${post.title}` }}
               </v-card-title>
-              <v-card-text>
-                <div class="text--primary cardBody">
-                  {{ removeHtmlTag(post.body_text) }}
-                </div>
+              <v-card-text
+               class="text--primary text-truncate d-inline-block"
+               style="max-width: 180px"
+              >
+                {{ removeHtmlTag(post.body_text) }}
               </v-card-text>
               <v-card-actions>
                 <v-btn
@@ -269,12 +271,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-  .cardBody {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    max-width: 35ch;
-  }
-</style>
