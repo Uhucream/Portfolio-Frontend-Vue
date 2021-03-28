@@ -10,8 +10,6 @@
       v-for="(item,i) in carouselItems"
       :key="i"
       :src="item.src"
-      transition="slide-x-transition"
-      reverse-transition="slide-x-reverse-transition"
     ></v-carousel-item>
   </v-carousel>
 </template>
