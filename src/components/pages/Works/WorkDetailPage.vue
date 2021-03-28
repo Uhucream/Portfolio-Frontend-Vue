@@ -29,7 +29,7 @@
             <v-img
               contain
               :src="workDetailData.workPictureURL"
-              :lazy-src="workDetailData.workPictureURL"
+              lazy-src="https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg"
               class="grey lighten-2"
             >
               <template v-slot:placeholder>
