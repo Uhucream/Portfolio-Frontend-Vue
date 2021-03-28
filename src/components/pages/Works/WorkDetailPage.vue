@@ -28,8 +28,8 @@
           <template v-if="workDetailData.workPictureURL">
             <v-img
               contain
-              src="https://imgur.com/W42WHzk.png"
-              lazy-src="https://imgur.com/W42WHzk.png"
+              :src="workDetailData.workPictureURL"
+              :lazy-src="workDetailData.workPictureURL"
               class="grey lighten-2"
             >
               <template v-slot:placeholder>
