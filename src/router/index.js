@@ -2,7 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import axios from 'axios'
 import TopPage from '@/components/pages/TopPage'
-import WorksDetailPage from '@/components/pages/WorksDetailPage'
+import WorksList from '@/components/pages/Works/WorksList'
+import WorkDetailPage from '@/components/pages/Works/WorkDetailPage'
 import AboutMe from '@/components/pages/AboutMe'
 import DailyReportsList from '@/components/pages/DailyReport/DailyReportsList'
 import DailyReportPage from '@/components/pages/DailyReport/DailyReportPage'
@@ -21,9 +22,14 @@ export const router = new Router({
       component: TopPage
     },
     {
-      path: '/works_detail',
-      name: 'WorksDetailPage',
-      component: WorksDetailPage
+      path: '/my_works',
+      name: 'WorksList',
+      component: WorksList
+    },
+    {
+      path: '/my_work/detail/:endpoint_uri',
+      name: 'WorkDetailPage',
+      component: WorkDetailPage
     },
     {
       path: '/daily_reports/posts',
