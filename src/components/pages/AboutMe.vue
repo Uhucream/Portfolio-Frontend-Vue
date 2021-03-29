@@ -10,27 +10,65 @@
         class="pa-3"
         height="100%"
       >
+        <v-container>
+          <v-row
+            justify="center"
+            align="center"
+            class="mb-3 mx-a"
+          >
+            <v-col
+              cols="4"
+              sm="5"
+            >
+              <v-avatar
+                style="margin-left: 3px;"
+                :size="avatarSize"
+              >
+                <img
+                  :src="require('@/assets/WWDC.png')"
+                />
+              </v-avatar>
+            </v-col>
+            <v-col
+              cols="8"
+              sm="7"
+              class="pa-0"
+            >
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title class="text-h4 text-sm-h2">
+                    牛越&emsp;嵩
+                  </v-list-item-title>
+                  <v-list-item-subtitle>Takashi Ushikoshi</v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+            </v-col>
+          </v-row>
+        </v-container>
+
+        <v-divider/>
+
         <div class="pa-5">
-          <p class="display-1 text--primary">
+          <h1 class="pb-2">
             概要
-          </p>
+          </h1>
           <p>
-            <ul class="pb-2 body-1 text--primary">
+            <ul class="pb-2 text-body-1">
               <li>出身地: 北海道札幌市</li>
               <li>出身高校: 札幌光星中学・高等学校</li>
               <li>大学: 金沢工業大学</li>
               <li>趣味: 写真撮影、サイクリング</li>
             </ul>
           </p>
-          <p class="display-1 text--primary">
+          <h1 class="pb-2">
             自己紹介
-          </p>
-          <div class="body-1 text--primary">
-            <p>生まれ、育ちともに北海道札幌市です。</p>
-            <p>よく、「なぜ首都圏の大学を選ばなかったの？」と聞かれるのですが、富山が好きだったから、というのが端的な理由です。
-            多いときでは一ヶ月に2回も行くほど重度の富山好きです。北陸で情報工学を学べる大学を探していて最終的に金沢工業大学を選びました。</p>
-            <p>中学のときから写真を撮ることが趣味で、最近はたまに気が向いたときに一眼か
+          </h1>
+          <div class="text-body-1 justify-text">
+            <p style="text-indent: 1em;">生まれ、育ちともに北海道札幌市です。</p>
+            <p></p>
+            <p style="text-indent: 1em;">中学のときから写真を撮ることが趣味で、最近はたまに気が向いたときに一眼か
             iPhone 12 Pro Maxで写真を撮ってます。トップページのカルーセルの写真はすべて僕が撮影したものです。</p>
+            <p style="text-indent: 1em;">BEARTAILさんでバイトをさせていただいていることもあって、普段からSPA開発をしています。</p>
           </div>
         </div>
       </v-card>
@@ -55,6 +93,15 @@ export default {
           to: 'about_me'
         }
       ]
+    }
+  },
+  computed: {
+    avatarSize () {
+      if (this.$vuetify.breakpoint.name === 'xs') {
+        return '96'
+      } else {
+        return '192'
+      }
     }
   }
 }

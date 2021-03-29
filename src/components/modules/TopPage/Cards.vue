@@ -4,14 +4,33 @@
       <v-col
         cols="12"
         sm="4"
+        lg="3"
       >
         <v-subheader>About Me</v-subheader>
         <v-card>
-          <v-card-text>
+          <v-img
+            :src="require('@/assets/WWDC.png')"
+          >
+            <template v-slot:placeholder>
+              <v-row
+                class="fill-height ma-0"
+                align="center"
+                justify="center"
+              >
+                <v-progress-circular
+                  indeterminate
+                  color="grey darken-2"
+                ></v-progress-circular>
+              </v-row>
+            </template>
+          </v-img>
+          <v-card-title>
             <p class="mt-1 display-1 text--primary">
               自己紹介
             </p>
-            <div class="text--primary">
+          </v-card-title>
+          <v-card-text>
+            <div class="text-body-1 text--primary">
               金沢工業大学 2年 情報工学科の学生です。
             </div>
           </v-card-text>
@@ -27,7 +46,11 @@
         </v-card>
       </v-col>
 
-      <v-col>
+      <v-col
+        cols="12"
+        sm="8"
+        lg="9"
+      >
         <v-subheader>My Works</v-subheader>
         <WorksList
           :isTopPage="isTopPage"
@@ -58,15 +81,6 @@ export default {
   data () {
     return {
       isTopPage: true
-    }
-  },
-  computed: {
-    introductionMaxWidth: function () {
-      if (this.$vuetify.breakpoint.name === 'xs') {
-        return undefined
-      } else {
-        return '275px'
-      }
     }
   }
 }
