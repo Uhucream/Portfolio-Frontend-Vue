@@ -18,7 +18,7 @@
       <template v-if="workDetailData.workURL">
         <v-card-subtitle>
           <div>
-            リンク: <a :href="workDetailData.workURL">{{ workDetailData.workURL}}</a>
+            リンク: <a :href="workDetailData.workURL" ref="noopener noreferrer" target="_blank">{{ workDetailData.workURL}}</a>
           </div>
         </v-card-subtitle>
       </template>
@@ -95,7 +95,7 @@ export default {
         .then((response) => {
           this.reportFetchFailed = false
           this.$set(this.workDetailData, 'name', response.data.name)
-          this.$set(this.workDetailData, 'description', response.data.description)
+          this.$set(this.workDetailData, 'description', this.$md.render(response.data.description))
           this.$set(this.workDetailData, 'workURL', response.data.work_url)
           this.$set(this.workDetailData, 'workPictureURL', response.data.work_picture_url)
 
