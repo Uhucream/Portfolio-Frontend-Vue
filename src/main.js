@@ -15,11 +15,13 @@ import en from '@/locales/en.json'
 import ja from '@/locales/ja.json'
 import CustomAxios from '@/plugins/custom-axios'
 import VueCookies from 'vue-cookies'
+import VueMarkdown from '@/plugins/vue-markdown'
 
 Vue.use(VueI18Next)
 Vue.use(VueCookies)
 Vue.use(vuetify)
 Vue.use(CustomAxios)
+Vue.use(VueMarkdown)
 
 Vue.config.productionTip = false
 
