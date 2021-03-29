@@ -2,51 +2,8 @@
   <v-container>
     <v-row>
       <v-col
-        sm="6"
-      >
-        <v-subheader>My Works</v-subheader>
-        <v-card>
-          <v-img
-            class="white--text align-end"
-            src="https://imgur.com/W42WHzk.png"
-            lazy-src="https://imgur.com/W42WHzk.png"
-            gradient="to bottom, rgba(0,0,0,.2), rgba(0,0,0,.4)"
-          >
-            <v-card-title>災害マップ</v-card-title>
-            <template v-slot:placeholder>
-              <v-row
-                class="fill-height ma-0"
-                align="center"
-                justify="center"
-              >
-                <v-progress-circular
-                  indeterminate
-                  color="grey darken-2"
-                ></v-progress-circular>
-              </v-row>
-            </template>
-          </v-img>
-          <v-card-text>
-            <div class="text--primary" style="padding-top: 2px">
-              大学の「プロジェクトデザイン実践」という授業で作った成果物です。<br>
-              概要、および実物へのリンクは下記リンクより詳細ページをご覧ください。
-            </div>
-          </v-card-text>
-          <v-card-actions>
-            <v-btn
-              text
-              color="blue-grey lighten-1"
-              to="/works_detail"
-            >
-              詳しい情報
-            </v-btn>
-          </v-card-actions>
-
-        </v-card>
-      </v-col>
-
-      <v-col
-        sm="6"
+        cols="12"
+        sm="4"
       >
         <v-subheader>About Me</v-subheader>
         <v-card>
@@ -70,12 +27,17 @@
         </v-card>
       </v-col>
 
+      <v-col>
+        <v-subheader>My Works</v-subheader>
+        <WorksList
+          :isTopPage="isTopPage"
+        />
+      </v-col>
+
       <v-col
         cols="12"
       >
-        <v-subheader>
-          Daily Reports
-        </v-subheader>
+        <v-subheader>Daily Reports</v-subheader>
         <DailyReportsList
           :isTopPage="isTopPage"
         />
@@ -85,15 +47,26 @@
 </template>
 
 <script>
+import WorksList from '@/components/pages/Works/WorksList'
 import DailyReportsList from '@/components/pages/DailyReport/DailyReportsList'
 export default {
   name: 'top-page-cards',
   components: {
+    WorksList,
     DailyReportsList
   },
   data () {
     return {
       isTopPage: true
+    }
+  },
+  computed: {
+    introductionMaxWidth: function () {
+      if (this.$vuetify.breakpoint.name === 'xs') {
+        return undefined
+      } else {
+        return '275px'
+      }
     }
   }
 }
