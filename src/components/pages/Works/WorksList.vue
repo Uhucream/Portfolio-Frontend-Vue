@@ -54,10 +54,10 @@
             v-for="work in props.items"
             :key="work.uuid"
             cols="12"
+            sm="6"
+            lg="4"
           >
-            <v-card
-              :max-width="cardWidth"
-            >
+            <v-card>
               <v-img
                 class="white--text align-end"
                 :src="work.work_picture_url"
@@ -100,8 +100,9 @@
       </template>
 
       <template v-slot:footer>
-        <v-row v-if="allWorksData.length != 0" justify="end" align="center">
+        <component :is="iteratorFooter" v-bind="iteratorFooterProps" v-if="allWorksData.length != 0">
           <template v-if="!isTopPage">
+            <v-spacer/>
             <span class="mr-4 grey--text">
               Page {{ page }} of {{ numberOfPages }}
             </span>
@@ -131,13 +132,13 @@
               text
               outlined
               small
-              class="mt-2 mr-4"
+              class="mt-2"
               to="/my_works"
             >
               Show {{ allWorksData.length }} works
             </v-btn>
           </template>
-        </v-row>
+        </component>
       </template>
     </v-data-iterator>
   </component>
@@ -247,11 +248,18 @@ export default {
         return 'div'
       }
     },
-    cardWidth () {
-      if (this.$vuetify.breakpoint.name === 'xs') {
-        return undefined
+    iteratorFooter () {
+      if (this.$route.path === '/my_works') {
+        return 'v-row'
       } else {
-        return '275px'
+        return 'div'
+      }
+    },
+    iteratorFooterProps () {
+      if (this.$route.path === '/my_works') {
+        return { align: 'center', justify: 'center' }
+      } else {
+        return undefined
       }
     }
   },
