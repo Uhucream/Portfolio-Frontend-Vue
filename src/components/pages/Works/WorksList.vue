@@ -9,7 +9,7 @@
     <v-data-iterator
       :class="{'pa-0': isTopPage && allWorksData.length != 0, 'pl-8': allWorksData.length == 0, 'py-5': allWorksData.length == 0}"
       :items="allWorksData"
-      :item-key="allWorksData.id"
+      :item-key="allWorksData.uuid"
       :items-per-page.sync="itemsPerPage"
       :page.sync="page"
       :search="search"
