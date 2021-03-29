@@ -27,7 +27,6 @@
         <v-col cols="9">
           <template v-if="workDetailData.workPictureURL">
             <v-img
-              contain
               :src="workDetailData.workPictureURL"
               lazy-src="https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg"
               class="grey lighten-2"
