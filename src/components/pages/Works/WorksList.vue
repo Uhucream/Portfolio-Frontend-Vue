@@ -60,8 +60,8 @@
             <v-card>
               <v-img
                 class="white--text align-end"
-                :src="work.work_picture_url"
-                lazy-src="https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg"
+                :src="workPictureURL(work.work_picture_url)"
+                :lazy-src="require('@/assets/NO_IMAGE_AVAILABLE.png')"
                 gradient="to bottom, rgba(0,0,0,.2), rgba(0,0,0,.4)"
               >
                 <v-card-title>{{ work.name }}</v-card-title>
@@ -203,6 +203,13 @@ export default {
         .catch(() => {
           this.allWorksData = []
         })
+    },
+    workPictureURL (url) {
+      if (url) {
+        return url
+      } else {
+        return require('@/assets/NO_IMAGE_AVAILABLE.png')
+      }
     }
   },
   watch: {

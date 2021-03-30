@@ -28,7 +28,7 @@
           <template v-if="workDetailData.workPictureURL">
             <v-img
               :src="workDetailData.workPictureURL"
-              lazy-src="https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg"
+              :lazy-src="require('@/assets/NO_IMAGE_AVAILABLE.png')"
               class="grey lighten-2"
             >
               <template v-slot:placeholder>
