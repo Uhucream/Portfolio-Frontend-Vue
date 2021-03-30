@@ -44,7 +44,6 @@ export default {
   name: 'daily-report-page',
   data () {
     return {
-      reportFetchFailed: false,
       reportContent: {
         title: null,
         bodyText: null,
@@ -75,7 +74,7 @@ export default {
       await this.$axios
         .get(`/v1/post/${this.$route.params['id']}`)
         .then(response => {
-          this.reportFetchFailed = false
+          document.title = `#${this.$route.params.id} ${response.data.title} | Takashi's Portfolio`
           this.$set(this.reportContent, 'title', response.data.title)
           this.$set(this.reportContent, 'bodyText', response.data.body_text)
           this.$set(this.reportContent, 'createdAt', response.data.created_at)

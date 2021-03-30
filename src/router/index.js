@@ -24,7 +24,10 @@ export const router = new Router({
     {
       path: '/my_works',
       name: 'WorksList',
-      component: WorksList
+      component: WorksList,
+      meta: {
+        title: 'My Works'
+      }
     },
     {
       path: '/my_work/detail/:endpoint_uri',
@@ -34,7 +37,10 @@ export const router = new Router({
     {
       path: '/daily_reports/posts',
       name: 'DailyReportsList',
-      component: DailyReportsList
+      component: DailyReportsList,
+      meta: {
+        title: 'Daily Reports'
+      }
     },
     {
       path: '/daily_reports/post/:id',
@@ -56,7 +62,10 @@ export const router = new Router({
     {
       path: '/about_me',
       name: 'AboutMe',
-      component: AboutMe
+      component: AboutMe,
+      meta: {
+        title: 'About Me'
+      }
     },
     {
       path: '/login',
