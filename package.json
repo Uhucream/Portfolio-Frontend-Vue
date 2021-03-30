@@ -6,7 +6,7 @@
   "author": "Uhucream",
   "scripts": {
     "clean": "$(yarn bin)/rimraf public/*",
-    "build": "yarn run clean && node build/build.js",
+    "build": "yarn run clean && node build/build.js && cp -pr src/assets/favicon public/",
     "dev": "yarn run clean && yarn run watch & $(yarn bin)/browser-sync start --config bs-config.js",
     "watch": "yarn run clean && yarn run webpack --watch --progress --watch-poll",
     "webpack": "$(yarn bin)/webpack --config build/webpack.dev.conf.js"
