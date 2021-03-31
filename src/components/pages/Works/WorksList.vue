@@ -1,5 +1,5 @@
 <template>
-  <component :is="conditionalTag">
+  <component :is="conditionalTag" style="position: relative;">
     <v-breadcrumbs v-if="!isTopPage" :items="crumbsItem" class="pt-1 pl-2">
       <template v-slot:divider>
         <v-icon>mdi-chevron-right</v-icon>
@@ -98,47 +98,45 @@
       </template>
 
       <template v-slot:footer>
-        <component :is="iteratorFooter" v-bind="iteratorFooterProps" v-if="allWorksData.length != 0">
-          <template v-if="!isTopPage">
-            <v-spacer/>
-            <span class="mr-4 grey--text">
-              Page {{ page }} of {{ numberOfPages }}
-            </span>
-            <v-btn
-              :disabled="page === 1"
-              fab
-              icon
-              class="mr-1"
-              @click="formerPage"
-            >
-              <v-icon>mdi-chevron-left</v-icon>
-            </v-btn>
-            <v-btn
-              :disabled="page === numberOfPages"
-              fab
-              icon
-              class="ml-1"
-              @click="nextPage"
-            >
-              <v-icon>mdi-chevron-right</v-icon>
-            </v-btn>
-          </template>
-          <template v-else>
-            <!-- 2021年3月末時点ではとりあえず作品数が1件以上あれば表示するようにする -->
-            <v-btn
-              v-if="allWorksData.length >= 1"
-              text
-              outlined
-              small
-              class="mt-2"
-              to="/my_works"
-            >
-              Show {{ allWorksData.length }} works
-            </v-btn>
-          </template>
-        </component>
+        <v-row v-if="allWorksData.length != 0 && !isTopPage" justify="center" align="center">
+          <v-spacer/>
+          <span class="mr-4 grey--text">
+            Page {{ page }} of {{ numberOfPages }}
+          </span>
+          <v-btn
+            :disabled="page === 1"
+            fab
+            icon
+            class="mr-1"
+            @click="formerPage"
+          >
+            <v-icon>mdi-chevron-left</v-icon>
+          </v-btn>
+          <v-btn
+            :disabled="page === numberOfPages"
+            fab
+            icon
+            class="ml-1"
+            @click="nextPage"
+          >
+            <v-icon>mdi-chevron-right</v-icon>
+          </v-btn>
+        </v-row>
       </template>
     </v-data-iterator>
+
+    <template v-if="isTopPage && allWorksData.length >= 1">
+      <v-btn
+        text
+        outlined
+        absolute bottom right
+        small
+        class="mt-2 mr-n3"
+        to="/my_works"
+      >
+        Show {{ allWorksData.length }} works
+      </v-btn>
+    </template>
   </component>
 </template>
 
@@ -222,20 +220,6 @@ export default {
         return 'div'
       }
     },
-    iteratorFooter () {
-      if (this.$route.path === '/my_works') {
-        return 'v-row'
-      } else {
-        return 'div'
-      }
-    },
-    iteratorFooterProps () {
-      if (this.$route.path === '/my_works') {
-        return { align: 'center', justify: 'center' }
-      } else {
-        return undefined
-      }
-    },
     itemsPerRow () {
       switch (this.$vuetify.breakpoint.name) {
         case 'xs': return 1
@@ -270,8 +254,7 @@ export default {
           cols: 12,
           sm: 6,
           md: this.allWorksData.length > (this.itemsPerRow - 1) ? 4 : 5,
-          lg: 4,
-          xl: 2
+          lg: 4
         }
       } else {
         return { cols: 12, sm: 6, md: 4, lg: 3, xl: 2 }

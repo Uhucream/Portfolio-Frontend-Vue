@@ -92,11 +92,10 @@ export default {
       }
     },
     worksCardsCols () {
-      // 本当はxlでもitemsPerRowの範囲内でAboutMeと同じ行にしたかったが、バグるのでとりあえずcols=12にする
-      if (this.numOfWorksCards > (this.itemsPerRow - 1) || this.$vuetify.breakpoint.xs || this.$vuetify.breakpoint.xl) {
+      if (this.numOfWorksCards > (this.itemsPerRow - 1) || this.$vuetify.breakpoint.xs) {
         return 12
       } else {
-        return 12 - (12 / this.itemsPerRow)
+        return (12 / this.itemsPerRow) * this.numOfWorksCards
       }
     }
   },
