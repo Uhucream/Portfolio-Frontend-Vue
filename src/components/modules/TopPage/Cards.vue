@@ -2,9 +2,7 @@
   <v-container>
     <v-row>
       <v-col
-        cols="12"
-        sm="4"
-        lg="3"
+        :cols="(12 / itemsPerRow)"
       >
         <v-subheader>About Me</v-subheader>
         <v-card>
@@ -47,12 +45,11 @@
       </v-col>
 
       <v-col
-        cols="12"
-        sm="8"
-        lg="9"
+        :cols="worksCardsCols"
       >
         <v-subheader>My Works</v-subheader>
         <WorksList
+          @numOfWorks="getNumOfWorks($event)"
           :isTopPage="isTopPage"
         />
       </v-col>
@@ -80,7 +77,32 @@ export default {
   },
   data () {
     return {
-      isTopPage: true
+      isTopPage: true,
+      numOfWorksCards: null
+    }
+  },
+  computed: {
+    itemsPerRow () {
+      switch (this.$vuetify.breakpoint.name) {
+        case 'xs': return 1
+        case 'sm': return 2
+        case 'md': return 3
+        case 'lg': return 4
+        case 'xl': return 6
+      }
+    },
+    worksCardsCols () {
+      // 本当はxlでもitemsPerRowの範囲内でAboutMeと同じ行にしたかったが、バグるのでとりあえずcols=12にする
+      if (this.numOfWorksCards > (this.itemsPerRow - 1) || this.$vuetify.breakpoint.xs || this.$vuetify.breakpoint.xl) {
+        return 12
+      } else {
+        return 12 - (12 / this.itemsPerRow)
+      }
+    }
+  },
+  methods: {
+    getNumOfWorks (num) {
+      this.numOfWorksCards = num
     }
   }
 }

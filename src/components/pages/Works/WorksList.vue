@@ -53,9 +53,7 @@
           <v-col
             v-for="work in props.items"
             :key="work.uuid"
-            cols="12"
-            sm="6"
-            lg="4"
+            v-bind="cardsCols"
           >
             <v-card>
               <v-img
@@ -150,11 +148,9 @@ export default {
   props: ['isTopPage'],
   data () {
     return {
-      currentPage: this.$route.path,
       showSearch: false,
       search: '',
       pagination: {},
-      itemsPerPage: 4,
       page: 1,
       sortBy: 'id',
       sortDesc: true,
@@ -174,31 +170,12 @@ export default {
     }
   },
   methods: {
-    switchMaxNum () {
-      if (this.isXsDevice && this.$route.path !== '/my_works') {
-        this.itemsPerPage = 2
-      } else if (this.$route.path === '/my_works') {
-        this.itemsPerPage = 12
-      } else if (this.$route.path === '') {
-        switch (this.$vuetify.breakpoint.name) {
-          case 'xs':
-            this.itemsPerPage = 2
-            break
-          case 'sm':
-          case 'md':
-            this.itemsPerPage = 4
-            break
-          case 'lg':
-            this.itemsPerPage = 8
-            break
-        }
-      }
-    },
     async fetchAllWorks () {
       await this.$axios
         .get('/v1/my_works')
         .then((response) => {
           this.allWorksData.push(...response.data)
+          this.$emit('numOfWorks', this.allWorksData.length)
         })
         .catch(() => {
           this.allWorksData = []
@@ -219,41 +196,22 @@ export default {
     },
     updateItemsPerPage (number) {
       this.itemsPerPage = number
-    }
-  },
-  watch: {
-    isXsDevice: function () {
-      if (this.$route.path !== '/my_works') {
-        switch (this.$vuetify.breakpoint.name) {
-          case 'xs':
-            this.itemsPerPage = 2
-            break
-          case 'sm':
-          case 'md':
-            this.itemsPerPage = 4
-            break
-          case 'lg':
-            this.itemsPerPage = 8
-            break
-        }
-      } else {
-        switch (this.$vuetify.breakpoint.name) {
-          case 'xs':
-            this.itemsPerPage = 4
-            break
-          case 'sm':
-          case 'md':
-          case 'lg':
-            this.itemsPerPage = 12
-            break
+    },
+    calcRowsPerPage () {
+      if (this.$route.path === '/my_works') {
+        let cardsContainer = document.getElementsByClassName('container')[0]
+        let minItemHeight = 170
+
+        if (cardsContainer) {
+          let containerHeight = parseInt(cardsContainer.clientHeight, 0)
+          this.rowsPerPage = Math.floor(Math.max(containerHeight, minItemHeight) / minItemHeight)
+        } else {
+          this.rowsPerPage = 3
         }
       }
     }
   },
   computed: {
-    isXsDevice: function () {
-      return this.$vuetify.breakpoint.xs
-    },
     numberOfPages () {
       return Math.ceil(this.allWorksData.length / this.itemsPerPage)
     },
@@ -277,13 +235,57 @@ export default {
       } else {
         return undefined
       }
+    },
+    itemsPerRow () {
+      switch (this.$vuetify.breakpoint.name) {
+        case 'xs': return 1
+        case 'sm': return 2
+        case 'md': return 3
+        case 'lg': return 4
+        case 'xl': return 6
+      }
+    },
+    rowsPerPage: {
+      get: function () {
+        return 4
+      },
+      set: function (newValue) {
+        return newValue
+      }
+    },
+    itemsPerPage () {
+      if (this.$route.path === '/my_works') {
+        return Math.ceil(this.rowsPerPage * this.itemsPerRow)
+      } else {
+        if (this.$vuetify.breakpoint.lgAndUp || this.$vuetify.breakpoint.xs) {
+          return 4
+        } else {
+          return 3
+        }
+      }
+    },
+    cardsCols () { // 手打ちじゃないと横幅がバグる
+      if (this.$route.path !== '/my_works') {
+        return {
+          cols: 12,
+          sm: 6,
+          md: this.allWorksData.length > (this.itemsPerRow - 1) ? 4 : 5,
+          lg: 4,
+          xl: 2
+        }
+      } else {
+        return { cols: 12, sm: 6, md: 4, lg: 3, xl: 2 }
+      }
     }
   },
   created () {
     this.fetchAllWorks()
   },
   mounted () {
-    this.switchMaxNum()
+    window.addEventListener('resize', this.calcRowsPerPage)
+  },
+  beforeDestroy () {
+    window.removeEventListener('resize', this.calcRowsPerPage)
   }
 }
 </script>
