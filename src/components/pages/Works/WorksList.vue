@@ -257,10 +257,10 @@ export default {
       if (this.$route.path === '/my_works') {
         return Math.ceil(this.rowsPerPage * this.itemsPerRow)
       } else {
-        if (this.$vuetify.breakpoint.lgAndUp || this.$vuetify.breakpoint.xs) {
+        if (this.$vuetify.breakpoint.xs) {
           return 4
         } else {
-          return 3
+          return this.itemsPerRow
         }
       }
     },
