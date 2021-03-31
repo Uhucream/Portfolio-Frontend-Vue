@@ -81,14 +81,19 @@ export default {
         this.loginProgress = true
         // APIでログイン認証を行う
         this.$axios
-          .post('/auth/login', {
-            'email': this.inputData.id,
-            'password': this.inputData.password,
-            'remember': this.inputData.keepLoggedIn ? 1 : 0
-          },
-          {
-            withCredentials: true
-          })
+          .post(
+            '/auth/login',
+            {
+              'remember': this.inputData.keepLoggedIn ? 1 : 0
+            },
+            {
+              withCredentials: true,
+              auth: {
+                username: this.inputData.id,
+                password: this.inputData.password
+              }
+            }
+          )
           .then(response => {
             if (response.status === 200) {
               this.$router.push({path: 'backuri' in this.$route.query && this.$route.query.backuri.match(/^\//) ? this.$route.query.backuri : '/'})
