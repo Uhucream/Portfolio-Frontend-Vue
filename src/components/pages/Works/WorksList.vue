@@ -1,5 +1,5 @@
 <template>
-  <component :is="conditionalTag" style="position: relative;">
+  <component :is="conditionalTag">
     <v-breadcrumbs v-if="!isTopPage" :items="crumbsItem" class="pt-1 pl-2">
       <template v-slot:divider>
         <v-icon>mdi-chevron-right</v-icon>
@@ -125,18 +125,18 @@
       </template>
     </v-data-iterator>
 
-    <template v-if="isTopPage && allWorksData.length >= 1">
+    <v-row v-if="isTopPage && allWorksData.length >= 1" align="center" justify="center">
+      <v-spacer/>
       <v-btn
         text
         outlined
-        absolute bottom right
         small
-        class="mt-2 mr-n3"
+        class="mt-5 mr-4"
         to="/my_works"
       >
         Show {{ allWorksData.length }} works
       </v-btn>
-    </template>
+    </v-row>
   </component>
 </template>
 
