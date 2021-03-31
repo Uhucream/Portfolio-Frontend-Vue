@@ -102,13 +102,6 @@ export default {
     }
   },
   methods: {
-    setPageTitle () {
-      if (this.$route.meta.title) {
-        document.title = `${this.$route.meta.title} | Takashi's Portfolio`
-      } else {
-        document.title = 'Takashi\'s Portfolio'
-      }
-    },
     showLogin (event) {
       if (!['/daily_reports/posts/new', '/login'].includes(this.$route.path) && !this.isLoggedIn) {
         var waitingTime = 1500
@@ -187,7 +180,6 @@ export default {
   },
   watch: {
     $route: function () {
-      this.setPageTitle()
       this.authCheck()
     }
   },
@@ -195,7 +187,6 @@ export default {
     this.authCheck()
   },
   mounted () {
-    this.setPageTitle()
     this.createPath = process.env.VUE_APP_CREATE_POST_PAGE
     window.addEventListener('keyup', this.showLogin, false)
   },

@@ -32,7 +32,15 @@ export const router = new Router({
     {
       path: '/my_work/detail/:endpoint_uri',
       name: 'WorkDetailPage',
-      component: WorkDetailPage
+      component: WorkDetailPage,
+      beforeEnter: (to, from, next) => {
+        axios
+          .get(`${process.env.VUE_APP_API_ENDPOINT}/v1/my_work/${to.params.endpoint_uri}`)
+          .then((response) => {
+            to.meta.title = `${response.data.name} - My Works`
+            next()
+          })
+      }
     },
     {
       path: '/daily_reports/posts',
@@ -45,7 +53,15 @@ export const router = new Router({
     {
       path: '/daily_reports/post/:id',
       name: 'DailyReportPage',
-      component: DailyReportPage
+      component: DailyReportPage,
+      beforeEnter: (to, from, next) => {
+        axios
+          .get(`${process.env.VUE_APP_API_ENDPOINT}/v1/post/${to.params.id}`)
+          .then((response) => {
+            to.meta.title = `#${to.params.id} ${response.data.title}`
+            next()
+          })
+      }
     },
     {
       path: '/daily_reports/posts/new',
@@ -70,7 +86,10 @@ export const router = new Router({
     {
       path: '/login',
       name: 'Login',
-      component: Login
+      component: Login,
+      meta: {
+        title: 'Login'
+      }
     }
   ],
   scrollBehavior (to, from, savedPosition) {
@@ -124,4 +143,12 @@ router.beforeEach((to, from, next) => {
     })
   }
   navigationGuard()
+})
+
+router.afterEach((to, from) => {
+  if (to.meta.title) {
+    document.title = `${to.meta.title} | Takashi's Portfolio`
+  } else {
+    document.title = 'Takashi\'s Portfolio'
+  }
 })

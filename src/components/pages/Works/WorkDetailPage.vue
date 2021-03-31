@@ -92,8 +92,6 @@ export default {
       await this.$axios
         .get(`/v1/my_work/${this.$route.params['endpoint_uri']}`)
         .then((response) => {
-          document.title = `${response.data.name} | Takashi's Portfolio`
-
           this.$set(this.workDetailData, 'name', response.data.name)
           this.$set(this.workDetailData, 'description', this.$md.render(response.data.description))
           this.$set(this.workDetailData, 'workURL', response.data.work_url)
