@@ -72,7 +72,18 @@ export const router = new Router({
       name: 'Login',
       component: Login
     }
-  ]
+  ],
+  scrollBehavior (to, from, savedPosition) {
+    if (savedPosition) {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve({ x: 0, y: 0 })
+        }, 500)
+      })
+    } else {
+      return { x: 0, y: 0 }
+    }
+  }
 })
 
 const api = axios.create({
