@@ -52,10 +52,7 @@
           <v-col
             v-for="post in props.items"
             :key="post.uuid"
-            cols="12"
-            sm="6"
-            md="4"
-            lg="3"
+            :cols="(12 / itemsPerRow)"
           >
             <v-card>
               <v-card-subtitle class="pb-0">
@@ -86,7 +83,8 @@
       </template>
 
       <template v-slot:footer>
-        <v-row v-if="reportPosts.length != 0" justify="end" align="center">
+        <v-row v-if="reportPosts.length != 0" justify="center" align="center">
+          <v-spacer/>
           <template v-if="!isTopPage">
             <span class="mr-4 grey--text">
               Page {{ page }} of {{ numberOfPages }}
@@ -139,7 +137,6 @@ export default {
       showSearch: false,
       search: '',
       pagination: {},
-      itemsPerPage: 4,
       page: 1,
       sortBy: 'id',
       sortDesc: true,
@@ -159,26 +156,6 @@ export default {
     }
   },
   methods: {
-    switchMaxNum () {
-      if (this.isXsDevice && this.$route.path !== '/daily_reports/posts') {
-        this.itemsPerPage = 2
-      } else if (this.$route.path === '/daily_reports/posts') {
-        this.itemsPerPage = 12
-      } else if (this.$route.path === '') {
-        switch (this.$vuetify.breakpoint.name) {
-          case 'xs':
-            this.itemsPerPage = 2
-            break
-          case 'sm':
-          case 'md':
-            this.itemsPerPage = 4
-            break
-          case 'lg':
-            this.itemsPerPage = 8
-            break
-        }
-      }
-    },
     async fetchAllPosts () {
       await this.$axios
         .get('/v1/posts')
@@ -217,41 +194,22 @@ export default {
     },
     updateItemsPerPage (number) {
       this.itemsPerPage = number
-    }
-  },
-  watch: {
-    isXsDevice: function () {
-      if (this.$route.path !== '/daily_reports/posts') {
-        switch (this.$vuetify.breakpoint.name) {
-          case 'xs':
-            this.itemsPerPage = 2
-            break
-          case 'sm':
-          case 'md':
-            this.itemsPerPage = 4
-            break
-          case 'lg':
-            this.itemsPerPage = 8
-            break
-        }
-      } else {
-        switch (this.$vuetify.breakpoint.name) {
-          case 'xs':
-            this.itemsPerPage = 4
-            break
-          case 'sm':
-          case 'md':
-          case 'lg':
-            this.itemsPerPage = 12
-            break
+    },
+    calcRowsPerPage () {
+      if (this.$route.path === '/daily_reports/posts') {
+        let cardsContainer = document.getElementsByClassName('container')[0]
+        let minItemHeight = 170
+
+        if (cardsContainer) {
+          let containerHeight = parseInt(cardsContainer.clientHeight, 0)
+          this.rowsPerPage = Math.floor(Math.max(containerHeight, minItemHeight) / minItemHeight)
+        } else {
+          this.rowsPerPage = 3
         }
       }
     }
   },
   computed: {
-    isXsDevice: function () {
-      return this.$vuetify.breakpoint.xs
-    },
     numberOfPages () {
       return Math.ceil(this.reportPosts.length / this.itemsPerPage)
     },
@@ -261,13 +219,44 @@ export default {
       } else {
         return 'div'
       }
+    },
+    itemsPerRow () {
+      switch (this.$vuetify.breakpoint.name) {
+        case 'xs': return 1
+        case 'sm': return 2
+        case 'md': return 3
+        case 'lg': return 4
+        case 'xl': return 6
+      }
+    },
+    rowsPerPage: {
+      get: function () {
+        return 4
+      },
+      set: function (newValue) {
+        return newValue
+      }
+    },
+    itemsPerPage () {
+      if (this.$route.path === '/daily_reports/posts') {
+        return Math.ceil(this.rowsPerPage * this.itemsPerRow)
+      } else {
+        if (this.$vuetify.breakpoint.xs) {
+          return 4
+        } else {
+          return this.itemsPerRow * 2
+        }
+      }
     }
   },
   created () {
     this.fetchAllPosts()
   },
   mounted () {
-    this.switchMaxNum()
+    window.addEventListener('resize', this.calcRowsPerPage)
+  },
+  beforeDestroy () {
+    window.removeEventListener('resize', this.calcRowsPerPage)
   }
 }
 </script>
