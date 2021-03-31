@@ -92,7 +92,8 @@ export default {
       }
     },
     worksCardsCols () {
-      if (this.numOfWorksCards > (this.itemsPerRow - 1) || this.$vuetify.breakpoint.xs) {
+      // 成果物一覧カードの数 + 1(自己紹介カード分) が itemsPerRowを上回ったとき
+      if (this.numOfWorksCards + 1 > this.itemsPerRow || this.$vuetify.breakpoint.xs) {
         return 12
       } else {
         return (12 / this.itemsPerRow) * this.numOfWorksCards
