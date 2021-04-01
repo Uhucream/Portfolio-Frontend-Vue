@@ -204,13 +204,7 @@ export default {
           this.rowsPerPage = 3
         }
       }
-    },
-    fetchIteratorWidth () {
-      return document.getElementsByClassName('v-data-iterator')[0].clientWidth
     }
-  },
-  watch: {
-    $route: 'fetchIteratorWidth'
   },
   computed: {
     numberOfPages () {
@@ -257,18 +251,20 @@ export default {
       }
     },
     cardsCols () {
-      return 12 / Math.floor(this.fetchIteratorWidth() / 275)
+      if (this.$route.path === '/my_works' || this.allWorksData.length > this.itemsPerRow + 1) {
+        return 12 / this.itemsPerRow
+      } else {
+        return 12 / this.allWorksData.length
+      }
     }
   },
   created () {
     this.fetchAllWorks()
   },
   mounted () {
-    window.addEventListener('resize', this.fetchIteratorWidth)
     window.addEventListener('resize', this.calcRowsPerPage)
   },
   beforeDestroy () {
-    window.removeEventListener('resize', this.fetchIteratorWidth)
     window.removeEventListener('resize', this.calcRowsPerPage)
   }
 }
