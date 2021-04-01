@@ -3,13 +3,7 @@ import Router from 'vue-router'
 import axios from 'axios'
 import TopPage from '@/components/pages/TopPage'
 import WorksList from '@/components/pages/Works/WorksList'
-import WorkDetailPage from '@/components/pages/Works/WorkDetailPage'
-import AboutMe from '@/components/pages/AboutMe'
 import DailyReportsList from '@/components/pages/DailyReport/DailyReportsList'
-import DailyReportPage from '@/components/pages/DailyReport/DailyReportPage'
-import CreateNewPost from '@/components/pages/DailyReport/CreateNewPost'
-import EditPost from '@/components/pages/DailyReport/EditPost'
-import Login from '@/components/pages/Login'
 
 Vue.use(Router)
 
@@ -32,7 +26,7 @@ export const router = new Router({
     {
       path: '/my_work/detail/:endpoint_uri',
       name: 'WorkDetailPage',
-      component: WorkDetailPage,
+      component: () => import('@/components/pages/Works/WorkDetailPage'),
       beforeEnter: (to, from, next) => {
         axios
           .get(`${process.env.VUE_APP_API_ENDPOINT}/v1/my_work/${to.params.endpoint_uri}`)
@@ -53,7 +47,7 @@ export const router = new Router({
     {
       path: '/daily_reports/post/:id',
       name: 'DailyReportPage',
-      component: DailyReportPage,
+      component: () => import('@/components/pages/DailyReport/DailyReportPage'),
       beforeEnter: (to, from, next) => {
         axios
           .get(`${process.env.VUE_APP_API_ENDPOINT}/v1/post/${to.params.id}`)
@@ -66,19 +60,19 @@ export const router = new Router({
     {
       path: '/daily_reports/posts/new',
       name: 'CreateNewPost',
-      component: CreateNewPost,
+      component: () => import('@/components/pages/DailyReport/CreateNewPost'),
       meta: { requireAuth: true }
     },
     {
       path: '/daily_reports/post/:id/edit',
       name: 'EditPost',
-      component: EditPost,
+      component: () => import('@/components/pages/DailyReport/EditPost'),
       meta: { requireAuth: true }
     },
     {
       path: '/about_me',
       name: 'AboutMe',
-      component: AboutMe,
+      component: () => import('@/components/pages/AboutMe'),
       meta: {
         title: 'About Me'
       }
@@ -86,7 +80,7 @@ export const router = new Router({
     {
       path: '/login',
       name: 'Login',
-      component: Login,
+      component: () => import('@/components/pages/Login'),
       meta: {
         title: 'Login'
       }
