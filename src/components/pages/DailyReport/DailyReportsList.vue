@@ -192,9 +192,6 @@ export default {
     formerPage () {
       if (this.page - 1 >= 1) this.page -= 1
     },
-    updateItemsPerPage (number) {
-      this.itemsPerPage = number
-    },
     calcRowsPerPage () {
       if (this.$route.path === '/daily_reports/posts') {
         let cardsContainer = document.getElementsByClassName('container')[0]
@@ -237,15 +234,20 @@ export default {
         return newValue
       }
     },
-    itemsPerPage () {
-      if (this.$route.path === '/daily_reports/posts') {
-        return Math.ceil(this.rowsPerPage * this.itemsPerRow)
-      } else {
-        if (this.$vuetify.breakpoint.xs) {
-          return 4
+    itemsPerPage: {
+      get: function () {
+        if (this.$route.path === '/my_works') {
+          return Math.ceil(this.rowsPerPage * this.itemsPerRow)
         } else {
-          return this.itemsPerRow * 2
+          if (this.$vuetify.breakpoint.xs) {
+            return 4
+          } else {
+            return this.itemsPerRow
+          }
         }
+      },
+      set: function (newValue) {
+        return newValue
       }
     }
   },
