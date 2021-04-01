@@ -209,6 +209,9 @@ export default {
       return document.getElementsByClassName('v-data-iterator')[0].clientWidth
     }
   },
+  watch: {
+    $route: 'fetchIteratorWidth'
+  },
   computed: {
     numberOfPages () {
       return Math.ceil(this.allWorksData.length / this.itemsPerPage)
