@@ -251,7 +251,7 @@ export default {
       }
     },
     cardsCols () {
-      if (this.$route.path === '/my_works' || this.allWorksData.length > this.itemsPerRow + 1) {
+      if (this.$route.path === '/my_works' || this.allWorksData.length + 1 > this.itemsPerRow) {
         return 12 / this.itemsPerRow
       } else {
         return 12 / this.allWorksData.length
