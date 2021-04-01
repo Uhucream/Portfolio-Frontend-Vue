@@ -236,13 +236,13 @@ export default {
     },
     itemsPerPage: {
       get: function () {
-        if (this.$route.path === '/my_works') {
+        if (this.$route.path === '/daily_reports/posts') {
           return Math.ceil(this.rowsPerPage * this.itemsPerRow)
         } else {
           if (this.$vuetify.breakpoint.xs) {
             return 4
           } else {
-            return this.itemsPerRow
+            return this.itemsPerRow * 2
           }
         }
       },
