@@ -53,7 +53,7 @@
           <v-col
             v-for="work in props.items"
             :key="work.uuid"
-            v-bind="cardsCols"
+            :cols="cardsCols"
           >
             <v-card>
               <v-img
@@ -207,6 +207,9 @@ export default {
           this.rowsPerPage = 3
         }
       }
+    },
+    fetchIteratorWidth () {
+      return document.getElementsByClassName('v-data-iterator')[0].clientWidth
     }
   },
   computed: {
@@ -248,26 +251,19 @@ export default {
         }
       }
     },
-    cardsCols () { // 手打ちじゃないと横幅がバグる
-      if (this.$route.path !== '/my_works') {
-        return {
-          cols: 12,
-          sm: 6,
-          md: this.allWorksData.length > (this.itemsPerRow - 1) ? 4 : 5,
-          lg: 4
-        }
-      } else {
-        return { cols: 12, sm: 6, md: 4, lg: 3, xl: 2 }
-      }
+    cardsCols () {
+      return 12 / Math.floor(this.fetchIteratorWidth() / 275)
     }
   },
   created () {
     this.fetchAllWorks()
   },
   mounted () {
+    window.addEventListener('resize', this.fetchIteratorWidth)
     window.addEventListener('resize', this.calcRowsPerPage)
   },
   beforeDestroy () {
+    window.removeEventListener('resize', this.fetchIteratorWidth)
     window.removeEventListener('resize', this.calcRowsPerPage)
   }
 }
