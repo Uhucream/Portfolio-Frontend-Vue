@@ -53,18 +53,29 @@ export default {
       crumbsItem: [
         {
           text: 'Top',
+          link: true,
+          exact: true,
           disabled: false,
-          to: '/'
+          to: { name: 'TopPage' }
         },
         {
           text: 'Daily Reports',
+          link: true,
+          exact: true,
           disabled: false,
-          to: '/daily_reports/posts'
+          to: { name: 'DailyReportsList' }
         },
         {
           text: null,
+          link: true,
+          exact: true,
           disabled: true,
-          to: `/daily_reports/post/${this.$route.params['id']}`
+          to: {
+            name: 'DailyReportPage',
+            params: {
+              id: this.$route.params['id']
+            }
+          }
         }
       ]
     }

@@ -71,18 +71,29 @@ export default {
       crumbsItem: [
         {
           text: 'Top',
+          link: true,
+          exact: true,
           disabled: false,
-          to: '/'
+          to: { name: 'TopPage' }
         },
         {
           text: 'My Works',
+          link: true,
+          exact: true,
           disabled: false,
-          to: '/my_works'
+          to: { name: 'WorksList' }
         },
         {
           text: null,
+          link: true,
+          exact: true,
           disabled: true,
-          to: `/daily_reports/post/${this.$route.params['endpoint_uri']}`
+          to: {
+            name: 'WorksDetailPage',
+            params: {
+              endpoint_uri: this.$route.params['endpoint_uri']
+            }
+          }
         }
       ]
     }

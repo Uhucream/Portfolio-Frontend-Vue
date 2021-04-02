@@ -84,13 +84,17 @@ export default {
       crumbsItem: [
         {
           text: 'Top',
+          link: true,
+          exact: true,
           disabled: false,
-          to: '/'
+          to: { name: 'TopPage' }
         },
         {
           text: 'About Me',
+          link: true,
+          exact: true,
           disabled: true,
-          to: 'about_me'
+          to: { name: 'AboutMe' }
         }
       ]
     }

@@ -72,7 +72,7 @@
                   text
                   color="blue-grey lighten-1"
                   link
-                  :to="`/daily_reports/post/${post.id}`"
+                  :to="{ name: 'DailyReportPage', params: { id: post.id } }"
                 >
                   {{ $t('dailyReport.readMore') }}
                 </v-btn>
@@ -115,7 +115,7 @@
               outlined
               small
               class="mt-2 mr-4"
-              to="/daily_reports/posts"
+              :to="{ name: 'DailyReportsList' }"
             >
               Show {{ reportPosts.length }} posts
             </v-btn>
@@ -143,13 +143,17 @@ export default {
       crumbsItem: [
         {
           text: 'Top',
+          link: true,
+          exact: true,
           disabled: false,
-          to: '/'
+          to: { name: 'TopPage' }
         },
         {
           text: 'Daily Reports',
+          link: true,
+          exact: true,
           disabled: true,
-          to: '/daily_reports/posts'
+          to: { name: 'DailyReportsList' }
         }
       ],
       reportPosts: []

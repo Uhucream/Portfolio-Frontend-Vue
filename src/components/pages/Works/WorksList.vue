@@ -87,7 +87,7 @@
                 <v-btn
                   text
                   color="blue-grey lighten-1"
-                  :to="`/my_work/detail/${work.endpoint_uri}`"
+                  :to="{ name: 'WorkDetailPage', params: { endpoint_uri: work.endpoint_uri } }"
                 >
                   詳しい情報
                 </v-btn>
@@ -132,7 +132,7 @@
         outlined
         small
         class="mt-5 mr-4"
-        to="/my_works"
+        :to="{ name: 'WorksList' }"
       >
         Show {{ allWorksData.length }} works
       </v-btn>
@@ -155,13 +155,17 @@ export default {
       crumbsItem: [
         {
           text: 'Top',
+          link: true,
+          exact: true,
           disabled: false,
-          to: '/'
+          to: { name: 'TopPage' }
         },
         {
           text: 'My Works',
+          link: true,
+          exact: true,
           disabled: true,
-          to: '/my_works'
+          to: { name: 'WorksList' }
         }
       ],
       allWorksData: []

@@ -36,7 +36,7 @@
             <v-btn
               text
               color="blue-grey lighten-1"
-              to="/about_me"
+              :to="{ name: 'AboutMe' }"
             >
               詳しい情報
             </v-btn>

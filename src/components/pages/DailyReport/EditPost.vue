@@ -98,7 +98,7 @@
         <v-btn
           absolute bottom
           style="right: 96px"
-          to="/"
+          :to="{ name: 'TopPage' }"
         >
           キャンセル
         </v-btn>
