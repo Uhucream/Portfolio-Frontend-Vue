@@ -61,13 +61,20 @@ export const router = new Router({
       path: '/daily_reports/post/:id',
       name: 'DailyReportPage',
       component: () => import('@/components/pages/DailyReport/DailyReportPage'),
+      props: true,
       beforeEnter: (to, from, next) => {
-        axios
-          .get(`${process.env.VUE_APP_API_ENDPOINT}/v1/post/${to.params.id}`)
-          .then((response) => {
-            to.meta.title = `#${to.params.id} ${response.data.title}`
-            next()
-          })
+        if (!to.params.report_content_data) {
+          axios
+            .get(`${process.env.VUE_APP_API_ENDPOINT}/v1/post/${to.params.id}`)
+            .then((response) => {
+              to.params.report_content_data = response.data
+              to.meta.title = `#${to.params.id} ${response.data.title}`
+              next()
+            })
+        } else {
+          to.meta.title = to.params.title
+          next()
+        }
       }
     },
     {

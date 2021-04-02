@@ -1,23 +1,23 @@
 <template functional>
   <v-card>
     <v-card-subtitle class="pb-0">
-      {{ $options.dateFormatter(props.created_at) }}
+      {{ $options.dateFormatter(props.report_content_data.created_at) }}
     </v-card-subtitle>
     <v-card-title>
-      {{ `#${props.id} ${props.title}` }}
+      {{ `#${props.report_content_data.id} ${props.report_content_data.title}` }}
     </v-card-title>
     <v-card-text
       class="text--primary text-truncate d-inline-block"
       style="max-width: 180px"
     >
-      {{ $options.removeHtmlTag(props.body_text) }}
+      {{ $options.removeHtmlTag(props.report_content_data.body_text) }}
     </v-card-text>
     <v-card-actions>
       <v-btn
         text
         color="blue-grey lighten-1"
         link
-        :to="`/daily_reports/post/${props.id}`"
+        @click="$options.goToReportPage(props)"
       >
         {{ $options.translate('dailyReport.readMore') }}
       </v-btn>
@@ -26,14 +26,12 @@
 </template>
 
 <script>
+import { router } from '@/router'
 import i18next from 'i18next'
 export default {
   name: 'daily-reports-card',
   props: {
-    id: Number,
-    title: String,
-    body_text: String,
-    created_at: String
+    report_content_data: Object
   },
   translate (str) { // 関数型コンポーネントコンポーネントである関係上、$t関数が使えないので定義
     return i18next.t(str)
@@ -57,6 +55,18 @@ export default {
     } else {
       return txt
     }
+  },
+  goToReportPage (props) {
+    router.push(
+      {
+        name: 'DailyReportPage',
+        params: {
+          id: props.report_content_data.id,
+          report_content_data: props.report_content_data,
+          title: props.report_content_data.title
+        }
+      }
+    )
   }
 }
 </script>

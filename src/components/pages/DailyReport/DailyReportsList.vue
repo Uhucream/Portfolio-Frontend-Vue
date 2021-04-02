@@ -55,10 +55,7 @@
             :cols="(12 / itemsPerRow)"
           >
             <DailyReportsCard
-              :id="post.id"
-              :title="post.title"
-              :body_text="post.body_text"
-              :created_at="post.created_at"
+              :report_content_data="post"
             />
           </v-col>
         </v-row>
