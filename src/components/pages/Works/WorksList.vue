@@ -1,10 +1,10 @@
 <template>
   <component :is="conditionalTag">
-    <v-breadcrumbs v-if="!isTopPage" :items="crumbsItem" class="pt-1 pl-2">
-      <template v-slot:divider>
-        <v-icon>mdi-chevron-right</v-icon>
-      </template>
-    </v-breadcrumbs>
+    <template v-if="!isTopPage">
+      <BreadCrumbs
+        :path="pathList"
+      />
+    </template>
 
     <v-data-iterator
       :class="{'pa-0': isTopPage && allWorksData.length != 0, 'pl-8': allWorksData.length == 0, 'py-5': allWorksData.length == 0}"
@@ -55,44 +55,9 @@
             :key="work.uuid"
             :cols="cardsCols"
           >
-            <v-card>
-              <v-img
-                class="white--text align-end"
-                :src="workPictureURL(work.work_picture_url)"
-                :lazy-src="require('@/assets/NO_IMAGE_AVAILABLE.png')"
-                gradient="to bottom, rgba(0,0,0,.2), rgba(0,0,0,.4)"
-              >
-                <v-card-title>{{ work.name }}</v-card-title>
-                <template v-slot:placeholder>
-                  <v-row
-                    class="fill-height ma-0"
-                    align="center"
-                    justify="center"
-                  >
-                    <v-progress-circular
-                      indeterminate
-                      color="grey darken-2"
-                    ></v-progress-circular>
-                  </v-row>
-                </template>
-              </v-img>
-              <v-card-text>
-                <div
-                  v-html="work.top_page_outline"
-                  class="text-body-1 text--primary"
-                  style="padding-top: 2px"
-                />
-              </v-card-text>
-              <v-card-actions>
-                <v-btn
-                  text
-                  color="blue-grey lighten-1"
-                  :to="{ name: 'WorkDetailPage', params: { endpoint_uri: work.endpoint_uri } }"
-                >
-                  詳しい情報
-                </v-btn>
-              </v-card-actions>
-            </v-card>
+            <WorksCard
+              :work_detail_data="work"
+            />
           </v-col>
         </v-row>
       </template>
@@ -141,9 +106,14 @@
 </template>
 
 <script>
+import WorksCard from '@/components/modules/Works/WorksCard'
 export default {
   name: 'works-list',
   props: ['isTopPage'],
+  components: {
+    WorksCard,
+    BreadCrumbs: () => (import('@/components/modules/BreadCrumbs'))
+  },
   data () {
     return {
       showSearch: false,
@@ -152,19 +122,9 @@ export default {
       page: 1,
       sortBy: 'id',
       sortDesc: true,
-      crumbsItem: [
-        {
-          text: 'Top',
-          link: true,
-          exact: true,
-          disabled: false,
-          to: { name: 'TopPage' }
-        },
+      pathList: [
         {
           text: 'My Works',
-          link: true,
-          exact: true,
-          disabled: true,
           to: { name: 'WorksList' }
         }
       ],
@@ -182,13 +142,6 @@ export default {
         .catch(() => {
           this.allWorksData = []
         })
-    },
-    workPictureURL (url) {
-      if (url) {
-        return url
-      } else {
-        return require('@/assets/NO_IMAGE_AVAILABLE.png')
-      }
     },
     nextPage () {
       if (this.page + 1 <= this.numberOfPages) this.page += 1

@@ -1,6 +1,6 @@
-<template>
+<template functional>
   <v-container style="height: calc(100% - 44px)">
-    <v-breadcrumbs :items="crumbsItem" class="pt-1 pl-2">
+    <v-breadcrumbs :items="$options.crumbsItem(props)" class="pt-1 pl-2">
       <template v-slot:divider>
         <v-icon>mdi-chevron-right</v-icon>
       </template>
@@ -12,22 +12,22 @@
     >
       <v-card-title class="pl-1 py-3 pl-sm-4 py-sm-4">
         <p class="display-1">
-          {{ workDetailData.name }}
+          {{ props.work_detail_data.name }}
         </p>
       </v-card-title>
-      <template v-if="workDetailData.workURL">
+      <template v-if="props.work_detail_data.work_url">
         <v-card-subtitle>
           <div>
-            リンク: <a :href="workDetailData.workURL" ref="noopener noreferrer" target="_blank">{{ workDetailData.workURL}}</a>
+            リンク: <a :href="props.work_detail_data.work_url" ref="noopener noreferrer" target="_blank">{{ props.work_detail_data.work_url}}</a>
           </div>
         </v-card-subtitle>
       </template>
 
       <v-row justify="center">
         <v-col cols="9">
-          <template v-if="workDetailData.workPictureURL">
+          <template v-if="props.work_detail_data.work_picture_url">
             <v-img
-              :src="workDetailData.workPictureURL"
+              :src="props.work_detail_data.work_picture_url"
               :lazy-src="require('@/assets/NO_IMAGE_AVAILABLE.png')"
               class="grey lighten-2"
             >
@@ -50,7 +50,7 @@
       </v-row>
 
       <div
-        v-html="workDetailData.description"
+        v-html="props.work_detail_data.description"
         class="pt-6 mx-3 mx-sm-5"
       />
     </v-card>
@@ -60,60 +60,38 @@
 <script>
 export default {
   name: 'works-detail-page',
-  data () {
-    return {
-      workDetailData: {
-        name: null,
-        description: null,
-        workURL: null,
-        workPictureURL: null
+  props: {
+    work_detail_data: Object
+  },
+  crumbsItem (props) {
+    return [
+      {
+        text: 'Top',
+        link: true,
+        exact: true,
+        disabled: false,
+        to: { name: 'TopPage' }
       },
-      crumbsItem: [
-        {
-          text: 'Top',
-          link: true,
-          exact: true,
-          disabled: false,
-          to: { name: 'TopPage' }
-        },
-        {
-          text: 'My Works',
-          link: true,
-          exact: true,
-          disabled: false,
-          to: { name: 'WorksList' }
-        },
-        {
-          text: null,
-          link: true,
-          exact: true,
-          disabled: true,
-          to: {
-            name: 'WorksDetailPage',
-            params: {
-              endpoint_uri: this.$route.params['endpoint_uri']
-            }
+      {
+        text: 'My Works',
+        link: true,
+        exact: true,
+        disabled: false,
+        to: { name: 'WorksList' }
+      },
+      {
+        text: props.work_detail_data.name,
+        link: true,
+        exact: true,
+        disabled: true,
+        to: {
+          name: 'WorkDetailPage',
+          params: {
+            endpoint_uri: props.work_detail_data.endpoint_uri
           }
         }
-      ]
-    }
-  },
-  methods: {
-    async fetchWorkDetail () {
-      await this.$axios
-        .get(`/v1/my_work/${this.$route.params['endpoint_uri']}`)
-        .then((response) => {
-          this.$set(this.workDetailData, 'name', response.data.name)
-          this.$set(this.workDetailData, 'description', this.$md.render(response.data.description))
-          this.$set(this.workDetailData, 'workURL', response.data.work_url)
-          this.$set(this.workDetailData, 'workPictureURL', response.data.work_picture_url)
-
-          this.$set(this.crumbsItem[2], 'text', response.data.name)
-        })
-    }
-  },
-  created () {
-    this.fetchWorkDetail()
+      }
+    ]
   }
 }
 </script>

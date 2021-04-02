@@ -1,10 +1,9 @@
 <template>
   <v-container>
-    <v-breadcrumbs :items="crumbsItem" class="pt-1 pl-2">
-      <template v-slot:divider>
-        <v-icon>mdi-chevron-right</v-icon>
-      </template>
-    </v-breadcrumbs>
+    <BreadCrumbs
+      :path="pathList"
+    />
+
     <div class="bodyContent">
       <v-card
         class="pa-3"
@@ -79,21 +78,14 @@
 <script>
 export default {
   name: 'about-me',
+  components: {
+    BreadCrumbs: () => (import('@/components/modules/BreadCrumbs'))
+  },
   data () {
     return {
-      crumbsItem: [
-        {
-          text: 'Top',
-          link: true,
-          exact: true,
-          disabled: false,
-          to: { name: 'TopPage' }
-        },
+      pathList: [
         {
           text: 'About Me',
-          link: true,
-          exact: true,
-          disabled: true,
           to: { name: 'AboutMe' }
         }
       ]

@@ -64,11 +64,13 @@
     </v-app-bar>
 
     <v-main>
-      <v-fade-transition
-        mode="out-in"
-      >
-        <router-view/>
-      </v-fade-transition>
+      <keep-alive>
+        <v-fade-transition
+          mode="out-in"
+        >
+          <router-view/>
+        </v-fade-transition>
+      </keep-alive>
     </v-main>
     <v-footer
       color="transparent"
@@ -127,9 +129,9 @@ export default {
     },
     goLoginPage () {
       if (this.$route.path === '/') {
-        this.$router.push({ path: '/login' })
+        this.$router.push({ name: 'Login' })
       } else {
-        this.$router.push({ path: '/login', query: { backuri: this.$router.currentRoute.path } })
+        this.$router.push({ name: 'Login', query: { backuri: this.$router.currentRoute.path } })
       }
     },
     reload () {
