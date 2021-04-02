@@ -64,7 +64,9 @@
     </v-app-bar>
 
     <v-main>
-      <v-fade-transition>
+      <v-fade-transition
+        mode="out-in"
+      >
         <router-view/>
       </v-fade-transition>
     </v-main>
