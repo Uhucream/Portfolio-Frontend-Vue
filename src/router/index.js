@@ -25,7 +25,7 @@ export const router = new Router({
       }
     },
     {
-      path: '/my_work/detail/:endpoint_uri',
+      path: '/my_works/detail/:endpoint_uri',
       name: 'WorkDetailPage',
       component: () => import('@/components/pages/Works/WorkDetailPage'),
       props: true,
@@ -58,7 +58,7 @@ export const router = new Router({
       }
     },
     {
-      path: '/daily_reports/post/:id',
+      path: '/daily_reports/posts/:id',
       name: 'DailyReportPage',
       component: () => import('@/components/pages/DailyReport/DailyReportPage'),
       props: true,
@@ -84,7 +84,7 @@ export const router = new Router({
       meta: { requireAuth: true }
     },
     {
-      path: '/daily_reports/post/:id/edit',
+      path: '/daily_reports/posts/:id/edit',
       name: 'EditPost',
       component: () => import('@/components/pages/DailyReport/EditPost'),
       meta: { requireAuth: true }
