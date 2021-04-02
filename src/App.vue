@@ -25,49 +25,42 @@
       >
         Logout
       </v-btn>
-      <v-btn
+      <a
+        style="text-decoration: none;"
         href="https://github.com/Uhucream"
+        ref="noopener noreferrer"
         target="_blank"
-        rel="noopener noreferrer"
-        link
-        icon
-        depressed
-        :ripple="false"
       >
         <v-icon
-          class="px-2"
+          class="mx-3"
         >
           mdi-github-circle
         </v-icon>
-      </v-btn>
-      <v-btn
+      </a>
+      <a
+        style="text-decoration: none;"
         href="https://www.instagram.com/cattle19_59.tym.pictures"
+        ref="noopener noreferrer"
         target="_blank"
-        rel="noopener noreferrer"
-        link
-        icon
-        depressed
-        :ripple="false"
       >
         <v-icon
-          class="px-2"
+          class="mx-3"
         >
           mdi-instagram
         </v-icon>
-      </v-btn>
-      <v-btn
+      </a>
+      <a
+        style="text-decoration: none;"
         href="https://twitter.com/UKokkei95Toyama"
+        ref="noopener noreferrer"
         target="_blank"
-        rel="noopener noreferrer"
-        link
-        icon
-        depressed
-        :ripple="false"
       >
-        <v-icon>
-          {{ mdiTwitter }}
+        <v-icon
+          class="ml-3"
+        >
+          mdi-twitter
         </v-icon>
-      </v-btn>
+      </a>
     </v-app-bar>
 
     <v-main>
@@ -89,12 +82,10 @@
 </template>
 
 <script>
-import { mdiTwitter } from '@mdi/js'
 export default {
   name: 'App',
   data () {
     return {
-      mdiTwitter: mdiTwitter,
       showLoginBtn: false,
       isLoggedIn: false,
       createPath: null,
