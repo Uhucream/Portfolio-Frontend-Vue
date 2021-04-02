@@ -108,13 +108,13 @@ export const router = new Router({
   ],
   scrollBehavior (to, from, savedPosition) {
     if (savedPosition) {
+      return savedPosition
+    } else {
       return new Promise((resolve, reject) => {
         setTimeout(() => {
           resolve({ x: 0, y: 0 })
         }, 500)
       })
-    } else {
-      return { x: 0, y: 0 }
     }
   }
 })
