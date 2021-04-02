@@ -80,14 +80,14 @@ export default {
         to: { name: 'WorksList' }
       },
       {
-        text: null,
+        text: props.work_detail_data.name,
         link: true,
         exact: true,
         disabled: true,
         to: {
-          name: 'WorksDetailPage',
+          name: 'WorkDetailPage',
           params: {
-            endpoint_uri: this.$route.params['endpoint_uri']
+            endpoint_uri: props.work_detail_data.endpoint_uri
           }
         }
       }

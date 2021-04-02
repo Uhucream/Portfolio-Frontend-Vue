@@ -65,14 +65,14 @@ export default {
         to: { name: 'DailyReportsList' }
       },
       {
-        text: null,
+        text: `#${props.report_content_data.id} ${props.report_content_data.title}`,
         link: true,
         exact: true,
         disabled: true,
         to: {
           name: 'DailyReportPage',
           params: {
-            id: this.$route.params['id']
+            id: props.report_content_data.id
           }
         }
       }
