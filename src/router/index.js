@@ -32,9 +32,7 @@ export const router = new Router({
       beforeEnter: (to, from, next) => {
         if (!to.params.work_detail_data) {
           api
-            .get(
-              `/v1/my_work/${to.params.endpoint_uri}`
-            )
+            .get(`/v1/my_work/${to.params.endpoint_uri}`)
             .then((response) => {
               to.params.work_detail_data = response.data
               to.params.work_detail_data.description = md.render(
