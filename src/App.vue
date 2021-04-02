@@ -64,9 +64,11 @@
     </v-app-bar>
 
     <v-main>
-      <v-fade-transition>
-        <router-view/>
-      </v-fade-transition>
+      <keep-alive>
+        <v-fade-transition>
+          <router-view/>
+        </v-fade-transition>
+      </keep-alive>
     </v-main>
     <v-footer
       color="transparent"
