@@ -33,7 +33,7 @@ export const router = new Router({
         if (!to.params.work_detail_data) {
           api
             .get(
-              `${process.env.VUE_APP_API_ENDPOINT}/v1/my_work/${to.params.endpoint_uri}`
+              `/v1/my_work/${to.params.endpoint_uri}`
             )
             .then((response) => {
               to.params.work_detail_data = response.data
@@ -65,7 +65,7 @@ export const router = new Router({
       beforeEnter: (to, from, next) => {
         if (!to.params.report_content_data) {
           api
-            .get(`${process.env.VUE_APP_API_ENDPOINT}/v1/post/${to.params.id}`)
+            .get(`/v1/post/${to.params.id}`)
             .then((response) => {
               to.params.report_content_data = response.data
               to.meta.title = `#${to.params.id} ${response.data.title}`
