@@ -56,10 +56,7 @@
             :cols="cardsCols"
           >
             <WorksCard
-              :work_name="work.name"
-              :work_picture_url="work.work_picture_url"
-              :top_page_outline="work.top_page_outline"
-              :endpoint_uri="work.endpoint_uri"
+              :work_detail_data="work"
             />
           </v-col>
         </v-row>

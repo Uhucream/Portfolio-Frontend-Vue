@@ -30,16 +30,23 @@ export const router = new Router({
       component: () => import('@/components/pages/Works/WorkDetailPage'),
       props: true,
       beforeEnter: (to, from, next) => {
-        axios
-          .get(`${process.env.VUE_APP_API_ENDPOINT}/v1/my_work/${to.params.endpoint_uri}`)
-          .then((response) => {
-            to.params.work_detail_data = response.data
-            to.params.work_detail_data.description = md.render(response.data.description)
-            to.params.crumbs_text = response.data.name
-            to.params.uri_props = to.params.endpoint_uri
-            to.meta.title = `${response.data.name} - My Works`
-            next()
-          })
+        if (!to.params.work_detail_data) {
+          axios
+            .get(
+              `${process.env.VUE_APP_API_ENDPOINT}/v1/my_work/${to.params.endpoint_uri}`
+            )
+            .then((response) => {
+              to.params.work_detail_data = response.data
+              to.params.work_detail_data.description = md.render(
+                response.data.description
+              )
+              to.meta.title = `${response.data.name} - My Works`
+              next()
+            })
+        } else {
+          to.meta.title = to.params.title
+          next()
+        }
       }
     },
     {
