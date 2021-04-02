@@ -3,7 +3,7 @@ const mdOptions = {
   html: true,
   linkify: true
 }
-var md = require('markdown-it')(mdOptions)
+export var md = require('markdown-it')(mdOptions)
 const checkboxOptions = {
   divWrap: true
 }

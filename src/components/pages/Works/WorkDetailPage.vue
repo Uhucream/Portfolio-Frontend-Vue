@@ -12,22 +12,22 @@
     >
       <v-card-title class="pl-1 py-3 pl-sm-4 py-sm-4">
         <p class="display-1">
-          {{ workDetailData.name }}
+          {{ work_detail_data.name }}
         </p>
       </v-card-title>
-      <template v-if="workDetailData.workURL">
+      <template v-if="work_detail_data.work_url">
         <v-card-subtitle>
           <div>
-            リンク: <a :href="workDetailData.workURL" ref="noopener noreferrer" target="_blank">{{ workDetailData.workURL}}</a>
+            リンク: <a :href="work_detail_data.work_url" ref="noopener noreferrer" target="_blank">{{ work_detail_data.work_url}}</a>
           </div>
         </v-card-subtitle>
       </template>
 
       <v-row justify="center">
         <v-col cols="9">
-          <template v-if="workDetailData.workPictureURL">
+          <template v-if="work_detail_data.work_picture_url">
             <v-img
-              :src="workDetailData.workPictureURL"
+              :src="work_detail_data.work_picture_url"
               :lazy-src="require('@/assets/NO_IMAGE_AVAILABLE.png')"
               class="grey lighten-2"
             >
@@ -50,7 +50,7 @@
       </v-row>
 
       <div
-        v-html="workDetailData.description"
+        v-html="work_detail_data.description"
         class="pt-6 mx-3 mx-sm-5"
       />
     </v-card>
@@ -60,14 +60,9 @@
 <script>
 export default {
   name: 'works-detail-page',
+  props: ['work_detail_data', 'crumbs_text', 'uri_props'],
   data () {
     return {
-      workDetailData: {
-        name: null,
-        description: null,
-        workURL: null,
-        workPictureURL: null
-      },
       crumbsItem: [
         {
           text: 'Top',
@@ -80,29 +75,12 @@ export default {
           to: '/my_works'
         },
         {
-          text: null,
+          text: this.crumbs_text,
           disabled: true,
           to: `/daily_reports/post/${this.$route.params['endpoint_uri']}`
         }
       ]
     }
-  },
-  methods: {
-    async fetchWorkDetail () {
-      await this.$axios
-        .get(`/v1/my_work/${this.$route.params['endpoint_uri']}`)
-        .then((response) => {
-          this.$set(this.workDetailData, 'name', response.data.name)
-          this.$set(this.workDetailData, 'description', this.$md.render(response.data.description))
-          this.$set(this.workDetailData, 'workURL', response.data.work_url)
-          this.$set(this.workDetailData, 'workPictureURL', response.data.work_picture_url)
-
-          this.$set(this.crumbsItem[2], 'text', response.data.name)
-        })
-    }
-  },
-  created () {
-    this.fetchWorkDetail()
   }
 }
 </script>

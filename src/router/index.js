@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import axios from 'axios'
+import { md } from '@/plugins/vue-markdown'
 import TopPage from '@/components/pages/TopPage'
 import WorksList from '@/components/pages/Works/WorksList'
 import DailyReportsList from '@/components/pages/DailyReport/DailyReportsList'
@@ -27,10 +28,15 @@ export const router = new Router({
       path: '/my_work/detail/:endpoint_uri',
       name: 'WorkDetailPage',
       component: () => import('@/components/pages/Works/WorkDetailPage'),
+      props: true,
       beforeEnter: (to, from, next) => {
         axios
           .get(`${process.env.VUE_APP_API_ENDPOINT}/v1/my_work/${to.params.endpoint_uri}`)
           .then((response) => {
+            to.params.work_detail_data = response.data
+            to.params.work_detail_data.description = md.render(response.data.description)
+            to.params.crumbs_text = response.data.name
+            to.params.uri_props = to.params.endpoint_uri
             to.meta.title = `${response.data.name} - My Works`
             next()
           })
