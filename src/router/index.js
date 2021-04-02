@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import axios from 'axios'
+import { api } from '@/plugins/custom-axios'
 import { md } from '@/plugins/vue-markdown'
 import TopPage from '@/components/pages/TopPage'
 import WorksList from '@/components/pages/Works/WorksList'
@@ -31,7 +31,7 @@ export const router = new Router({
       props: true,
       beforeEnter: (to, from, next) => {
         if (!to.params.work_detail_data) {
-          axios
+          api
             .get(
               `${process.env.VUE_APP_API_ENDPOINT}/v1/my_work/${to.params.endpoint_uri}`
             )
@@ -64,7 +64,7 @@ export const router = new Router({
       props: true,
       beforeEnter: (to, from, next) => {
         if (!to.params.report_content_data) {
-          axios
+          api
             .get(`${process.env.VUE_APP_API_ENDPOINT}/v1/post/${to.params.id}`)
             .then((response) => {
               to.params.report_content_data = response.data
@@ -119,44 +119,30 @@ export const router = new Router({
   }
 })
 
-const api = axios.create({
-  baseURL: process.env.VUE_APP_API_ENDPOINT,
-  xsrfHeaderName: 'X-CSRF-TOKEN',
-  withCredentials: true
-})
-
 router.beforeEach((to, from, next) => {
-  async function authCheck () {
-    const result = await api
-      .get('/auth/protected', {
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-TOKEN': Vue.$cookies.get('csrf_access_token')
+  if (!to.matched.some((record) => record.meta.requireAuth && record.path !== '/login')) {
+    next()
+  } else {
+    api
+      .get(
+        '/auth/protected',
+        {
+          withCredentials: true,
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRF-TOKEN': Vue.$cookies.get('csrf_access_token')
+          }
         }
-      })
-      .then((_) => {
-        return true
-      })
-      .catch((_) => {
-        return false
-      })
-    return result
-  }
-  const navigationGuard = async () => {
-    await authCheck().then((result) => {
-      if (
-        result ||
-        !to.matched.some(
-          (record) => record.meta.requireAuth && record.path !== '/login'
-        )
-      ) {
+      )
+      .then(() => {
         next()
-      } else {
-        next({ path: '/login', query: { backuri: to.fullPath } })
-      }
-    })
+      })
+      .catch(() => {
+        next({ name: 'Login', query: { backuri: to.fullPath } })
+      })
+      .finally(() => {
+      })
   }
-  navigationGuard()
 })
 
 router.afterEach((to, from) => {

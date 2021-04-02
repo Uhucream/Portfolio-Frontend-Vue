@@ -190,7 +190,7 @@ export default {
         })
         .catch((error) => {
           if (error.response.data.message === 'Missing cookie "access_token_cookie"') {
-            this.$router.push({path: '/login', query: {backuri: this.$route.fullPath}})
+            this.$router.push({name: 'Login', query: {backuri: this.$route.fullPath}})
           }
           this.deleteProgress = false
         })
