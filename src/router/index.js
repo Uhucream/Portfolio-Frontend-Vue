@@ -3,8 +3,6 @@ import Router from 'vue-router'
 import { api } from '@/plugins/custom-axios'
 import { md } from '@/plugins/vue-markdown'
 import TopPage from '@/components/pages/TopPage'
-import WorksList from '@/components/pages/Works/WorksList'
-import DailyReportsList from '@/components/pages/DailyReport/DailyReportsList'
 
 Vue.use(Router)
 
@@ -19,7 +17,7 @@ export const router = new Router({
     {
       path: '/my_works',
       name: 'WorksList',
-      component: WorksList,
+      component: () => import('@/components/pages/Works/WorksList'),
       meta: {
         title: 'My Works'
       }
@@ -31,16 +29,14 @@ export const router = new Router({
       props: true,
       beforeEnter: (to, from, next) => {
         if (!to.params.work_detail_data) {
-          api
-            .get(`/v1/my_work/${to.params.endpoint_uri}`)
-            .then((response) => {
-              to.params.work_detail_data = response.data
-              to.params.work_detail_data.description = md.render(
-                response.data.description
-              )
-              to.meta.title = `${response.data.name} - My Works`
-              next()
-            })
+          api.get(`/v1/my_work/${to.params.endpoint_uri}`).then((response) => {
+            to.params.work_detail_data = response.data
+            to.params.work_detail_data.description = md.render(
+              response.data.description
+            )
+            to.meta.title = `${response.data.name} - My Works`
+            next()
+          })
         } else {
           to.meta.title = to.params.title
           next()
@@ -50,7 +46,7 @@ export const router = new Router({
     {
       path: '/daily_reports/posts',
       name: 'DailyReportsList',
-      component: DailyReportsList,
+      component: () => import('@/components/pages/DailyReport/DailyReportsList'),
       meta: {
         title: 'Daily Reports'
       }
@@ -62,13 +58,11 @@ export const router = new Router({
       props: true,
       beforeEnter: (to, from, next) => {
         if (!to.params.report_content_data) {
-          api
-            .get(`/v1/post/${to.params.id}`)
-            .then((response) => {
-              to.params.report_content_data = response.data
-              to.meta.title = `#${to.params.id} ${response.data.title}`
-              next()
-            })
+          api.get(`/v1/post/${to.params.id}`).then((response) => {
+            to.params.report_content_data = response.data
+            to.meta.title = `#${to.params.id} ${response.data.title}`
+            next()
+          })
         } else {
           to.meta.title = to.params.title
           next()
