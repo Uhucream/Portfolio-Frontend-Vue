@@ -55,44 +55,12 @@
             :key="work.uuid"
             :cols="cardsCols"
           >
-            <v-card>
-              <v-img
-                class="white--text align-end"
-                :src="workPictureURL(work.work_picture_url)"
-                :lazy-src="require('@/assets/NO_IMAGE_AVAILABLE.png')"
-                gradient="to bottom, rgba(0,0,0,.2), rgba(0,0,0,.4)"
-              >
-                <v-card-title>{{ work.name }}</v-card-title>
-                <template v-slot:placeholder>
-                  <v-row
-                    class="fill-height ma-0"
-                    align="center"
-                    justify="center"
-                  >
-                    <v-progress-circular
-                      indeterminate
-                      color="grey darken-2"
-                    ></v-progress-circular>
-                  </v-row>
-                </template>
-              </v-img>
-              <v-card-text>
-                <div
-                  v-html="work.top_page_outline"
-                  class="text-body-1 text--primary"
-                  style="padding-top: 2px"
-                />
-              </v-card-text>
-              <v-card-actions>
-                <v-btn
-                  text
-                  color="blue-grey lighten-1"
-                  :to="`/my_work/detail/${work.endpoint_uri}`"
-                >
-                  詳しい情報
-                </v-btn>
-              </v-card-actions>
-            </v-card>
+            <WorksCard
+              :work_name="work.name"
+              :work_picture_url="work.work_picture_url"
+              :top_page_outline="work.top_page_outline"
+              :endpoint_uri="work.endpoint_uri"
+            />
           </v-col>
         </v-row>
       </template>
@@ -141,9 +109,13 @@
 </template>
 
 <script>
+import WorksCard from '@/components/modules/Works/WorksCard'
 export default {
   name: 'works-list',
   props: ['isTopPage'],
+  components: {
+    WorksCard
+  },
   data () {
     return {
       showSearch: false,
@@ -178,13 +150,6 @@ export default {
         .catch(() => {
           this.allWorksData = []
         })
-    },
-    workPictureURL (url) {
-      if (url) {
-        return url
-      } else {
-        return require('@/assets/NO_IMAGE_AVAILABLE.png')
-      }
     },
     nextPage () {
       if (this.page + 1 <= this.numberOfPages) this.page += 1
