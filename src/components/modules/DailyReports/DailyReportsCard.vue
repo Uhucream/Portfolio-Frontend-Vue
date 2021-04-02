@@ -63,7 +63,7 @@ export default {
         params: {
           id: props.report_content_data.id,
           report_content_data: props.report_content_data,
-          title: props.report_content_data.title
+          title: `#${props.report_content_data.id} ${props.report_content_data.title}`
         }
       }
     )

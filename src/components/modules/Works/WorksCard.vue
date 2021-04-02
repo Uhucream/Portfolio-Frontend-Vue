@@ -62,7 +62,7 @@ export default {
         params: {
           endpoint_uri: props.work_detail_data.endpoint_uri,
           work_detail_data: props.work_detail_data,
-          title: props.work_detail_data.name
+          title: `${props.work_detail_data.name} - My Works`
         }
       }
     )
