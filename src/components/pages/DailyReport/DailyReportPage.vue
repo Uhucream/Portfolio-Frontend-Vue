@@ -52,18 +52,29 @@ export default {
     return [
       {
         text: 'Top',
+        link: true,
+        exact: true,
         disabled: false,
-        to: '/'
+        to: { name: 'TopPage' }
       },
       {
         text: 'Daily Reports',
+        link: true,
+        exact: true,
         disabled: false,
-        to: '/daily_reports/posts'
+        to: { name: 'DailyReportsList' }
       },
       {
-        text: props.report_content_data.title,
+        text: null,
+        link: true,
+        exact: true,
         disabled: true,
-        to: `/daily_reports/post/${props.report_content_data.id}`
+        to: {
+          name: 'DailyReportPage',
+          params: {
+            id: this.$route.params['id']
+          }
+        }
       }
     ]
   },

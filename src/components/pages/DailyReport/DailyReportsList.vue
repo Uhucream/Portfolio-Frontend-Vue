@@ -94,7 +94,7 @@
               outlined
               small
               class="mt-2 mr-4"
-              to="/daily_reports/posts"
+              :to="{ name: 'DailyReportsList' }"
             >
               Show {{ reportPosts.length }} posts
             </v-btn>
@@ -125,13 +125,17 @@ export default {
       crumbsItem: [
         {
           text: 'Top',
+          link: true,
+          exact: true,
           disabled: false,
-          to: '/'
+          to: { name: 'TopPage' }
         },
         {
           text: 'Daily Reports',
+          link: true,
+          exact: true,
           disabled: true,
-          to: '/daily_reports/posts'
+          to: { name: 'DailyReportsList' }
         }
       ],
       reportPosts: []
