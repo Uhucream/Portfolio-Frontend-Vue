@@ -1,10 +1,11 @@
 <template>
   <component :is="conditionalTag">
-    <v-breadcrumbs v-if="!isTopPage" :items="crumbsItem" class="pt-1 pl-2">
-      <template v-slot:divider>
-        <v-icon>mdi-chevron-right</v-icon>
-      </template>
-    </v-breadcrumbs>
+    <template v-if="!isTopPage">
+      <BreadCrumbs
+        :path="pagePath"
+      />
+    </template>
+
     <v-data-iterator
       :class="{'pa-0': isTopPage && reportPosts.length != 0, 'pl-8': reportPosts.length == 0, 'py-5': reportPosts.length == 0}"
       :items="reportPosts"
@@ -110,7 +111,8 @@ import DailyReportsCard from '@/components/modules/DailyReports/DailyReportsCard
 export default {
   name: 'daily-reports-list',
   components: {
-    DailyReportsCard
+    DailyReportsCard,
+    BreadCrumbs: () => (import('@/components/modules/BreadCrumbs'))
   },
   props: ['isTopPage'],
   data () {
@@ -122,19 +124,9 @@ export default {
       page: 1,
       sortBy: 'id',
       sortDesc: true,
-      crumbsItem: [
-        {
-          text: 'Top',
-          link: true,
-          exact: true,
-          disabled: false,
-          to: { name: 'TopPage' }
-        },
+      pagePath: [
         {
           text: 'Daily Reports',
-          link: true,
-          exact: true,
-          disabled: true,
           to: { name: 'DailyReportsList' }
         }
       ],

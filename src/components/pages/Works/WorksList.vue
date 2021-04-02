@@ -1,10 +1,10 @@
 <template>
   <component :is="conditionalTag">
-    <v-breadcrumbs v-if="!isTopPage" :items="crumbsItem" class="pt-1 pl-2">
-      <template v-slot:divider>
-        <v-icon>mdi-chevron-right</v-icon>
-      </template>
-    </v-breadcrumbs>
+    <template v-if="!isTopPage">
+      <BreadCrumbs
+        :path="pathList"
+      />
+    </template>
 
     <v-data-iterator
       :class="{'pa-0': isTopPage && allWorksData.length != 0, 'pl-8': allWorksData.length == 0, 'py-5': allWorksData.length == 0}"
@@ -111,7 +111,8 @@ export default {
   name: 'works-list',
   props: ['isTopPage'],
   components: {
-    WorksCard
+    WorksCard,
+    BreadCrumbs: () => (import('@/components/modules/BreadCrumbs'))
   },
   data () {
     return {
@@ -121,19 +122,9 @@ export default {
       page: 1,
       sortBy: 'id',
       sortDesc: true,
-      crumbsItem: [
-        {
-          text: 'Top',
-          link: true,
-          exact: true,
-          disabled: false,
-          to: { name: 'TopPage' }
-        },
+      pathList: [
         {
           text: 'My Works',
-          link: true,
-          exact: true,
-          disabled: true,
           to: { name: 'WorksList' }
         }
       ],
