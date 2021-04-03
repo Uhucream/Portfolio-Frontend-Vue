@@ -2,6 +2,7 @@
   <v-card>
     <v-img
       class="white--text align-end"
+      contain
       :src="$options.workPictureURL(props.work_detail_data.work_picture_url)"
       :lazy-src="require('@/assets/NO_IMAGE_AVAILABLE.png')"
       gradient="to bottom, rgba(0,0,0,.2), rgba(0,0,0,.4)"
