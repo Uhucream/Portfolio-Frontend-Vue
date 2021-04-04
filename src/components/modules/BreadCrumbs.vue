@@ -3,6 +3,13 @@
     <template v-slot:divider>
       <v-icon>mdi-chevron-right</v-icon>
     </template>
+    <template v-slot:item="{ item }">
+      <v-breadcrumbs-item
+        v-bind="item"
+      >
+        {{ item.text }}
+      </v-breadcrumbs-item>
+    </template>
   </v-breadcrumbs>
 </template>
 
@@ -15,7 +22,7 @@ export default {
     var crumbsItems = [
       {
         text: 'Top',
-        link: true,
+        ripple: true,
         exact: true,
         disabled: false,
         to: { name: 'TopPage' }
@@ -25,8 +32,9 @@ export default {
       crumbsItems.push(
         {
           ...elem,
-          link: true,
-          exact: true
+          ripple: true,
+          exact: true,
+          disabled: false
         }
       )
     })
