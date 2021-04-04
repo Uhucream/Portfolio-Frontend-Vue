@@ -64,6 +64,11 @@
     </v-app-bar>
 
     <v-main>
+      <v-container v-if="$route.name !== 'TopPage'" class="pb-1">
+        <BreadCrumbs
+          :path="pathList"
+        />
+      </v-container>
       <keep-alive>
         <v-fade-transition
           mode="out-in"
@@ -88,8 +93,12 @@
 <script>
 export default {
   name: 'App',
+  components: {
+    BreadCrumbs: () => (import('@/components/modules/BreadCrumbs'))
+  },
   data () {
     return {
+      pathList: [],
       showLoginBtn: false,
       isLoggedIn: false,
       createPath: null,
@@ -97,6 +106,37 @@ export default {
     }
   },
   methods: {
+    generateCrumbs () {
+      if (this.pathList.length !== 0) {
+        this.pathList.splice(0, this.pathList.length)
+      }
+      const textDecide = (route) => {
+        if (route.meta.pathText) {
+          this.pathList.push(
+            {
+              text: route.meta.pathText,
+              to: { path: route.path }
+            }
+          )
+        } else {
+          this.pathList.push(
+            {
+              text: route.meta.title,
+              to: { path: route.path }
+            }
+          )
+        }
+      }
+      const matchedRoute = this.$route.matched
+      const loopCount = matchedRoute.length
+      for (var i = 0; i < loopCount; i++) {
+        if (i + 1 === loopCount) {
+          textDecide(this.$route)
+        } else {
+          textDecide(matchedRoute[i])
+        }
+      }
+    },
     showLogin (event) {
       if (!['/daily_reports/posts/new', '/login'].includes(this.$route.path) && !this.isLoggedIn) {
         var waitingTime = 1500
@@ -176,6 +216,7 @@ export default {
   watch: {
     $route: function () {
       this.authCheck()
+      this.generateCrumbs()
     }
   },
   created () {

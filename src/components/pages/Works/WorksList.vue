@@ -1,107 +1,106 @@
 <template>
   <component :is="conditionalTag">
-    <template v-if="!isTopPage">
-      <BreadCrumbs
-        :path="pathList"
-      />
-    </template>
 
-    <v-data-iterator
-      :class="{'pa-0': isTopPage && allWorksData.length != 0, 'pl-8': allWorksData.length == 0, 'py-5': allWorksData.length == 0}"
-      :items="allWorksData"
-      :item-key="allWorksData.uuid"
-      :items-per-page.sync="itemsPerPage"
-      :page.sync="page"
-      :search="search"
-      :sort-by="sortBy.toLowerCase()"
-      hide-default-footer
-      no-data-text="There are no works"
-    >
-      <template v-slot:header>
-        <!-- 2021年3月末時点では、成果物数が少なすぎるのであえて検索機能を falseに -->
-        <div v-if="!isTopPage && allWorksData.length != 0 && false">
-          <v-btn
-            text
-            style="margin-bottom: 18px"
-            small
-            outlined
-            @click="showSearch = !showSearch"
-          >
-            Filter works
-            <v-icon>{{ showSearch ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
-          </v-btn>
-          <v-expand-transition>
-            <div v-show="showSearch">
-              <v-text-field
-                v-model="search"
-                clearable
-                solo
-                hide-details
-                color="light-blue accent-4"
-                class="px-4"
-                style="padding-bottom: 18px"
-                prepend-inner-icon="mdi-magnify"
-                label="Search works"
-              />
-            </div>
-          </v-expand-transition>
-        </div>
-      </template>
+    <router-view/>
 
-      <template v-slot:default="props">
-        <v-row class="fill-height">
-          <v-col
-            v-for="work in props.items"
-            :key="work.uuid"
-            :cols="cardsCols"
-          >
-            <WorksCard
-              :work_detail_data="work"
-            />
-          </v-col>
-        </v-row>
-      </template>
-
-      <template v-slot:footer>
-        <v-row v-if="allWorksData.length != 0 && !isTopPage" justify="center" align="center">
-          <v-spacer/>
-          <span class="mr-4 grey--text">
-            Page {{ page }} of {{ numberOfPages }}
-          </span>
-          <v-btn
-            :disabled="page === 1"
-            fab
-            icon
-            class="mr-1"
-            @click="formerPage"
-          >
-            <v-icon>mdi-chevron-left</v-icon>
-          </v-btn>
-          <v-btn
-            :disabled="page === numberOfPages"
-            fab
-            icon
-            class="ml-1"
-            @click="nextPage"
-          >
-            <v-icon>mdi-chevron-right</v-icon>
-          </v-btn>
-        </v-row>
-      </template>
-    </v-data-iterator>
-
-    <v-row v-if="isTopPage && allWorksData.length >= 1" align="center" justify="center">
-      <v-spacer/>
-      <v-btn
-        text
-        outlined
-        small
-        class="mt-5 mr-4"
-        :to="{ name: 'WorksList' }"
+    <template v-if="$route.name !== 'WorkDetailPage'">
+      <v-data-iterator
+        :class="{'pa-0': isTopPage && allWorksData.length != 0, 'pl-8': allWorksData.length == 0, 'py-5': allWorksData.length == 0}"
+        :items="allWorksData"
+        :item-key="allWorksData.uuid"
+        :items-per-page.sync="itemsPerPage"
+        :page.sync="page"
+        :search="search"
+        :sort-by="sortBy.toLowerCase()"
+        hide-default-footer
+        no-data-text="There are no works"
       >
-        Show {{ allWorksData.length }} works
-      </v-btn>
-    </v-row>
+        <template v-slot:header>
+          <!-- 2021年3月末時点では、成果物数が少なすぎるのであえて検索機能を falseに -->
+          <div v-if="!isTopPage && allWorksData.length != 0 && false">
+            <v-btn
+              text
+              style="margin-bottom: 18px"
+              small
+              outlined
+              @click="showSearch = !showSearch"
+            >
+              Filter works
+              <v-icon>{{ showSearch ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+            </v-btn>
+            <v-expand-transition>
+              <div v-show="showSearch">
+                <v-text-field
+                  v-model="search"
+                  clearable
+                  solo
+                  hide-details
+                  color="light-blue accent-4"
+                  class="px-4"
+                  style="padding-bottom: 18px"
+                  prepend-inner-icon="mdi-magnify"
+                  label="Search works"
+                />
+              </div>
+            </v-expand-transition>
+          </div>
+        </template>
+
+        <template v-slot:default="props">
+          <v-row class="fill-height">
+            <v-col
+              v-for="work in props.items"
+              :key="work.uuid"
+              :cols="cardsCols"
+            >
+              <WorksCard
+                :work_detail_data="work"
+              />
+            </v-col>
+          </v-row>
+        </template>
+
+        <template v-slot:footer>
+          <v-row v-if="allWorksData.length != 0 && !isTopPage" justify="center" align="center">
+            <v-spacer/>
+            <span class="mr-4 grey--text">
+              Page {{ page }} of {{ numberOfPages }}
+            </span>
+            <v-btn
+              :disabled="page === 1"
+              fab
+              icon
+              class="mr-1"
+              @click="formerPage"
+            >
+              <v-icon>mdi-chevron-left</v-icon>
+            </v-btn>
+            <v-btn
+              :disabled="page === numberOfPages"
+              fab
+              icon
+              class="ml-1"
+              @click="nextPage"
+            >
+              <v-icon>mdi-chevron-right</v-icon>
+            </v-btn>
+          </v-row>
+        </template>
+      </v-data-iterator>
+
+      <v-row v-if="isTopPage && allWorksData.length >= 1" align="center" justify="center">
+        <v-spacer/>
+        <v-btn
+          text
+          outlined
+          small
+          class="mt-5 mr-4"
+          :to="{ name: 'WorksList' }"
+        >
+          Show {{ allWorksData.length }} works
+        </v-btn>
+      </v-row>
+    </template>
   </component>
 </template>
 

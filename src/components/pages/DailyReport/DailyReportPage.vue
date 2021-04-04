@@ -1,10 +1,5 @@
 <template functional>
   <v-container style="height: calc(100% - 44px)">
-    <v-breadcrumbs :items="$options.crumbsItem(props)" class="pt-1 pl-2">
-      <template v-slot:divider>
-        <v-icon>mdi-chevron-right</v-icon>
-      </template>
-    </v-breadcrumbs>
     <v-card
       class="pa-3 fill-height"
       height="100%"
@@ -50,13 +45,6 @@ export default {
   },
   crumbsItem (props) {
     return [
-      {
-        text: 'Top',
-        link: true,
-        exact: true,
-        disabled: false,
-        to: { name: 'TopPage' }
-      },
       {
         text: 'Daily Reports',
         link: true,

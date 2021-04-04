@@ -20,28 +20,32 @@ export const router = new Router({
       component: () => import('@/components/pages/Works/WorksList'),
       meta: {
         title: 'My Works'
-      }
-    },
-    {
-      path: '/my_works/detail/:endpoint_uri',
-      name: 'WorkDetailPage',
-      component: () => import('@/components/pages/Works/WorkDetailPage'),
-      props: true,
-      beforeEnter: (to, from, next) => {
-        if (!to.params.work_detail_data) {
-          api.get(`/v1/my_work/${to.params.endpoint_uri}`).then((response) => {
-            to.params.work_detail_data = response.data
-            to.params.work_detail_data.description = md.render(
-              response.data.description
-            )
-            to.meta.title = `${response.data.name} - My Works`
-            next()
-          })
-        } else {
-          to.meta.title = to.params.title
-          next()
+      },
+      children: [
+        {
+          path: '/my_works/detail/:endpoint_uri',
+          name: 'WorkDetailPage',
+          component: () => import('@/components/pages/Works/WorkDetailPage'),
+          props: true,
+          beforeEnter: (to, from, next) => {
+            if (!to.params.work_detail_data) {
+              api.get(`/v1/my_work/${to.params.endpoint_uri}`).then((response) => {
+                to.params.work_detail_data = response.data
+                to.params.work_detail_data.description = md.render(
+                  response.data.description
+                )
+                to.meta.pathText = response.data.name
+                to.meta.title = `${response.data.name} - My Works`
+                next()
+              })
+            } else {
+              to.meta.pathText = to.params.work_detail_data.name
+              to.meta.title = to.params.title
+              next()
+            }
+          }
         }
-      }
+      ]
     },
     {
       path: '/daily_reports/posts',
@@ -49,25 +53,27 @@ export const router = new Router({
       component: () => import('@/components/pages/DailyReport/DailyReportsList'),
       meta: {
         title: 'Daily Reports'
-      }
-    },
-    {
-      path: '/daily_reports/posts/:id',
-      name: 'DailyReportPage',
-      component: () => import('@/components/pages/DailyReport/DailyReportPage'),
-      props: true,
-      beforeEnter: (to, from, next) => {
-        if (!to.params.report_content_data) {
-          api.get(`/v1/post/${to.params.id}`).then((response) => {
-            to.params.report_content_data = response.data
-            to.meta.title = `#${to.params.id} ${response.data.title}`
-            next()
-          })
-        } else {
-          to.meta.title = to.params.title
-          next()
+      },
+      children: [
+        {
+          path: '/daily_reports/posts/:id',
+          name: 'DailyReportPage',
+          component: () => import('@/components/pages/DailyReport/DailyReportPage'),
+          props: true,
+          beforeEnter: (to, from, next) => {
+            if (!to.params.report_content_data) {
+              api.get(`/v1/post/${to.params.id}`).then((response) => {
+                to.params.report_content_data = response.data
+                to.meta.title = `#${to.params.id} ${response.data.title}`
+                next()
+              })
+            } else {
+              to.meta.title = to.params.title
+              next()
+            }
+          }
         }
-      }
+      ]
     },
     {
       path: '/daily_reports/posts/new',

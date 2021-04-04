@@ -1,9 +1,5 @@
 <template>
   <v-container>
-    <BreadCrumbs
-      :path="pathList"
-    />
-
     <div class="bodyContent">
       <v-card
         class="pa-3"

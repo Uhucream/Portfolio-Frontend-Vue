@@ -1,11 +1,5 @@
 <template functional>
   <v-container style="height: calc(100% - 44px)">
-    <v-breadcrumbs :items="$options.crumbsItem(props)" class="pt-1 pl-2">
-      <template v-slot:divider>
-        <v-icon>mdi-chevron-right</v-icon>
-      </template>
-    </v-breadcrumbs>
-
     <v-card
       class="pa-3 fill-height"
       height="100%"
@@ -58,20 +52,21 @@
 </template>
 
 <script>
+import BreadCrumbs from '@/components/modules/BreadCrumbs'
 export default {
   name: 'works-detail-page',
   props: {
     work_detail_data: Object
   },
+  inject: {
+    components: {
+      default: {
+        BreadCrumbs
+      }
+    }
+  },
   crumbsItem (props) {
     return [
-      {
-        text: 'Top',
-        link: true,
-        exact: true,
-        disabled: false,
-        to: { name: 'TopPage' }
-      },
       {
         text: 'My Works',
         link: true,
