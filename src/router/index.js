@@ -44,6 +44,14 @@ export const router = new Router({
       }
     },
     {
+      path: '/coorperated_projects',
+      name: 'CooperatedProjectsList',
+      component: () => import('@/components/pages/CooperatedProjects/CoorperatedProjectsList'),
+      meta: {
+        title: 'Cooperated Projects'
+      }
+    },
+    {
       path: '/daily_reports/posts',
       name: 'DailyReportsList',
       component: () => import('@/components/pages/DailyReport/DailyReportsList'),

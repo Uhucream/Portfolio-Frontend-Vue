@@ -55,6 +55,27 @@
       </v-col>
 
       <v-col
+        :cols="(12 / itemsPerRow)"
+      >
+        <v-subheader>Cooperated Projects</v-subheader>
+        <v-card>
+          <v-card-title class="display-1">
+            開発協力したもの
+          </v-card-title>
+          <v-card-text class="text--primary">僕が開発協力したプロジェクト一覧です</v-card-text>
+          <v-card-actions>
+            <v-btn
+              text
+              color="blue-grey lighten-1"
+              :to="{ name: 'CooperatedProjectsList' }"
+            >
+              すべて見る
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-col>
+
+      <v-col
         cols="12"
       >
         <v-subheader>Daily Reports</v-subheader>
