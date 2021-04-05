@@ -29,7 +29,7 @@
           </v-card-title>
           <v-card-text>
             <div class="text-body-1 text--primary">
-              金沢工業大学 2年 情報工学科の学生です。
+              金沢工業大学 3年 情報工学科の学生です。
             </div>
           </v-card-text>
           <v-card-actions>
