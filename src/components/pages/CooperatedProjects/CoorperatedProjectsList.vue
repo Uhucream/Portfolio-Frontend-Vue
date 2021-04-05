@@ -28,7 +28,7 @@
           </template>
         </v-img>
         <v-card-title>ICリーダー</v-card-title>
-        <v-card-subtitle class="text-caption">by Shintaro Kawamura, Nobtaka Nukui</v-card-subtitle>
+        <v-card-subtitle class="text-caption">by <a href="https://twitter.com/kawamuramura_s?s=20" style="text-decoration: none;">Shintaro Kawamura</a>, <a href="https://twitter.com/NobtakaJP?s=20" style="text-decoration: none;">Nobtaka Nukui</a></v-card-subtitle>
         <v-card-text>
           <div
             class="text-body-1 text--primary"

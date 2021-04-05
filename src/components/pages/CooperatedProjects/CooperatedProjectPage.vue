@@ -13,6 +13,21 @@
           ICリーダー - 電子マネー残高確認アプリ
         </p>
       </v-card-title>
+      <v-card-subtitle>
+        <a
+          href="https://onigiri.pizza/ic/index.html"
+          ref="noopener noreferrer"
+          target="_blank"
+        >
+          ICリーダー - 電子マネー残高確認アプリ
+        </a>
+      </v-card-subtitle>
+      <v-card-subtitle class="py-0">
+        Develped by: <a href="https://twitter.com/kawamuramura_s?s=20" style="text-decoration: none;">Shintaro Kawamura</a>
+      </v-card-subtitle>
+      <v-card-subtitle class="pt-0">
+        Designed by: <a href="https://twitter.com/NobtakaJP?s=20" style="text-decoration: none;">Nobtaka Nukui</a>
+      </v-card-subtitle>
       <v-container>
         <v-row justify="center">
           <v-col
@@ -23,15 +38,6 @@
               :lazy-src="require('@/assets/NO_IMAGE_AVAILABLE.png')"
               contain
             />
-            <v-card-subtitle class="pl-1 pl-sm-3">
-              <a
-                href="https://onigiri.pizza/ic/index.html"
-                ref="noopener noreferrer"
-                target="_blank"
-              >
-                ICリーダー - 電子マネー残高確認アプリ
-              </a>
-            </v-card-subtitle>
           </v-col>
         </v-row>
       </v-container>
