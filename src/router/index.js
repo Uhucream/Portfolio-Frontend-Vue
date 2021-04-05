@@ -52,6 +52,14 @@ export const router = new Router({
       }
     },
     {
+      path: '/coorperated_projects/ic_reader',
+      name: 'CooperatedProjectPage',
+      component: () => import('@/components/pages/CooperatedProjects/CooperatedProjectPage'),
+      meta: {
+        title: 'ICリーダー'
+      }
+    },
+    {
       path: '/daily_reports/posts',
       name: 'DailyReportsList',
       component: () => import('@/components/pages/DailyReport/DailyReportsList'),
