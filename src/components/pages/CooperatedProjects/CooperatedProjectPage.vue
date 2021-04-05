@@ -142,6 +142,13 @@
               </p>
             </div>
           </div>
+
+          <div class="mt-1">
+            <h1>開発協力によって得たもの</h1>
+            <div class="text-body-1 pt-1 ml-2">
+              <p style="text-indent: 1em"></p>
+            </div>
+          </div>
         </v-container>
       </div>
 
