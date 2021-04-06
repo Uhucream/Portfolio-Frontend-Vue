@@ -45,16 +45,6 @@
       </v-col>
 
       <v-col
-        :cols="worksCardsCols"
-      >
-        <v-subheader>My Works</v-subheader>
-        <WorksList
-          @numOfWorks="getNumOfWorks($event)"
-          :isTopPage="isTopPage"
-        />
-      </v-col>
-
-      <v-col
         :cols="(12 / itemsPerRow)"
       >
         <v-subheader>Cooperated Projects</v-subheader>
@@ -62,7 +52,7 @@
           <v-card-title class="display-1">
             開発協力したもの
           </v-card-title>
-          <v-card-text class="text--primary">僕が開発協力したプロジェクト一覧です</v-card-text>
+          <v-card-text class="text-body-1 text--primary">僕が開発協力したプロジェクト一覧です</v-card-text>
           <v-card-actions>
             <v-btn
               text
@@ -73,6 +63,16 @@
             </v-btn>
           </v-card-actions>
         </v-card>
+      </v-col>
+
+      <v-col
+        :cols="worksCardsCols"
+      >
+        <v-subheader>My Works</v-subheader>
+        <WorksList
+          @numOfWorks="getNumOfWorks($event)"
+          :isTopPage="isTopPage"
+        />
       </v-col>
 
       <v-col
@@ -114,7 +114,7 @@ export default {
     },
     worksCardsCols () {
       // 成果物一覧カードの数 + 1(自己紹介カード分) が itemsPerRowを上回ったとき
-      if (this.numOfWorksCards + 1 > this.itemsPerRow || this.$vuetify.breakpoint.xs) {
+      if (this.numOfWorksCards + 2 > this.itemsPerRow || this.$vuetify.breakpoint.xs) {
         return 12
       } else {
         return (12 / this.itemsPerRow) * this.numOfWorksCards
