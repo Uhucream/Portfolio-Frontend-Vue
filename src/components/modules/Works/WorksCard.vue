@@ -31,7 +31,7 @@
       <v-btn
         text
         color="blue-grey lighten-1"
-        @click="$options.goToDetailPage(props)"
+        :to="$options.goToDetailPage(props)"
       >
         詳しい情報
       </v-btn>
@@ -41,7 +41,6 @@
 
 <script>
 import { md } from '@/plugins/vue-markdown'
-import { router } from '@/router'
 export default {
   name: 'works-card',
   props: {
@@ -56,16 +55,14 @@ export default {
   },
   goToDetailPage (props) {
     props.work_detail_data.description = md.render(props.work_detail_data.description)
-    router.push(
-      {
-        name: 'WorkDetailPage',
-        params: {
-          endpoint_uri: props.work_detail_data.endpoint_uri,
-          work_detail_data: props.work_detail_data,
-          title: `${props.work_detail_data.name} - My Works`
-        }
+    return {
+      name: 'WorkDetailPage',
+      params: {
+        endpoint_uri: props.work_detail_data.endpoint_uri,
+        work_detail_data: props.work_detail_data,
+        title: `${props.work_detail_data.name} - My Works`
       }
-    )
+    }
   }
 }
 </script>
