@@ -5,11 +5,11 @@
       color='blue-grey darken-2'
       dark
     >
-      <router-link to="/" custom v-slot="{ navigate }">
-        <v-toolbar-title class="ml-1" :style="{'cursor': $route.path !== '/' ? 'pointer' : 'initial'}" @click="navigate" role="link">
+      <v-toolbar-title class="ml-1">
+        <router-link :to="{ name: 'TopPage' }">
           Takashi
-        </v-toolbar-title>
-      </router-link>
+        </router-link>
+      </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn
         v-if="!isLoggedIn && showLoginBtn && $route.path !== '/login'"
@@ -197,5 +197,13 @@ export default {
     position: absolute;
     top: calc(56px + 2vh);
     right: 0px;
+  }
+  a.router-link-active {
+    text-decoration: none;
+    color: inherit;
+  }
+  a.router-link-exact-active {
+    cursor: default;
+    pointer-events: none;
   }
 </style>
