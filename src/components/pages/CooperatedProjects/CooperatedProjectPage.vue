@@ -68,22 +68,12 @@
                       max-width="150px"
                       flat
                     >
-                      <v-img
-                        :src="item.light"
-                        :lazy-src="require('@/assets/NO_IMAGE_AVAILABLE.png')"
-                        :contain="!$vuetify.breakpoint.xs"
-                        max-width="150px"
+                      <SwitchableImage
+                        :light_img="item.light"
+                        :dark_img="item.dark"
+                        :system_is_dark="$vuetify.theme.isDark"
+                        :v_img_props="{'max-width': 150, contain: true}"
                       />
-                      <v-fade-transition>
-                        <div v-show="$vuetify.theme.isDark" style="display: flex; position: absolute; top: 0;">
-                          <v-img
-                            :src="item.dark"
-                            :lazy-src="require('@/assets/NO_IMAGE_AVAILABLE.png')"
-                            contain
-                            max-width="150px"
-                          />
-                        </div>
-                      </v-fade-transition>
                     </v-card>
                   </v-slide-item>
                 </v-slide-group>
@@ -158,7 +148,8 @@ import BreadCrumbs from '@/components/modules/BreadCrumbs'
 export default {
   name: 'works-detail-page',
   components: {
-    BreadCrumbs
+    BreadCrumbs,
+    SwitchableImage: () => (import('@/components/modules/SwitchableImage'))
   },
   data () {
     return {
