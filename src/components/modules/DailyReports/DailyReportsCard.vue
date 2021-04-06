@@ -17,7 +17,7 @@
         text
         color="blue-grey lighten-1"
         link
-        @click="$options.goToReportPage(props)"
+        :to="$options.goToReportPage(props)"
       >
         {{ $options.translate('dailyReport.readMore') }}
       </v-btn>
@@ -26,7 +26,6 @@
 </template>
 
 <script>
-import { router } from '@/router'
 import i18next from 'i18next'
 export default {
   name: 'daily-reports-card',
@@ -57,16 +56,14 @@ export default {
     }
   },
   goToReportPage (props) {
-    router.push(
-      {
-        name: 'DailyReportPage',
-        params: {
-          id: props.report_content_data.id,
-          report_content_data: props.report_content_data,
-          title: `#${props.report_content_data.id} ${props.report_content_data.title}`
-        }
+    return {
+      name: 'DailyReportPage',
+      params: {
+        id: props.report_content_data.id,
+        report_content_data: props.report_content_data,
+        title: `#${props.report_content_data.id} ${props.report_content_data.title}`
       }
-    )
+    }
   }
 }
 </script>

@@ -7,8 +7,15 @@
         <v-subheader>About Me</v-subheader>
         <v-card>
           <v-img
+            class="white--text align-end"
             :src="require('@/assets/WWDC.png')"
+            gradient="to bottom, rgba(0,0,0,.2), rgba(0,0,0,.4)"
+            position="left 50% bottom 20%"
+            max-height="225"
           >
+            <v-card-title class="display-1 text--primary">
+              自己紹介
+            </v-card-title>
             <template v-slot:placeholder>
               <v-row
                 class="fill-height ma-0"
@@ -22,15 +29,8 @@
               </v-row>
             </template>
           </v-img>
-          <v-card-title>
-            <p class="mt-1 display-1 text--primary">
-              自己紹介
-            </p>
-          </v-card-title>
-          <v-card-text>
-            <div class="text-body-1 text--primary">
-              金沢工業大学 2年 情報工学科の学生です。
-            </div>
+          <v-card-text class="text-body-1 text--primary">
+            金沢工業大学 3年 情報工学科の学生です。
           </v-card-text>
           <v-card-actions>
             <v-btn
