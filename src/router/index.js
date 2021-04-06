@@ -52,6 +52,12 @@ export const router = new Router({
       }
     },
     {
+      path: '/daily_reports/posts/new',
+      name: 'CreateNewPost',
+      component: () => import('@/components/pages/DailyReport/CreateNewPost'),
+      meta: { requireAuth: true }
+    },
+    {
       path: '/daily_reports/posts/:id',
       name: 'DailyReportPage',
       component: () => import('@/components/pages/DailyReport/DailyReportPage'),
@@ -68,12 +74,6 @@ export const router = new Router({
           next()
         }
       }
-    },
-    {
-      path: '/daily_reports/posts/new',
-      name: 'CreateNewPost',
-      component: () => import('@/components/pages/DailyReport/CreateNewPost'),
-      meta: { requireAuth: true }
     },
     {
       path: '/daily_reports/posts/:id/edit',
@@ -112,7 +112,7 @@ export const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  if (!to.matched.some((record) => record.meta.requireAuth && record.path !== '/login')) {
+  if (!to.matched.some((record) => record.meta.requireAuth && record.name !== 'Login')) {
     next()
   } else {
     api
@@ -131,8 +131,6 @@ router.beforeEach((to, from, next) => {
       })
       .catch(() => {
         next({ name: 'Login', query: { backuri: to.fullPath } })
-      })
-      .finally(() => {
       })
   }
 })
