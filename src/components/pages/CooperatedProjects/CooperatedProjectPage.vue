@@ -121,8 +121,7 @@
             <h1>開発協力するに至った経緯</h1>
             <div class="text-body-1 pt-1 ml-2">
               <p style="text-indent: 1em">
-                話は2019年まで遡ります。それまで、AppleはCoreNFCでFeliCaを読み取れるようにはしていませんでした。しかし、iOS 13からFeliCaが読み取れるようになるという噂をネットで見つけました。
-                ICカード読み取り系アプリが出るのではと思い、2019年の夏頃から定期的に情報収集をしていたのですが、iOS 13リリース前からICカード読み取り系アプリのリリースを告知されていたのが<a href="https://twitter.com/treastrain?s=20" ref="noopener noreferrer" target="_blank">treastrain</a>氏によるJapan NFC Readerと、本アプリでした。
+                話は2019年まで遡りますが、それまでAppleはCoreNFCでFeliCaを読み取れるようにはしていませんでした。しかし、iOS 13からFeliCaが読み取れるようになるという噂をネットで見つけて、ICカード読み取り系アプリが出るのではと思い、2019年の夏頃から定期的に情報収集をしていました。そこで、iOS 13リリース前からICカード読み取り系アプリのリリースを告知されていたのが<a href="https://twitter.com/treastrain?s=20" ref="noopener noreferrer" target="_blank">treastrain</a>氏によるJapan NFC Readerと、本アプリでした。
               </p>
               <p style="text-indent: 1em">
                 iOS 13リリース後、僕は本アプリをインストールしましたが、当時は僕がよく利用しているICaに対応していませんでした。本アプリの公式Twitterアカウントに「ICaに対応して欲しい」というリプライを送らせていただいたのですが、「実券があれば対応可能です」という返信をいただきました。そこで、僕が公式Twitterアカウントの方に「実券を送るので対応していただきたいです」と送らせていただいたのが始まりです。
@@ -136,7 +135,7 @@
           <div class="mt-1">
             <h1>開発協力によって得たもの</h1>
             <div class="text-body-1 pt-1 ml-2">
-              <p style="text-indent: 1em">開発協力し始めて数週間後、紆余曲折あって今もやらせていただいているBEARTAILの業務委託のアルバイトに出会いました。<br>それまで、僕はSPAなどの知識が全くない状態で、「バックエンド？フロントエンド？なにそれ美味しいの」状態だったのですが、BEARTAILのバイトを通して、様々な知識や経験を得ることができました。</p>
+              <p style="text-indent: 1em">開発協力し始めて数週間後、紆余曲折あって本アプリの開発者さんであるKawamuraさんが、BEARTAILの業務委託のアルバイトを紹介してくださいました。<br>それまで、僕はSPAなどの知識が全くない状態で、「バックエンド？フロントエンド？なにそれ美味しいの」状態だったのですが、BEARTAILのバイトを通して、様々な知識や経験を得ることができました。</p>
             </div>
           </div>
         </v-container>
