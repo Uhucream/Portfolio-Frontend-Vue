@@ -113,9 +113,14 @@ export default {
       }
     },
     worksCardsCols () {
-      // 成果物一覧カードの数 + 1(自己紹介カード分) が itemsPerRowを上回ったとき
+      // 成果物一覧カードの数 + 2(自己紹介カード + 開発協力カード) が itemsPerRowを上回ったとき
       if (this.numOfWorksCards + 2 > this.itemsPerRow || this.$vuetify.breakpoint.xs) {
-        return 12
+        // 成果物一覧カードの数がitemsPerRowの数以下のとき
+        if (this.numOfWorksCards <= this.itemsPerRow) {
+          return (12 / this.itemsPerRow) * this.numOfWorksCards
+        } else {
+          return 12
+        }
       } else {
         return (12 / this.itemsPerRow) * this.numOfWorksCards
       }
