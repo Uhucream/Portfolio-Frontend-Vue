@@ -109,7 +109,7 @@
 import WorksCard from '@/components/modules/Works/WorksCard'
 export default {
   name: 'works-list',
-  props: ['isTopPage'],
+  props: ['isTopPage', 'isSameRow'],
   components: {
     WorksCard,
     BreadCrumbs: () => (import('@/components/modules/BreadCrumbs'))
@@ -208,12 +208,8 @@ export default {
       }
     },
     cardsCols () {
-      if (this.$route.path === '/my_works' || this.allWorksData.length + 2 > this.itemsPerRow) {
-        if (this.allWorksData.length <= this.itemsPerRow) {
-          return 12 / this.allWorksData.length
-        } else {
-          return 12 / this.itemsPerRow
-        }
+      if (this.$route.path === '/my_works' || !this.isSameRow) {
+        return 12 / this.itemsPerRow
       } else {
         return 12 / this.allWorksData.length
       }
