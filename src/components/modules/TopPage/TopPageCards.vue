@@ -51,6 +51,7 @@
         <WorksList
           @numOfWorks="getNumOfWorks($event)"
           :isTopPage="isTopPage"
+          :isSameRow="isSameRow"
         />
       </v-col>
 
@@ -91,9 +92,19 @@ export default {
         case 'xl': return 6
       }
     },
+    isSameRow () {
+      if (12 % this.numOfWorksCards !== 0) {
+        return false
+      } else {
+        if (this.numOfWorksCards + 1 <= this.itemsPerRow) {
+          return true
+        } else {
+          return false
+        }
+      }
+    },
     worksCardsCols () {
-      // 成果物一覧カードの数 + 1(自己紹介カード分) が itemsPerRowを上回ったとき
-      if (this.numOfWorksCards + 1 > this.itemsPerRow || this.$vuetify.breakpoint.xs) {
+      if (!this.isSameRow || this.$vuetify.breakpoint.xs) {
         return 12
       } else {
         return (12 / this.itemsPerRow) * this.numOfWorksCards
