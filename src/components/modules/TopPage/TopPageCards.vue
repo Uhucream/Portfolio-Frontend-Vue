@@ -13,7 +13,7 @@
             position="left 50% bottom 20%"
             max-height="225"
           >
-            <v-card-title class="display-1 text--primary">
+            <v-card-title class="display-1">
               自己紹介
             </v-card-title>
             <template v-slot:placeholder>
