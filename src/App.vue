@@ -64,18 +64,18 @@
     </v-app-bar>
 
     <v-main>
-      <v-container v-if="$route.name !== 'TopPage'" class="pb-1">
-        <BreadCrumbs
-          :path="pathList"
-        />
-      </v-container>
-      <keep-alive>
-        <v-fade-transition
-          mode="out-in"
-        >
-          <router-view/>
-        </v-fade-transition>
-      </keep-alive>
+      <v-fade-transition>
+        <keep-alive>
+          <div>
+            <v-container v-show="$route.name !== 'TopPage'" class="pb-1">
+              <BreadCrumbs
+                :path="pathList"
+              />
+            </v-container>
+            <router-view/>
+          </div>
+        </keep-alive>
+      </v-fade-transition>
     </v-main>
     <v-footer
       color="transparent"
