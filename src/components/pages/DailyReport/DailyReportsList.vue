@@ -118,7 +118,6 @@ export default {
   props: ['isTopPage'],
   data () {
     return {
-      currentPage: this.$route.path,
       showSearch: false,
       search: '',
       pagination: {},
@@ -152,7 +151,7 @@ export default {
       if (this.page - 1 >= 1) this.page -= 1
     },
     calcRowsPerPage () {
-      if (this.$route.path === '/daily_reports/posts') {
+      if (this.$route.name === 'DailyReportsList') {
         let cardsContainer = document.getElementsByClassName('container')[0]
         let minItemHeight = 170
 
@@ -170,7 +169,7 @@ export default {
       return Math.ceil(this.reportPosts.length / this.itemsPerPage)
     },
     conditionalTag () {
-      if (this.$route.path === '/daily_reports/posts') {
+      if (this.$route.name === 'DailyReportsList') {
         return 'v-container'
       } else {
         return 'div'
@@ -195,7 +194,7 @@ export default {
     },
     itemsPerPage: {
       get: function () {
-        if (this.$route.path === '/daily_reports/posts') {
+        if (this.$route.name === 'DailyReportsList') {
           return Math.ceil(this.rowsPerPage * this.itemsPerRow)
         } else {
           if (this.$vuetify.breakpoint.xs) {

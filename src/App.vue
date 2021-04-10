@@ -12,7 +12,7 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn
-        v-if="!isLoggedIn && showLoginBtn && $route.path !== '/login'"
+        v-if="!isLoggedIn && showLoginBtn && $route.name !== 'Login'"
         text
         @click="goLoginPage"
       >
@@ -98,7 +98,7 @@ export default {
   },
   methods: {
     showLogin (event) {
-      if (!['/daily_reports/posts/new', '/login'].includes(this.$route.path) && !this.isLoggedIn) {
+      if (!['CreateNewPost', 'Login'].includes(this.$route.name) && !this.isLoggedIn) {
         var waitingTime = 1500
         var standBy = true
         var command = JSON.parse(process.env.VUE_APP_LOGIN_SHORTCUT)
@@ -128,7 +128,7 @@ export default {
       }
     },
     goLoginPage () {
-      if (this.$route.path === '/') {
+      if (this.$route.name === 'TopPage') {
         this.$router.push({ name: 'Login' })
       } else {
         this.$router.push({ name: 'Login', query: { backuri: this.$router.currentRoute.path } })
