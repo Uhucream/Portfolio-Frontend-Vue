@@ -7,6 +7,7 @@
     </template>
 
     <v-data-iterator
+      v-resize="calcRowsPerPage"
       :class="{'pa-0': isTopPage && allWorksData.length != 0, 'pl-8': allWorksData.length == 0, 'py-5': allWorksData.length == 0}"
       :items="allWorksData"
       :item-key="allWorksData.uuid"
@@ -217,12 +218,6 @@ export default {
   },
   created () {
     this.fetchAllWorks()
-  },
-  mounted () {
-    window.addEventListener('resize', this.calcRowsPerPage)
-  },
-  beforeDestroy () {
-    window.removeEventListener('resize', this.calcRowsPerPage)
   }
 }
 </script>
