@@ -19,7 +19,7 @@ export default {
   },
   computed: {
     conditionalTag () {
-      if (this.$route.path === '/daily_reports/posts') {
+      if (this.$route.name === 'DailyReportsList') {
         return 'v-container'
       } else {
         return 'div'

@@ -108,7 +108,7 @@
 import WorksCard from '@/components/modules/Works/WorksCard'
 export default {
   name: 'works-list',
-  props: ['isTopPage'],
+  props: ['isTopPage', 'isSameRow'],
   components: {
     WorksCard,
     BreadCrumbs: () => (import('@/components/modules/BreadCrumbs'))
@@ -149,7 +149,7 @@ export default {
       if (this.page - 1 >= 1) this.page -= 1
     },
     calcRowsPerPage () {
-      if (this.$route.path === '/my_works') {
+      if (this.$route.name === 'WorksList') {
         let cardsContainer = document.getElementsByClassName('container')[0]
         let minItemHeight = 170
 
@@ -167,7 +167,7 @@ export default {
       return Math.ceil(this.allWorksData.length / this.itemsPerPage)
     },
     conditionalTag () {
-      if (this.$route.path === '/my_works') {
+      if (this.$route.name === 'WorksList') {
         return 'v-container'
       } else {
         return 'div'
@@ -192,7 +192,7 @@ export default {
     },
     itemsPerPage: {
       get: function () {
-        if (this.$route.path === '/my_works') {
+        if (this.$route.name === 'WorksList') {
           return Math.ceil(this.rowsPerPage * this.itemsPerRow)
         } else {
           if (this.$vuetify.breakpoint.xs) {
@@ -207,7 +207,7 @@ export default {
       }
     },
     cardsCols () {
-      if (this.$route.path === '/my_works' || this.allWorksData.length + 1 > this.itemsPerRow) {
+      if (this.$route.name === 'WorksList' || !this.isSameRow) {
         return 12 / this.itemsPerRow
       } else {
         return 12 / this.allWorksData.length
@@ -216,12 +216,6 @@ export default {
   },
   created () {
     this.fetchAllWorks()
-  },
-  mounted () {
-    window.addEventListener('resize', this.calcRowsPerPage)
-  },
-  beforeDestroy () {
-    window.removeEventListener('resize', this.calcRowsPerPage)
   }
 }
 </script>

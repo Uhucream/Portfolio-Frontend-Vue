@@ -5,14 +5,14 @@
       color='blue-grey darken-2'
       dark
     >
-      <router-link to="/" custom v-slot="{ navigate }">
-        <v-toolbar-title class="ml-1" :style="{'cursor': $route.path !== '/' ? 'pointer' : 'initial'}" @click="navigate" role="link">
+      <v-toolbar-title class="ml-1">
+        <router-link :to="{ name: 'TopPage' }">
           Takashi
-        </v-toolbar-title>
-      </router-link>
+        </router-link>
+      </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn
-        v-if="!isLoggedIn && showLoginBtn && $route.path !== '/login'"
+        v-if="!isLoggedIn && showLoginBtn && $route.name !== 'Login'"
         text
         @click="goLoginPage"
       >
@@ -138,7 +138,7 @@ export default {
       }
     },
     showLogin (event) {
-      if (!['/daily_reports/posts/new', '/login'].includes(this.$route.path) && !this.isLoggedIn) {
+      if (!['CreateNewPost', 'Login'].includes(this.$route.name) && !this.isLoggedIn) {
         var waitingTime = 1500
         var standBy = true
         var command = JSON.parse(process.env.VUE_APP_LOGIN_SHORTCUT)
@@ -153,12 +153,12 @@ export default {
             this.index = 0
 
             this.showLoginBtn = true
-            setTimeout(function () {
+            timer = setTimeout(() => {
               this.showLoginBtn = false
               standBy = true
-            }.bind(this), waitingTime)
+            }, waitingTime)
           } else {
-            timer = setTimeout(function () {
+            timer = setTimeout(() => {
               this.index = 0
             }, waitingTime)
           }
@@ -168,7 +168,7 @@ export default {
       }
     },
     goLoginPage () {
-      if (this.$route.path === '/') {
+      if (this.$route.name === 'TopPage') {
         this.$router.push({ name: 'Login' })
       } else {
         this.$router.push({ name: 'Login', query: { backuri: this.$router.currentRoute.path } })
@@ -238,5 +238,13 @@ export default {
     position: absolute;
     top: calc(56px + 2vh);
     right: 0px;
+  }
+  a.router-link-active {
+    text-decoration: none;
+    color: inherit;
+  }
+  a.router-link-exact-active {
+    cursor: default;
+    pointer-events: none;
   }
 </style>
