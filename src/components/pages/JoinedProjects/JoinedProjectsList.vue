@@ -40,7 +40,7 @@
           <v-btn
             text
             color="blue-grey lighten-1"
-            :to="{ name: 'CooperatedProjectPage' }"
+            :to="{ name: 'JoinedProjectPage' }"
           >
             詳しい情報
           </v-btn>
@@ -61,8 +61,8 @@ export default {
     return {
       pathList: [
         {
-          text: 'Cooperated Projects',
-          to: { name: 'CooperatedProjectsList' }
+          text: 'Joined Projects',
+          to: { name: 'JoinedProjectsList' }
         }
       ]
     }

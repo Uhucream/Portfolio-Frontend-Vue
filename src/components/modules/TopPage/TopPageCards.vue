@@ -47,7 +47,7 @@
       <v-col
         :cols="(12 / itemsPerRow)"
       >
-        <v-subheader>Cooperated Projects</v-subheader>
+        <v-subheader>Joined Projects</v-subheader>
         <v-card>
           <v-card-title class="display-1">
             開発協力したもの
@@ -57,7 +57,7 @@
             <v-btn
               text
               color="blue-grey lighten-1"
-              :to="{ name: 'CooperatedProjectsList' }"
+              :to="{ name: 'JoinedProjectsList' }"
             >
               すべて見る
             </v-btn>

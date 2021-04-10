@@ -157,12 +157,12 @@ export default {
     return {
       pagePath: [
         {
-          text: 'Cooperated Projects',
-          to: { name: 'CooperatedProjectsList' }
+          text: 'Joined Projects',
+          to: { name: 'JoinedProjectsList' }
         },
         {
           text: 'ICリーダー',
-          to: { name: 'CooperatedProjectPage' }
+          to: { name: 'JoinedProjectPage' }
         }
       ],
       screenshotsList: [
