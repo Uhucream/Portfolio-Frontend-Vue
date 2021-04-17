@@ -2,7 +2,7 @@
   <v-card>
     <v-img
       class="white--text align-end"
-      :src="$options.workPictureURL(props.work_detail_data.work_picture_url)"
+      :src="$options.workPictureURL(props)"
       :lazy-src="require('@/assets/NO_IMAGE_AVAILABLE.png')"
       gradient="to bottom, rgba(0,0,0,.2), rgba(0,0,0,.4)"
     >
@@ -46,9 +46,11 @@ export default {
   props: {
     work_detail_data: Object
   },
-  workPictureURL (url) {
-    if (url) {
-      return url
+  workPictureURL (props) {
+    if (props.work_detail_data.work_picture_thumbnail_url) {
+      return props.work_detail_data.work_picture_thumbnail_url
+    } else if (props.work_detail_data.work_picture_url) {
+      return props.work_detail_data.work_picture_url
     } else {
       return require('@/assets/NO_IMAGE_AVAILABLE.png')
     }

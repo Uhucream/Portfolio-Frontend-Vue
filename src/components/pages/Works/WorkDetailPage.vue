@@ -26,24 +26,30 @@
       <v-row justify="center">
         <v-col cols="9">
           <template v-if="props.work_detail_data.work_picture_url">
-            <v-img
-              :src="props.work_detail_data.work_picture_url"
-              :lazy-src="require('@/assets/NO_IMAGE_AVAILABLE.png')"
-              class="grey lighten-2"
+            <a
+              :href="props.work_detail_data.work_picture_url"
+              ref="noopener noreferrer"
+              target="_blank"
             >
-              <template v-slot:placeholder>
-                <v-row
-                  class="fill-height ma-0"
-                  align="center"
-                  justify="center"
-                >
-                  <v-progress-circular
-                    indeterminate
-                    color="grey darken-2"
-                  ></v-progress-circular>
-                </v-row>
-              </template>
-            </v-img>
+              <v-img
+                :src="props.work_detail_data.work_picture_url"
+                :lazy-src="require('@/assets/NO_IMAGE_AVAILABLE.png')"
+                class="grey lighten-2"
+              >
+                <template v-slot:placeholder>
+                  <v-row
+                    class="fill-height ma-0"
+                    align="center"
+                    justify="center"
+                  >
+                    <v-progress-circular
+                      indeterminate
+                      color="grey darken-2"
+                    ></v-progress-circular>
+                  </v-row>
+                </template>
+              </v-img>
+            </a>
           </template>
 
         </v-col>
