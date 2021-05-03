@@ -44,9 +44,28 @@ export const router = new Router({
       }
     },
     {
+      path: '/joined_projects',
+      name: 'JoinedProjectsList',
+      component: () =>
+        import('@/components/pages/JoinedProjects/JoinedProjectsList'),
+      meta: {
+        title: 'Joined Projects'
+      }
+    },
+    {
+      path: '/joined_projects/ic_reader',
+      name: 'JoinedProjectPage',
+      component: () =>
+        import('@/components/pages/JoinedProjects/JoinedProjectPage'),
+      meta: {
+        title: 'ICリーダー'
+      }
+    },
+    {
       path: '/daily_reports/posts',
       name: 'DailyReportsList',
-      component: () => import('@/components/pages/DailyReport/DailyReportsList'),
+      component: () =>
+        import('@/components/pages/DailyReport/DailyReportsList'),
       meta: {
         title: 'Daily Reports'
       }
@@ -108,20 +127,21 @@ export const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  if (!to.matched.some((record) => record.meta.requireAuth && record.name !== 'Login')) {
+  if (
+    !to.matched.some(
+      (record) => record.meta.requireAuth && record.name !== 'Login'
+    )
+  ) {
     next()
   } else {
     api
-      .get(
-        '/auth/protected',
-        {
-          withCredentials: true,
-          headers: {
-            'X-Requested-With': 'XMLHttpRequest',
-            'X-CSRF-TOKEN': Vue.$cookies.get('csrf_access_token')
-          }
+      .get('/auth/protected', {
+        withCredentials: true,
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+          'X-CSRF-TOKEN': Vue.$cookies.get('csrf_access_token')
         }
-      )
+      })
       .then(() => {
         next()
       })
@@ -135,6 +155,6 @@ router.afterEach((to, from) => {
   if (to.meta.title) {
     document.title = `${to.meta.title} | Takashi's Portfolio`
   } else {
-    document.title = 'Takashi\'s Portfolio'
+    document.title = "Takashi's Portfolio"
   }
 })
