@@ -45,6 +45,27 @@
       </v-col>
 
       <v-col
+        :cols="(12 / itemsPerRow)"
+      >
+        <v-subheader>Joined Projects</v-subheader>
+        <v-card>
+          <v-card-title class="display-1">
+            開発協力したもの
+          </v-card-title>
+          <v-card-text class="text-body-1 text--primary">僕が開発協力したプロジェクト一覧です</v-card-text>
+          <v-card-actions>
+            <v-btn
+              text
+              color="blue-grey lighten-1"
+              :to="{ name: 'JoinedProjectsList' }"
+            >
+              すべて見る
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-col>
+
+      <v-col
         :cols="worksCardsCols"
       >
         <v-subheader>My Works</v-subheader>
@@ -96,7 +117,7 @@ export default {
       if (12 % this.numOfWorksCards !== 0) {
         return false
       } else {
-        if (this.numOfWorksCards + 1 <= this.itemsPerRow) {
+        if (this.numOfWorksCards + 2 <= this.itemsPerRow) {
           return true
         } else {
           return false
