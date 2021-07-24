@@ -9,6 +9,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
+const PrerenderSPAPlugin = require('prerender-spa-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 const env = process.env.NODE_ENV === 'testing'
@@ -119,7 +120,12 @@ const webpackConfig = merge(baseWebpackConfig, {
         to: config.build.assetsSubDirectory,
         ignore: ['.*']
       }
-    ])
+    ]),
+
+    new PrerenderSPAPlugin({
+        staticDir: path.join(__dirname, '../public'),
+        routes: [ '/', '/about_me', '/daily_reports', '/joined_projects', '/my_works' ]
+    })
   ]
 })
 

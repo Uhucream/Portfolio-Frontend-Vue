@@ -10,8 +10,8 @@ services:
     volumes:
       - ./:/usr/src/app/
     environment:
-      VUE_APP_API_ENDPOINT: ${VUE_APP_API_ENDPOINT}
-      VUE_APP_LOGIN_SHORTCUT: ${VUE_APP_LOGIN_SHORTCUT}
+      VUE_APP_API_ENDPOINT: '${VUE_APP_API_ENDPOINT}'
+      VUE_APP_LOGIN_SHORTCUT: '${VUE_APP_LOGIN_SHORTCUT}'
     ports:
       - 8080:8080
       - 8001:8001

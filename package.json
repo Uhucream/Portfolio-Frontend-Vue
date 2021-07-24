@@ -25,6 +25,8 @@
     "markdown-it-checkbox": "^1.1.0",
     "markdown-it-mdi": "^0.1.0",
     "markdown-it-sanitizer": "^0.4.3",
+    "prerender-spa-plugin": "^3.4.0",
+    "puppeteer": "^10.1.0",
     "roboto-fontface": "*",
     "tiptap": "^1.32.1",
     "tiptap-extensions": "^1.35.1",

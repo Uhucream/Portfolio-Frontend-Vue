@@ -154,7 +154,9 @@ router.beforeEach((to, from, next) => {
 router.afterEach((to, from) => {
   if (to.meta.title) {
     document.title = `${to.meta.title} | Takashi's Portfolio`
+    document.querySelector("meta[property='og:title']").setAttribute('content', `${to.meta.title} | Takashi's Portfolio`)
   } else {
     document.title = "Takashi's Portfolio"
+    document.querySelector("meta[property='og:title']").setAttribute('content', "Takashi's Portfolio")
   }
 })
